@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Sanal Davetiyelik • Premium Dijital Tasarım</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Playfair+Display:wght@700;900&family=Caveat:wght@600;700&display=swap"
+    rel="stylesheet" />
+  <!-- Ana CSS Dosyası -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- ===== TOP BANNER ===== -->
+  <div class="top-banner">
+    <div class="banner-track">
+      <span>✨ HAYALİNİZDEKİ DAVETİYEYİ BİRLİKTE TASARLAYALIM ✨</span>
+      <span>✨ %100 MÜŞTERİ MEMNUNİYETİ VE HIZLI TESLİMAT ✨</span>
+      <span>✨ ÖZEL TASARIMLARDA FİYAT FARKI SADECE 100TL✨</span>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="main-header" id="mainHeader">
+    <div class="logo-container">
+      <span class="logo-text">Sanal Davetiyelik</span>
+      <span class="logo-badge">Premium</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#ornekler" class="nav-btn-outline">Modelleri Gör</a>
+    </nav>
+  </header>
+
+  <!-- ===== HERO SLIDER ===== -->
+  <section class="hero-slider" id="heroSlider">
+    <div class="slider-container">
+      <!-- Slayt 1 -->
+      <div class="slide active" data-index="0">
+        <div class="slide-info">
+          <span class="slide-tag">1 SAATE HAZIR</span>
+          <h2 class="slide-title">Zarif <br /><span class="highlight">Dokunuşlar</span></h2>
+          <p class="slide-desc">En özel gününüzü dijitalin estetiğiyle taçlandırın.</p>
+          <a href="#ornekler" class="slide-btn">İNCELE</a>
+        </div>
+        <div class="mockup-frame">
+          <img src="sn1/sn1.png" alt="Davetiye Tasarımı 1" />
+        </div>
+      </div>
+      <!-- Slayt 2 -->
+      <div class="slide" data-index="1">
+        <div class="slide-info">
+          <span class="slide-tag">ÖZELLEŞTİRİLEBİLİR</span>
+          <h2 class="slide-title">Modern <br /><span class="highlight">Çizgiler</span></h2>
+          <p class="slide-desc">Sadelikten gelen asaleti keşfedin.</p>
+          <a href="#ornekler" class="slide-btn">İNCELE</a>
+        </div>
+        <div class="mockup-frame">
+          <img src="sn2/sn2.png" alt="Davetiye Tasarımı 2" />
+        </div>
+      </div>
+      <!-- Slayt 3 -->
+      <div class="slide" data-index="2">
+        <div class="slide-info">
+          <span class="slide-tag">GOLD Koleksiyon</span>
+          <h2 class="slide-title">Eşsiz <br /><span class="highlight">Anlar</span></h2>
+          <p class="slide-desc">Her detayı sizin hikâyenize göre şekillendiriyoruz.</p>
+          <a href="#ornekler" class="slide-btn">İNCELE</a>
+        </div>
+        <div class="mockup-frame">
+          <img src="sn3/sn3.png" alt="Davetiye Tasarımı 3" />
+        </div>
+      </div>
+    </div>
+    <div class="slider-controls">
+      <button class="ctrl-btn" id="prevSlide" aria-label="Önceki">‹</button>
+      <button class="ctrl-btn" id="nextSlide" aria-label="Sonraki">›</button>
+    </div>
+    <div class="slider-dots" id="sliderDots">
+      <span class="dot active" data-index="0"></span>
+      <span class="dot" data-index="1"></span>
+      <span class="dot" data-index="2"></span>
+    </div>
+  </section>
+
+  <div class="top-banner">
+    <div class="banner-track">
+      <span>✨ TÜM ÜRÜNLER 250 TL ✨</span>
+      <span>✨ TÜM ÜRÜNLER 250 TL ✨</span>
+      <span>✨ TÜM ÜRÜNLER 250 TL ✨</span>
+      <span>✨ TÜM ÜRÜNLER 250 TL ✨</span>
+      <span>✨ TÜM ÜRÜNLER 250 TL ✨</span>
+    </div>
+  </div>
+
+  <!-- ===== ÜRÜNLER (Sayfalama ile) ===== -->
+  <section class="product-section" id="ornekler">
+    <div class="section-header reveal">
+      <span class="sub-label">HAZIR 3 SAATE TESLİM</span>
+      <h2 class="section-title">KOLEKSİYONUMUZ</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="product-grid" id="productGrid">
+      <!-- Kart 1 -->
+      <div class="product-card reveal-scale" data-product-code="SN-1">
+        <div class="product-img-box">
+          <img src="sn1/sn1.png" alt="Model SN-1" />
+          <span class="product-tag">SN-1</span>
+          <span class="product-badge">Popüler</span>
+        </div>
+        <div class="product-content">
+          <h3>Elegance Gold</h3>
+          <p class="product-sub">Zarif &amp; Altın Dokunuş</p>
+          <button class="order-btn" data-kod="SN-1">SİPARİŞ VER</button>
+          <button class="example-btn" data-kod="SN-1">Örneğine Bak</button>
+        </div>
+      </div>
+      <!-- Kart 2 -->
+      <div class="product-card reveal-scale" data-product-code="SN-2">
+        <div class="product-img-box">
+          <img src="sn2/sn2.png" alt="Model SN-2" />
+          <span class="product-tag">SN-2</span>
+        </div>
+        <div class="product-content">
+          <h3>Minimal Rose</h3>
+          <p class="product-sub">Sade &amp; Romantik</p>
+          <button class="order-btn" data-kod="SN-2">SİPARİŞ VER</button>
+          <button class="example-btn" data-kod="SN-2">Örneğine Bak</button>
+        </div>
+      </div>
+      <!-- Kart 3 -->
+      <div class="product-card reveal-scale" data-product-code="SN-3">
+        <div class="product-img-box">
+          <img src="sn3/sn3.png" alt="Model SN-3" />
+          <span class="product-tag">SN-3</span>
+          <span class="product-badge">Yeni</span>
+        </div>
+        <div class="product-content">
+          <h3>Garden Party</h3>
+          <p class="product-sub">Doğal &amp; Ferah</p>
+          <button class="order-btn" data-kod="SN-3">SİPARİŞ VER</button>
+          <button class="example-btn" data-kod="SN-3">Örneğine Bak</button>
+        </div>
+      </div>
+      <!-- Kart 4 -->
+      <div class="product-card reveal-scale" data-product-code="SN-4">
+        <div class="product-img-box">
+          <img src="sn4/sn4.png" alt="Model SN-4" />
+          <span class="product-tag">SN-4</span>
+        </div>
+        <div class="product-content">
+          <h3>Classic Night</h3>
+          <p class="product-sub">Görkemli &amp; Zamansız</p>
+          <button class="order-btn" data-kod="SN-4">SİPARİŞ VER</button>
+          <button class="example-btn" data-kod="SN-4">Örneğine Bak</button>
+        </div>
+      </div>
+      <!-- Kart 5 -->
+      <div class="product-card reveal-scale" data-product-code="SN-5">
+        <div class="product-img-box">
+          <img src="sn5/sn5.png" alt="Model SN-5" />
+          <span class="product-tag">SN-5</span>
+        </div>
+        <div class="product-content">
+          <h3>Glamour Black</h3>
+          <p class="product-sub">Şık &amp; Modern</p>
+          <button class="order-btn" data-kod="SN-5">SİPARİŞ VER</button>
+          <button class="example-btn" data-kod="SN-5">Örneğine Bak</button>
+        </div>
+      </div>
+      <!-- Kart 6 -->
+      <div class="product-card reveal-scale" data-product-code="SN-6">
+        <div class="product-img-box">
+          <img src="sn6/sn6.png" alt="Model SN-6" />
+          <span class="product-tag">SN-6</span>
+          <span class="product-badge">Popüler</span>
+        </div>
+        <div class="product-content">
+          <h3>Vintage Lavender</h3>
+          <p class="product-sub">Romantik &amp; Pastel</p>
+          <button class="order-btn" data-kod="SN-6">SİPARİŞ VER</button>
+          <button class="example-btn" data-kod="SN-6">Örneğine Bak</button>
+        </div>
+      </div>
+      <!-- Kart 7 (yalnızca 2. sayfada) -->
+      <div class="product-card reveal-scale" data-product-code="SN-7">
+        <div class="product-img-box">
+          <img src="sn7/sn7.png" alt="Model SN-7" />
+          <span class="product-tag">SN-7</span>
+        </div>
+        <div class="product-content">
+          <h3>Rustic Elegance</h3>
+          <p class="product-sub">Doğa &amp; Zarafet</p>
+          <button class="order-btn" data-kod="SN-7">SİPARİŞ VER</button>
+          <button class="example-btn" data-kod="SN-7">Örneğine Bak</button>
+        </div>
+      </div>
+      <!-- Kart 8 -->
+      <div class="product-card reveal-scale" data-product-code="SN-8">
+        <div class="product-img-box">
+          <img src="sn8/sn8.png" alt="Model SN-8" />
+          <span class="product-tag">SN-8</span>
+        </div>
+        <div class="product-content">
+          <h3>Modern Art</h3>
+          <p class="product-sub">Soyut &amp; Yaratıcı</p>
+          <button class="order-btn" data-kod="SN-8">SİPARİŞ VER</button>
+          <button class="example-btn" data-kod="SN-8">Örneğine Bak</button>
+        </div>
+      </div>
+      <!-- Kart 9 -->
+      <div class="product-card reveal-scale" data-product-code="SN-9">
+        <div class="product-img-box">
+          <img src="sn9/sn9.png" alt="Model SN-9" />
+          <span class="product-tag">SN-9</span>
+          <span class="product-badge">Yeni</span>
+        </div>
+        <div class="product-content">
+          <h3>Golden Hour</h3>
+          <p class="product-sub">Sıcak &amp; Işıltılı</p>
+          <button class="order-btn" data-kod="SN-9">SİPARİŞ VER</button>
+          <button class="example-btn" data-kod="SN-9">Örneğine Bak</button>
+        </div>
+      </div>
+      <!-- Kart 10 -->
+      <div class="product-card reveal-scale" data-product-code="SN-10">
+        <div class="product-img-box">
+          <img src="sn10/sn10.png" alt="Model SN-10" />
+          <span class="product-tag">SN-10</span>
+        </div>
+        <div class="product-content">
+          <h3>Midnight Blue</h3>
+          <p class="product-sub">Derin &amp; Gizemli</p>
+          <button class="order-btn" data-kod="SN-10">SİPARİŞ VER</button>
+          <button class="example-btn" data-kod="SN-10">Örneğine Bak</button>
+        </div>
+      </div>
+      <!-- Kart 11 -->
+      <div class="product-card reveal-scale" data-product-code="SN-11">
+        <div class="product-img-box">
+          <img src="sn11/sn11.png" alt="Model SN-11" />
+          <span class="product-tag">SN-11</span>
+        </div>
+        <div class="product-content">
+          <h3>Spring Blossom</h3>
+          <p class="product-sub">Çiçekli &amp; Canlı</p>
+          <button class="order-btn" data-kod="SN-11">SİPARİŞ VER</button>
+          <button class="example-btn" data-kod="SN-11">Örneğine Bak</button>
+        </div>
+      </div>
+      <!-- Kart 12 -->
+      <div class="product-card reveal-scale" data-product-code="SN-12">
+        <div class="product-img-box">
+          <img src="sn12/sn12.png" alt="Model SN-12" />
+          <span class="product-tag">SN-12</span>
+          <span class="product-badge">Özel</span>
+        </div>
+        <div class="product-content">
+          <h3>Luxury Velvet</h3>
+          <p class="product-sub">İhtişamlı &amp; Gösterişli</p>
+          <button class="order-btn" data-kod="SN-12">SİPARİŞ VER</button>
+          <button class="example-btn" data-kod="SN-12">Örneğine Bak</button>
+        </div>
+      </div>
+    </div>
+    <!-- Sayfalama konteynırı (butonlar JS ile oluşturulacak) -->
+    <div class="pagination-container" id="paginationContainer"></div>
+  </section>
+
+  <!-- ===== ÖZEL TASARIM ===== -->
+  <section class="custom-design reveal">
+    <div class="custom-box">
+      <span class="icon-big">💡</span>
+      <h2>Hayalinizde Farklı Bir Şey mi Var?</h2>
+      <p>Sizin fikriniz, bizim tasarımımız. Sıfırdan size özel, benzersiz bir davetiye hazırlayalım.</p>
+      <button class="custom-idea-btn" id="whatsappIdea">💬 KENDİ FİKRİMİ SÖYLEMEK İSTİYORUM</button>
+    </div>
+  </section>
+
+  <!-- ===== MÜŞTERİ YORUMLARI SLIDER ===== -->
+  <section class="reviews-section reveal" id="musteri-yorumlari">
+    <div class="section-header">
+      <span class="sub-label">⭐ Müşterilerimiz Ne Diyor?</span>
+      <h2 class="section-title">Müşteri Deneyimleri</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="reviews-slider">
+      <div class="reviews-track" id="reviewsTrack">
+        <div class="review-card">
+          <div class="review-photo"><img src="https://i.pravatar.cc/150?img=1" alt="Müşteri fotoğrafı" /></div>
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+          <p class="review-text">"Düğün davetiyem için harika bir tasarım hazırladılar. Çok memnun kaldım, herkes
+            bayıldı!"</p>
+          <div class="review-author">— Ayşe K.</div>
+        </div>
+        <div class="review-card">
+          <div class="review-photo"><img src="https://i.pravatar.cc/150?img=5" alt="Müşteri fotoğrafı" /></div>
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+          <p class="review-text">"Sipariş süreci çok hızlıydı ve iletişim çok profesyonel. Kesinlikle tavsiye ederim."
+          </p>
+          <div class="review-author">— Mehmet Y.</div>
+        </div>
+        <div class="review-card">
+          <div class="review-photo"><img src="https://i.pravatar.cc/150?img=10" alt="Müşteri fotoğrafı" /></div>
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+          <p class="review-text">"Kızımın doğum günü için özel bir tasarım yaptırdım. Çok beğendik, teşekkürler!"</p>
+          <div class="review-author">— Zeynep D.</div>
+        </div>
+        <div class="review-card">
+          <div class="review-photo"><img src="https://i.pravatar.cc/150?img=20" alt="Müşteri fotoğrafı" /></div>
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+          <p class="review-text">"Harika bir ekip, her şey çok hızlı ve sorunsuz ilerledi. Gözünüz kapalı sipariş
+            verin."</p>
+          <div class="review-author">— Can A.</div>
+        </div>
+      </div>
+      <div class="reviews-navigation">
+        <button class="ctrl-btn" id="prevReview" aria-label="Önceki">‹</button>
+        <div class="slider-dots" id="reviewsDots"></div>
+        <button class="ctrl-btn" id="nextReview" aria-label="Sonraki">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SSS ===== -->
+  <section class="faq-section reveal" id="sss">
+    <div class="section-header">
+      <span class="sub-label">S.S.S.</span>
+      <h2 class="section-title">Sıkça Sorulan Sorular</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="faq-container">
+      <div class="faq-item">
+        <div class="faq-question">📬 Sipariş süreci nasıl işliyor?</div>
+        <div class="faq-answer">
+          <p>Beğendiğiniz tasarımın altındaki "Örneğine Bak" butonuna tıklayarak detayları inceleyebilir, ardından
+            "SİPARİŞ VER" butonuna tıklayarak WhatsApp üzerinden bize ulaşabilirsiniz.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">⏱ Teslimat ne kadar sürer?</div>
+        <div class="faq-answer">
+          <p>Standart teslimat süresi 1-2 iş günüdür. Acil siparişleriniz için bize söylemeniz yeterlidir.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">🎨 Tasarımda değişiklik yapabilir miyim?</div>
+        <div class="faq-answer">
+          <p>Evet! Sipariş onayı öncesinde tasarım üzerinde istediğiniz değişiklikleri ücretsiz yapabiliriz.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">💳 Ödeme yöntemleri nelerdir?</div>
+        <div class="faq-answer">
+          <p>Havale/EFT, kredi kartı (Shopier altyapısı) seçenekleri mevcuttur.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">🔄 İade koşullarınız nelerdir?</div>
+        <div class="faq-answer">
+          <p>Dijital ürünlerde iade yapılamamaktadır ancak tasarım onayı öncesinde revize hakkınız vardır.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-item reveal">
+        <h3>Sanal Davetiyelik</h3>
+        <p>Dijital davetiye çözümlerinde profesyonel ve estetik yaklaşımlar.</p>
+      </div>
+      <div class="footer-item reveal">
+        <h3>Yardım &amp; Bilgi</h3>
+        <ul class="footer-links">
+          <li><a href="#" class="accordion-link" data-target="iade-politikasi">İade Politikası</a>
+            <div id="iade-politikasi" class="accordion-content">
+              <p>Dijital ürünlerde iade yapılamamaktadır. Memnun kalmamanız durumunda yeni tasarım hizmeti sunuyoruz.
+              </p>
+            </div>
+          </li>
+          <li><a href="#" class="accordion-link" data-target="mesafeli-satis">Mesafeli Satış Sözleşmesi</a>
+            <div id="mesafeli-satis" class="accordion-content">
+              <p>Sipariş onayıyla 14 gün cayma hakkınız bulunur.</p>
+            </div>
+          </li>
+          <li><a href="#" class="accordion-link" data-target="kvkk">KVKK Aydınlatma Metni</a>
+            <div id="kvkk" class="accordion-content">
+              <p>Kişisel verileriniz KVKK kapsamında işlenmektedir.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-item reveal">
+        <h3>İletişim</h3>
+        <p>WhatsApp: <strong>0538 608 21 55</strong></p>
+        <p>E-posta: info@sanaldavetiyelik.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Sanal Davetiyelik. Tüm Hakları Saklıdır.</p>
+    </div>
+  </footer>
+
+  <!-- ===== WHATSAPP FLOAT ===== -->
+  <a href="https://wa.me/905386082155?text=Merhaba!%20Sanal%20Davetiyelik%20ile%20iletişime%20geçmek%20istiyorum."
+    target="_blank" class="whatsapp-float" aria-label="WhatsApp">💬</a>
+
+  <!-- Modal (Örneğine Bak için büyük önizleme) -->
+  <div id="previewModal" class="preview-modal">
+    <div class="modal-container">
+      <iframe id="modalIframe" class="modal-iframe" title="Davetiye Önizleme"
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"></iframe>
+      <button id="closeModalBtn" class="back-to-page-btn">← Sayfaya Dön</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

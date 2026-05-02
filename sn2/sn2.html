@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Düğün Davetiyesi | Mete & Elif</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <style>
+        :root {
+            --primary: #2d5a27;
+            --light-bg: #e9f5db;
+            --sage: #718355;
+            --gold: #2d5a27;
+            --bg-cream: #fcfdf9;
+            --dark-bg: #0d1f0a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            /* mobil tarayıcı adres çubuğu için dinamik yükseklik */
+            height: 100dvh;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-cream);
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* ========== GİRİŞ EKRANI ========== */
+        .intro-screen {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, #1a3a16 0%, #0d1a0b 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            cursor: pointer;
+            transition: opacity 0.8s ease;
+        }
+
+        .intro-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .heart-orbit {
+            position: relative;
+            width: clamp(160px, 40vw, 220px);
+            height: clamp(160px, 40vw, 220px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hand-drawn-heart {
+            width: clamp(60px, 15vw, 80px);
+            height: clamp(60px, 15vw, 80px);
+            z-index: 2;
+            filter: drop-shadow(0 0 10px rgba(181, 141, 61, 0.6));
+        }
+
+        .rotating-names {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            animation: spin 12s linear infinite;
+        }
+
+        .rotating-names span {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            letter-spacing: 6px;
+            color: #e9f5db;
+            text-shadow: 0 0 12px #2d5a27;
+            animation: spin-reverse 12s linear infinite;
+        }
+
+        .name-top {
+            top: 0;
+        }
+
+        .name-bottom {
+            bottom: 0;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin-reverse {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(-360deg);
+            }
+        }
+
+        .hint-box {
+            margin-top: clamp(1.5rem, 4vh, 2.5rem);
+            background: rgba(0, 0, 0, 0.12);
+            backdrop-filter: blur(8px);
+            border: 2px solid var(--sage);
+            border-radius: 0;
+            padding: clamp(8px, 2vh, 12px) clamp(20px, 5vw, 28px);
+            transition: opacity 0.8s ease;
+        }
+
+        .intro-hint {
+            color: #b58d3d;
+            font-size: clamp(0.7rem, 1.8vw, 0.85rem);
+            letter-spacing: 3px;
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ========== YEŞİL IŞIK HÜZMESİ ========== */
+        #lightOverlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle,
+                    rgba(45, 90, 39, 0.9) 0%,
+                    rgba(113, 131, 85, 0.6) 30%,
+                    rgba(181, 141, 61, 0.2) 60%,
+                    transparent 100%);
+            border-radius: 50%;
+            z-index: 999;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.8s ease-out, height 0.8s ease-out, opacity 0.5s ease;
+            opacity: 0;
+        }
+
+        #lightOverlay.active {
+            width: 300vw;
+            height: 300vw;
+            opacity: 1;
+        }
+
+        /* ========== DAVETİYE KARTI VE ARKA GLOW ========== */
+        .invitation-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 430px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* JS tarafından scale uygulanacak */
+            will-change: transform;
+            transform-origin: center center;
+        }
+
+        .card-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: clamp(200px, 55vw, 280px);
+            height: clamp(200px, 55vw, 280px);
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle,
+                    rgba(45, 90, 39, 0.45) 0%,
+                    rgba(113, 131, 85, 0.35) 40%,
+                    rgba(181, 141, 61, 0.15) 70%,
+                    transparent 100%);
+            border-radius: 50%;
+            z-index: 0;
+            animation: pulse-glow 4s ease-in-out infinite;
+            pointer-events: none;
+            filter: blur(18px);
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.4);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0.7;
+            }
+        }
+
+        .card {
+            position: relative;
+            background: white;
+            border: 2px solid var(--sage);
+            border-radius: 4px;
+            padding: clamp(18px, 4vh, 30px) clamp(14px, 3.5vw, 24px);
+            box-shadow: 0 20px 50px rgba(45, 90, 39, 0.12);
+            opacity: 0;
+            transform: scale(0.85) translateY(30px);
+            transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+            overflow: hidden;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        /* ========== PANEL SİSTEMİ ========== */
+        .card .panel {
+            position: absolute;
+            top: clamp(18px, 4vh, 30px);
+            left: clamp(14px, 3.5vw, 24px);
+            right: clamp(14px, 3.5vw, 24px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            pointer-events: none;
+        }
+
+        .card .panel.active {
+            position: relative;
+            top: auto;
+            left: auto;
+            right: auto;
+            pointer-events: auto;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card .panel:not(.active) {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .card.show-map .invite-panel {
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none;
+            position: absolute;
+            top: clamp(18px, 4vh, 30px);
+            left: clamp(14px, 3.5vw, 24px);
+            right: clamp(14px, 3.5vw, 24px);
+        }
+
+        .card.show-map .map-panel {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            position: relative;
+            top: auto;
+            left: auto;
+            right: auto;
+        }
+
+        /* ========== İÇERİK STİLLERİ ========== */
+        .wedding-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(0.65rem, 1.6vw, 0.85rem);
+            letter-spacing: clamp(3px, 1vw, 5px);
+            color: var(--sage);
+            text-align: center;
+            margin-bottom: clamp(10px, 2vh, 16px);
+        }
+
+        .couple-names {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.6rem, 5vw, 2.4rem);
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+            line-height: 1.2;
+            margin-bottom: clamp(14px, 3vh, 22px);
+        }
+
+        .amp {
+            display: block;
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: #b58d3d;
+            margin: clamp(3px, 1vh, 6px) 0;
+            font-weight: 400;
+        }
+
+        .parents-row {
+            display: flex;
+            gap: clamp(8px, 2vw, 12px);
+            margin-bottom: clamp(14px, 3vh, 24px);
+        }
+
+        .parent-box {
+            background: var(--light-bg);
+            border: 1px solid #cfdfc0;
+            padding: clamp(8px, 2vh, 14px) clamp(6px, 2vw, 10px);
+            text-align: center;
+            flex: 1;
+        }
+
+        .parent-box small {
+            display: block;
+            font-size: clamp(0.6rem, 1.3vw, 0.7rem);
+            letter-spacing: 2px;
+            color: var(--sage);
+            margin-bottom: clamp(3px, 1vh, 6px);
+        }
+
+        .parent-box p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            color: var(--primary);
+        }
+
+        .info-grid {
+            display: flex;
+            gap: clamp(8px, 2.5vw, 14px);
+            margin-bottom: clamp(14px, 3vh, 24px);
+        }
+
+        .info-item {
+            flex: 1;
+            background: var(--light-bg);
+            border: 1px solid #dce8ce;
+            padding: clamp(10px, 2.5vh, 16px);
+            text-align: center;
+        }
+
+        .info-item strong {
+            display: block;
+            font-size: clamp(0.6rem, 1.3vw, 0.7rem);
+            letter-spacing: 2px;
+            color: var(--sage);
+            margin-bottom: clamp(4px, 1.2vh, 8px);
+        }
+
+        .info-item p {
+            font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+            font-weight: 500;
+            color: #1f3d1a;
+        }
+
+        /* ========== SAYAÇ ========== */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: clamp(6px, 2vw, 12px);
+            margin: clamp(12px, 2.5vh, 20px) 0 clamp(14px, 3vh, 24px);
+        }
+
+        .time-box {
+            background: var(--primary);
+            color: white;
+            width: clamp(44px, 12vw, 58px);
+            padding: clamp(6px, 1.5vh, 10px) 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .time-box span {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            font-weight: 700;
+            display: block;
+            line-height: 1;
+        }
+
+        .time-box small {
+            font-size: clamp(0.5rem, 1.2vw, 0.6rem);
+            letter-spacing: 1px;
+        }
+
+        /* ========== HARİTA ========== */
+        .map-frame {
+            width: 100%;
+            height: clamp(160px, 35vh, 220px);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: clamp(6px, 1.5vh, 10px);
+        }
+
+        .map-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .map-address {
+            text-align: center;
+            color: var(--sage);
+            font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+            margin-bottom: clamp(10px, 2vh, 16px);
+        }
+
+        /* ========== BUTONLAR ========== */
+        .actions {
+            display: flex;
+            gap: clamp(8px, 2vw, 12px);
+            margin-top: clamp(4px, 1vh, 8px);
+            position: relative;
+            z-index: 2;
+            clear: both;
+        }
+
+        button {
+            flex: 1;
+            padding: clamp(10px, 2vh, 14px) 0;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: clamp(0.7rem, 1.6vw, 0.8rem);
+            letter-spacing: 1px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(45, 90, 39, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: #1f401a;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--light-bg);
+        }
+
+        /* Navigasyon butonu */
+        .nav-action {
+            margin-top: clamp(8px, 1.5vh, 12px);
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-nav {
+            background: var(--gold);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: clamp(10px, 2vh, 14px) 0;
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-size: clamp(0.7rem, 1.6vw, 0.8rem);
+            box-shadow: 0 4px 10px rgba(181, 141, 61, 0.3);
+            transition: background 0.3s;
+        }
+
+        .btn-nav:hover {
+            background: #0b4715;
+        }
+
+        /* ========== EKSTRA KÜÇÜK EKRANLAR İÇİN MEDIA QUERY ========== */
+        @media (max-height: 600px) {
+            .card {
+                padding: 12px 14px;
+            }
+
+            .card .panel {
+                top: 12px;
+                left: 14px;
+                right: 14px;
+            }
+
+            .card.show-map .invite-panel {
+                top: 12px;
+                left: 14px;
+                right: 14px;
+            }
+
+            .wedding-title {
+                margin-bottom: 6px;
+            }
+
+            .couple-names {
+                margin-bottom: 8px;
+            }
+
+            .parents-row {
+                margin-bottom: 8px;
+            }
+
+            .info-grid {
+                margin-bottom: 8px;
+            }
+
+            .countdown {
+                margin: 8px 0 10px;
+            }
+        }
+
+        @media (max-width: 340px) {
+            .invitation-wrapper {
+                padding: 8px;
+            }
+
+            .card {
+                padding: 10px 10px;
+            }
+
+            .card .panel {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+            }
+
+            .card.show-map .invite-panel {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+            }
+
+            button {
+                letter-spacing: 0;
+                font-size: 0.68rem;
+            }
+        }
+    </style>
+    <audio id="bgMusic" loop preload="auto">
+        <source src="sn2.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- GİRİŞ EKRANI -->
+    <div class="intro-screen" id="introScreen">
+        <div class="heart-orbit">
+            <svg class="hand-drawn-heart" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                    stroke="#e9f5db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <div class="rotating-names">
+                <span class="name-top">METE</span>
+                <span class="name-bottom">ELİF</span>
+            </div>
+        </div>
+        <div class="hint-box">
+            <span class="intro-hint">DOKUN VE AÇ</span>
+        </div>
+    </div>
+
+    <!-- YEŞİL IŞIK HÜZMESİ -->
+    <div id="lightOverlay"></div>
+
+    <!-- DAVETİYE KARTI + ARKA GLOW -->
+    <div class="invitation-wrapper" id="invitationWrapper">
+        <div class="card-glow" id="cardGlow"></div>
+
+        <div class="card" id="invitationCard">
+            <!-- Davetiye Paneli -->
+            <div class="panel invite-panel active" id="invitePanel">
+                <h2 class="wedding-title">MUTLULUĞUMUZA DAVETLİSİNİZ</h2>
+                <div class="couple-names">
+                    <span>Elif Demir</span>
+                    <span class="amp">&</span>
+                    <span>Mete Yılmaz</span>
+                </div>
+
+                <div class="parents-row">
+                    <div class="parent-box">
+                        <small>GELİNİN AİLESİ</small>
+                        <p>Ayşe & Ali Demir</p>
+                    </div>
+                    <div class="parent-box">
+                        <small>DAMADIN AİLESİ</small>
+                        <p>Zeynep & Can Yılmaz</p>
+                    </div>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>TARİH & SAAT</strong>
+                        <p>20 Ağustos 2027</p>
+                        <p>Cuma - 19:30</p>
+                    </div>
+                    <div class="info-item">
+                        <strong>KONUM</strong>
+                        <p>Koru Park Garden</p>
+                        <p>Beykoz / İstanbul</p>
+                    </div>
+                </div>
+
+                <div class="countdown">
+                    <div class="time-box"><span id="days">00</span><small>GÜN</small></div>
+                    <div class="time-box"><span id="hours">00</span><small>SAAT</small></div>
+                    <div class="time-box"><span id="minutes">00</span><small>DK</small></div>
+                    <div class="time-box"><span id="seconds">00</span><small>SN</small></div>
+                </div>
+            </div>
+
+            <!-- Harita Paneli -->
+            <div class="panel map-panel" id="mapPanel">
+                <div class="map-frame">
+                    <iframe
+                        src="https://maps.google.com/maps?q=Koru%20Park%20Garden%20Beykoz&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                        allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <p class="map-address">📍 Koru Park Garden, Beykoz</p>
+            </div>
+
+            <!-- Butonlar -->
+            <div class="actions">
+                <button id="btnLcv" class="btn-primary">📩 KATILIM BİLDİR</button>
+                <button id="btnMap" class="btn-outline">🗺️ KONUMU GÖR</button>
+            </div>
+            <!-- Navigasyon Butonu -->
+            <div class="nav-action" id="navAction" style="display: none;">
+                <button id="btnNav" class="btn-nav">🧭 NAVİGASYON BAŞLAT</button>
+            </div>
+        </div>
+    </div>
+
+    <script>document.addEventListener('DOMContentLoaded', () => {
+            const intro = document.getElementById('introScreen');
+            const card = document.getElementById('invitationCard');
+            const wrapper = document.getElementById('invitationWrapper');
+            const music = document.getElementById('bgMusic');
+            const btnLcv = document.getElementById('btnLcv');
+            const btnMap = document.getElementById('btnMap');
+            const btnNav = document.getElementById('btnNav');
+            const navAction = document.getElementById('navAction');
+            const lightOverlay = document.getElementById('lightOverlay');
+            const invitePanel = document.getElementById('invitePanel');
+            const mapPanel = document.getElementById('mapPanel');
+
+            let fitScale = 1;
+            let resizeDebounce = null;
+
+            /**
+             * Kartı ekrana sığdırmak için gerekli scale değerini hesaplar ve uygular.
+             * Hem dikey hem yatay taşmayı kontrol eder.
+             */
+            function fitCardToScreen() {
+                // Kart görünür değilse ölçüm yapma
+                if (!card.classList.contains('visible')) return;
+
+                // Önce scale'i sıfırla ki doğal boyutu ölçebilelim
+                wrapper.style.transform = 'none';
+                wrapper.style.transformOrigin = 'center center';
+
+                // Kartın doğal boyutlarını al
+                const cardRect = card.getBoundingClientRect();
+                const cardHeight = cardRect.height;
+                const cardWidth = cardRect.width;
+
+                // Kullanılabilir alan (kenar boşlukları için %8 pay bırak)
+                const verticalMargin = window.innerHeight * 0.08;
+                const horizontalMargin = window.innerWidth * 0.06;
+                const availableHeight = window.innerHeight - verticalMargin;
+                const availableWidth = window.innerWidth - horizontalMargin;
+
+                // Dikey ve yatay için scale hesapla
+                let scaleY = 1;
+                let scaleX = 1;
+
+                if (cardHeight > availableHeight) {
+                    scaleY = availableHeight / cardHeight;
+                }
+
+                if (cardWidth > availableWidth) {
+                    scaleX = availableWidth / cardWidth;
+                }
+
+                // En küçük scale'i kullan (her iki yönde de sığsın)
+                fitScale = Math.min(scaleY, scaleX, 1); // 1'den büyük olmasın (büyütme yapma)
+
+                // Okunabilirliği korumak için alt sınır
+                fitScale = Math.max(fitScale, 0.52);
+
+                // Hesaplanan scale'i uygula
+                if (fitScale < 1) {
+                    wrapper.style.transform = `scale(${fitScale})`;
+                } else {
+                    wrapper.style.transform = 'none';
+                }
+            }
+
+            /**
+             * Debounce'lu yeniden boyutlandırma
+             */
+            function handleResize() {
+                clearTimeout(resizeDebounce);
+                resizeDebounce = setTimeout(() => {
+                    fitCardToScreen();
+                }, 150);
+            }
+
+            // ========== AÇILIŞ – YEŞİL IŞIK HÜZMESİ ==========
+            intro.addEventListener('click', () => {
+                music.play().catch(() => { });
+                intro.classList.add('fade-out');
+
+                // 0.8 saniye sonra kart ve ışık aynı anda belirir
+                setTimeout(() => {
+                    card.classList.add('visible');
+                    lightOverlay.classList.add('active');
+                    startCountdown();
+
+                    // Kart görünür olduktan sonra ekrana sığdır
+                    // (geçiş animasyonu 1.2s sürdüğü için biraz gecikmeli)
+                    setTimeout(() => {
+                        fitCardToScreen();
+                    }, 300);
+
+                    // 0.5 saniye sonra ışığı soldur, giriş ekranını kaldır
+                    setTimeout(() => {
+                        lightOverlay.classList.remove('active');
+                        intro.style.display = 'none';
+                        // Işık efekti kalktıktan sonra tekrar ölç
+                        fitCardToScreen();
+                    }, 500);
+                }, 800);
+            });
+
+            // ========== HARİTA BUTONU ==========
+            btnMap.addEventListener('click', () => {
+                card.classList.toggle('show-map');
+                if (card.classList.contains('show-map')) {
+                    invitePanel.classList.remove('active');
+                    mapPanel.classList.add('active');
+                    btnMap.innerHTML = '📄 DAVETİYEYİ GÖR';
+                    navAction.style.display = 'flex';
+                } else {
+                    mapPanel.classList.remove('active');
+                    invitePanel.classList.add('active');
+                    btnMap.innerHTML = '🗺️ KONUMU GÖR';
+                    navAction.style.display = 'none';
+                }
+
+                // Panel değişince kart boyutu değişebilir, yeniden ölç
+                setTimeout(() => {
+                    fitCardToScreen();
+                }, 100);
+            });
+
+            // ========== NAVİGASYON BUTONU ==========
+            btnNav.addEventListener('click', () => {
+                const destination = encodeURIComponent('Koru Park Garden, Beykoz, İstanbul');
+                window.open(`https://www.google.com/maps/dir/?api=1&destination=${destination}`, '_blank');
+            });
+
+            // ========== WHATSAPP KATILIM ==========
+            btnLcv.addEventListener('click', () => {
+                const msg = encodeURIComponent("Merhaba, Mete & Elif! Düğününüze katılmaktan mutluluk duyarız. 🎉");
+                window.open(`https://wa.me/905386082155?text=${msg}`, '_blank');
+            });
+
+            // ========== PENCERE BOYUTU DEĞİŞİNCE YENİDEN ÖLÇ ==========
+            window.addEventListener('resize', handleResize);
+
+            // ========== CİHAZ YÖNÜ DEĞİŞİNCE (orientationchange) YENİDEN ÖLÇ ==========
+            window.addEventListener('orientationchange', () => {
+                // orientationchange sonrası boyutların güncellenmesi için kısa gecikme
+                setTimeout(() => {
+                    fitCardToScreen();
+                }, 300);
+            });
+
+            // ========== GERİ SAYIM ==========
+            function startCountdown() {
+                const target = new Date("August 20, 2027 19:30:00").getTime();
+                const update = () => {
+                    const now = Date.now();
+                    const diff = target - now;
+
+                    if (diff <= 0) {
+                        document.getElementById('days').textContent = '00';
+                        document.getElementById('hours').textContent = '00';
+                        document.getElementById('minutes').textContent = '00';
+                        document.getElementById('seconds').textContent = '00';
+                        return;
+                    }
+
+                    document.getElementById('days').textContent = Math.floor(diff / (1000 * 60 * 60 * 24))
+                        .toString().padStart(2, '0');
+                    document.getElementById('hours').textContent = Math.floor((diff % 86400000) / 3600000)
+                        .toString().padStart(2, '0');
+                    document.getElementById('minutes').textContent = Math.floor((diff % 3600000) / 60000)
+                        .toString().padStart(2, '0');
+                    document.getElementById('seconds').textContent = Math.floor((diff % 60000) / 1000)
+                        .toString().padStart(2, '0');
+                };
+                update();
+                setInterval(update, 1000);
+            }
+        });</script>
+</body>
+
+</html>

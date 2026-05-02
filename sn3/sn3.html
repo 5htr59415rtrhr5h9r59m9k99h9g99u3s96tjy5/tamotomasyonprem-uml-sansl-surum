@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Zeynep & Emre | Davetlisiniz</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #d4af37;
+            --gold-light: #e9d097;
+            --gold-dark: #b8941f;
+            --bg-dark: #1a1a1c;
+            --card-bg: rgba(20, 18, 16, 0.85);
+            --text-light: #f0ebe0;
+            --text-muted: #c4b998;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100dvh;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-light);
+            background: var(--bg-dark);
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        /* ============ ARKA PLAN FOTOĞRAF ============ */
+        .bg-photo-wrapper {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+        }
+
+        .bg-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.35) blur(8px);
+            transform: scale(1.05);
+        }
+
+        .bg-overlay {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.7) 100%),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8));
+        }
+
+        /* ============ PARTİKÜLLER ============ */
+        .particles {
+            position: fixed;
+            inset: 0;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: floatUp linear forwards;
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0);
+                opacity: 0;
+            }
+
+            5% {
+                opacity: 0.9;
+            }
+
+            60% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(360deg) scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        /* ============ KAPI SAHNESİ ============ */
+        .door-stage {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 1s cubic-bezier(0.68, -0.15, 0.27, 1.15);
+            pointer-events: all;
+        }
+
+        .door-stage.dissolved {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.3);
+            filter: blur(10px);
+        }
+
+        .door-header-names {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            color: #fff;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.8), 0 2px 10px rgba(0, 0, 0, 0.6);
+            margin-bottom: clamp(12px, 2vh, 20px);
+            letter-spacing: 3px;
+            transition: opacity 0.8s;
+            text-align: center;
+        }
+
+        .door-stage.dissolved .door-header-names {
+            opacity: 0;
+        }
+
+        .door-frame {
+            position: relative;
+            width: clamp(200px, 50vw, 260px);
+            height: clamp(280px, 55vh, 360px);
+            cursor: pointer;
+        }
+
+        .door {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(180deg,
+                    #5c4a3a 0%,
+                    #3a2e24 30%,
+                    #5c4a3a 60%,
+                    #2b1f16 100%);
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6), 0 10px 25px rgba(0, 0, 0, 0.5);
+            transition: transform 1.5s cubic-bezier(0.68, -0.25, 0.27, 1.2);
+            border: 2px solid rgba(212, 175, 55, 0.4);
+        }
+
+        .door-left {
+            left: 0;
+            border-radius: 8px 0 0 8px;
+            transform-origin: left center;
+        }
+
+        .door-right {
+            right: 0;
+            border-radius: 0 8px 8px 0;
+            transform-origin: right center;
+        }
+
+        .door-panel {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .door-ornament {
+            width: 60%;
+            height: 40%;
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.3);
+            box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .door-left.open {
+            transform: rotateY(-120deg) perspective(600px);
+        }
+
+        .door-right.open {
+            transform: rotateY(120deg) perspective(600px);
+        }
+
+        .door-knob {
+            position: absolute;
+            top: 45%;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid #d4af37;
+            background: radial-gradient(circle at 30% 30%, #f9e4b7, #b8941f);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+            z-index: 2;
+        }
+
+        .left-knob {
+            right: 8px;
+        }
+
+        .right-knob {
+            left: 8px;
+        }
+
+        .door-hint-box {
+            margin-top: clamp(16px, 3vh, 24px);
+            padding: clamp(8px, 1.5vh, 12px) clamp(16px, 4vw, 28px);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.7rem, 1.8vw, 0.9rem);
+            letter-spacing: 3px;
+            color: var(--gold-light);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+            cursor: pointer;
+            transition: all 0.4s;
+            animation: hintBoxPulse 2s infinite;
+            text-align: center;
+        }
+
+        .door-hint-box:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        @keyframes hintBoxPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+            }
+
+            50% {
+                transform: scale(1.02);
+                box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+            }
+        }
+
+        .door-stage.dissolved .door-hint-box {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        /* ============ ANA DAVETİYE KARTI ============ */
+        .invitation-full {
+            position: fixed;
+            inset: 0;
+            z-index: 90;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.7);
+            transition: all 1s cubic-bezier(0.68, -0.15, 0.27, 1.15);
+            /* JS ile scale ayarlanacak, bu nedenle transform'u JS yönetecek */
+            will-change: transform, opacity;
+        }
+
+        .invitation-full.revealed {
+            opacity: 1;
+            pointer-events: all;
+            transform: scale(1);
+        }
+
+        .invitation-full.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.7);
+            transition: all 0.5s ease-in;
+        }
+
+        .luxury-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 24px;
+            padding: clamp(18px, 3vh, 30px) clamp(14px, 4vw, 24px) clamp(14px, 2.5vh, 22px);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            animation: cardGlow 4s ease-in-out infinite;
+            /* overflow-y: auto KALDIRILDI, taşma JS ile önlenecek */
+            transform-origin: center center;
+        }
+
+        @keyframes cardGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(212, 175, 55, 0.06);
+            }
+
+            50% {
+                box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 60px rgba(212, 175, 55, 0.15);
+            }
+        }
+
+        .gold-line {
+            height: 1.5px;
+            background: linear-gradient(90deg,
+                    transparent 5%,
+                    var(--gold-dark) 20%,
+                    var(--gold-light) 50%,
+                    var(--gold-dark) 80%,
+                    transparent 95%);
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+
+        .gold-line-top {
+            width: 70%;
+            margin-bottom: clamp(12px, 2vh, 20px);
+        }
+
+        .gold-line-bottom {
+            width: 70%;
+            margin: clamp(12px, 2vh, 18px) auto;
+        }
+
+        .couple-photo-frame {
+            margin-bottom: clamp(10px, 2vh, 18px);
+        }
+
+        .frame-outer {
+            display: inline-block;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            padding: 5px;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+            animation: framePulse 5s ease-in-out infinite;
+        }
+
+        @keyframes framePulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(212, 175, 55, 0.55);
+            }
+        }
+
+        .frame-inner {
+            width: clamp(70px, 18vw, 100px);
+            height: clamp(70px, 18vw, 100px);
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #1a1a1c;
+        }
+
+        .couple-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-header {
+            margin-bottom: clamp(8px, 1.5vh, 16px);
+        }
+
+        .card-subtitle {
+            font-size: clamp(0.55rem, 1.2vw, 0.65rem);
+            letter-spacing: clamp(3px, 1vw, 6px);
+            color: var(--gold-light);
+            margin-bottom: clamp(4px, 1vh, 8px);
+            font-weight: 400;
+        }
+
+        .card-names {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.4rem, 4.5vw, 2rem);
+            color: #fff;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .ampersand {
+            color: var(--gold);
+            font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+            margin: 0 2px;
+            font-style: italic;
+        }
+
+        .card-details {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(8px, 2vw, 12px);
+            margin-bottom: clamp(10px, 2vh, 18px);
+            flex-wrap: wrap;
+        }
+
+        .detail-date {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .d-day {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 5vw, 2.4rem);
+            font-weight: 700;
+            line-height: 1;
+            color: var(--gold-light);
+        }
+
+        .d-my {
+            display: flex;
+            flex-direction: column;
+            font-size: clamp(0.5rem, 1.1vw, 0.6rem);
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .detail-separator {
+            color: var(--gold);
+            font-size: 1rem;
+        }
+
+        .detail-location {
+            text-align: left;
+            font-size: clamp(0.6rem, 1.4vw, 0.7rem);
+            line-height: 1.5;
+        }
+
+        .detail-location strong {
+            display: block;
+            letter-spacing: 1px;
+            color: #fff;
+            font-size: clamp(0.65rem, 1.5vw, 0.75rem);
+        }
+
+        .detail-time {
+            color: var(--gold-light);
+            font-size: clamp(0.6rem, 1.3vw, 0.7rem);
+        }
+
+        .countdown {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: clamp(10px, 2vh, 18px);
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 14px;
+            padding: clamp(8px, 1.5vh, 10px) clamp(10px, 3vw, 16px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .cd-item {
+            text-align: center;
+            min-width: clamp(30px, 8vw, 40px);
+        }
+
+        .cd-item span {
+            display: block;
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            font-weight: 700;
+            color: var(--gold-light);
+            line-height: 1;
+        }
+
+        .cd-item small {
+            font-size: clamp(0.45rem, 1vw, 0.55rem);
+            letter-spacing: 2px;
+            color: var(--text-muted);
+        }
+
+        .cd-dot {
+            font-size: 1.2rem;
+            color: var(--gold);
+            animation: dotBlink 1s infinite;
+        }
+
+        @keyframes dotBlink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .parents {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(6px, 2vw, 10px);
+            margin-bottom: clamp(10px, 2vh, 16px);
+            font-size: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .parent-group {
+            text-align: center;
+        }
+
+        .parent-label {
+            display: block;
+            font-size: clamp(0.4rem, 0.9vw, 0.5rem);
+            letter-spacing: 3px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+
+        .parent-names {
+            color: var(--text-muted);
+            font-size: clamp(0.55rem, 1.2vw, 0.65rem);
+            letter-spacing: 1px;
+        }
+
+        .parent-ampersand {
+            color: var(--gold);
+            font-size: 1rem;
+            font-family: 'Cinzel', serif;
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(6px, 1vh, 8px);
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: clamp(10px, 2vh, 13px) clamp(14px, 3vw, 18px);
+            border-radius: 14px;
+            font-size: clamp(0.65rem, 1.4vw, 0.72rem);
+            font-weight: 500;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.35s;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #d4af37 0%, #c59b2e 50%, #b8861e 100%);
+            color: #1a1a1c;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.45);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-icon {
+            font-size: 1rem;
+        }
+
+        /* ============ HARİTA PANELİ ============ */
+        .map-panel {
+            position: fixed;
+            inset: 0;
+            z-index: 95;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.8);
+            transition: all 0.6s cubic-bezier(0.68, -0.15, 0.27, 1.15);
+            will-change: transform, opacity;
+        }
+
+        .map-panel.active {
+            opacity: 1;
+            pointer-events: all;
+            transform: scale(1);
+        }
+
+        .map-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 24px;
+            padding: clamp(12px, 2vh, 16px);
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(8px, 1.5vh, 12px);
+            transform-origin: center center;
+        }
+
+        .map-back-btn {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            color: var(--gold-light);
+            padding: clamp(8px, 1.5vh, 10px) clamp(12px, 3vw, 16px);
+            border-radius: 12px;
+            font-size: clamp(0.65rem, 1.4vw, 0.75rem);
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .map-back-btn:hover {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--gold);
+            color: #fff;
+        }
+
+        .map-iframe {
+            width: 100%;
+            height: clamp(180px, 35vh, 250px);
+            border: 0;
+            border-radius: 16px;
+        }
+
+        .map-btn {
+            width: 100%;
+        }
+
+        /* Artık ekstra küçük ekranlar için ayrı media query'e gerek yok, clamp() her şeyi hallediyor */
+    </style>
+    <!-- Arka Plan Partikülleri -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Arka Plan Fotoğrafı (blurlu) -->
+    <div class="bg-photo-wrapper">
+        <img src="cift-fotografi.jpg" alt="arka plan" class="bg-photo">
+        <div class="bg-overlay"></div>
+    </div>
+
+    <!-- Müzik -->
+    <audio id="bgMusic" loop>
+        <source src="sn3.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ============ KAPI SAHNESİ ============ -->
+    <div class="door-stage" id="doorStage">
+        <div class="door-header-names">Zeynep & Emre</div>
+
+        <div class="door-frame">
+            <div class="door door-left" id="doorLeft">
+                <div class="door-panel">
+                    <div class="door-ornament"></div>
+                </div>
+                <div class="door-knob left-knob"></div>
+            </div>
+            <div class="door door-right" id="doorRight">
+                <div class="door-panel">
+                    <div class="door-ornament"></div>
+                </div>
+                <div class="door-knob right-knob"></div>
+            </div>
+        </div>
+
+        <div class="door-hint-box">🚪 Dokun ve Aç</div>
+    </div>
+
+    <!-- ============ ANA DAVETİYE KARTI ============ -->
+    <div class="invitation-full" id="invitationFull">
+        <div class="luxury-card" id="luxuryCard">
+            <div class="gold-line gold-line-top"></div>
+
+            <div class="couple-photo-frame">
+                <div class="frame-outer">
+                    <div class="frame-inner">
+                        <img src="cift.jpg" alt="Zeynep ve Emre" class="couple-img">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-header">
+                <p class="card-subtitle">BİZ EVLENİYORUZ</p>
+                <h1 class="card-names">Zeynep <span class="ampersand">&</span> Emre</h1>
+            </div>
+
+            <div class="card-details">
+                <div class="detail-date">
+                    <span class="d-day">15</span>
+                    <div class="d-my">
+                        <span>HAZİRAN</span>
+                        <span>2027</span>
+                    </div>
+                </div>
+                <div class="detail-separator">✦</div>
+                <div class="detail-location">
+                    <strong>SAİT HALİM PAŞA YALISI</strong>
+                    <p>Yeniköy, İstanbul</p>
+                    <p class="detail-time">🕗 19:00</p>
+                </div>
+            </div>
+
+            <div class="countdown" id="timer">
+                <div class="cd-item"><span id="days">00</span><small>Gün</small></div>
+                <div class="cd-dot">:</div>
+                <div class="cd-item"><span id="hours">00</span><small>Saat</small></div>
+                <div class="cd-dot">:</div>
+                <div class="cd-item"><span id="minutes">00</span><small>Dak</small></div>
+            </div>
+
+            <div class="parents">
+                <div class="parent-group">
+                    <span class="parent-label">Gelin Ailesi</span>
+                    <span class="parent-names">Nurten & Mehmet Demir</span>
+                </div>
+                <div class="parent-ampersand">&</div>
+                <div class="parent-group">
+                    <span class="parent-label">Damat Ailesi</span>
+                    <span class="parent-names">Hatice & Ahmet Yılmaz</span>
+                </div>
+            </div>
+
+            <div class="gold-line gold-line-bottom"></div>
+
+            <div class="actions">
+                <button id="btnLcv" class="btn btn-primary">
+                    <span class="btn-icon">📩</span> KATILIM BİLDİR
+                </button>
+                <button id="btnMap" class="btn btn-secondary">
+                    <span class="btn-icon">📍</span> KONUM
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ HARİTA PANELİ ============ -->
+    <div class="map-panel" id="mapPanel">
+        <div class="map-card" id="mapCard">
+            <button class="map-back-btn" id="mapClose">↩️ Davetiyeye Dön</button>
+            <iframe
+                src="https://maps.google.com/maps?q=Sait+Halim+Pa%C5%9Fa+Yal%C4%B1s%C4%B1+Yenik%C3%B6y+%C4%B0stanbul&output=embed"
+                class="map-iframe" allowfullscreen loading="lazy"></iframe>
+            <button id="btnNavigate" class="btn btn-primary map-btn">
+                <span class="btn-icon">🧭</span> ADRESE GİT
+            </button>
+        </div>
+    </div>
+
+    <script>document.addEventListener('DOMContentLoaded', () => {
+            // ============ ELEMENTLER ============
+            const doorStage = document.getElementById('doorStage');
+            const doorLeft = document.getElementById('doorLeft');
+            const doorRight = document.getElementById('doorRight');
+            const invitationFull = document.getElementById('invitationFull');
+            const luxuryCard = document.getElementById('luxuryCard');
+            const mapPanel = document.getElementById('mapPanel');
+            const mapCard = document.getElementById('mapCard');
+            const mapClose = document.getElementById('mapClose');
+            const particlesContainer = document.getElementById('particles');
+            const music = document.getElementById('bgMusic');
+            const btnLcv = document.getElementById('btnLcv');
+            const btnMap = document.getElementById('btnMap');
+            const btnNavigate = document.getElementById('btnNavigate');
+
+            let isRevealed = false;
+            let musicStarted = false;
+            let fitScale = 1;
+            let resizeDebounce = null;
+
+            // ============ PARTİKÜL OLUŞTURUCU ============
+            const particleImages = ['yildiz1.png', 'yildiz2.png', 'yildiz3.png', 'yildiz4.png'];
+
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const randomImg = particleImages[Math.floor(Math.random() * particleImages.length)];
+                particle.style.backgroundImage = `url('${randomImg}')`;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.bottom = '-40px';
+                const size = Math.random() * 20 + 15;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.animationDuration = (Math.random() * 8 + 6) + 's';
+                particlesContainer.appendChild(particle);
+
+                particle.addEventListener('animationend', () => {
+                    particle.remove();
+                });
+            }
+
+            function startParticles() {
+                setInterval(() => {
+                    if (particlesContainer.children.length < 35) {
+                        createParticle();
+                    }
+                }, 700);
+                for (let i = 0; i < 12; i++) {
+                    setTimeout(() => createParticle(), i * 350);
+                }
+            }
+
+            startParticles();
+
+            // ============ EKRANA SIĞDIRMA FONKSİYONU ============
+            function fitElementToScreen(element, containerSelector) {
+                const container = document.querySelector(containerSelector);
+                if (!element || !container) return;
+
+                // Geçici olarak scale'i sıfırla
+                element.style.transform = 'none';
+                element.style.transformOrigin = 'center center';
+
+                const rect = element.getBoundingClientRect();
+                const elHeight = rect.height;
+                const elWidth = rect.width;
+
+                const containerRect = container.getBoundingClientRect();
+                const availableHeight = containerRect.height * 0.92; // %8 marj
+                const availableWidth = containerRect.width * 0.9;
+
+                let scaleY = 1;
+                let scaleX = 1;
+
+                if (elHeight > availableHeight) {
+                    scaleY = availableHeight / elHeight;
+                }
+                if (elWidth > availableWidth) {
+                    scaleX = availableWidth / elWidth;
+                }
+
+                let scale = Math.min(scaleY, scaleX, 1);
+                scale = Math.max(scale, 0.5); // okunabilirlik alt sınırı
+
+                if (scale < 1) {
+                    element.style.transform = `scale(${scale})`;
+                    element.dataset.appliedScale = scale;
+                } else {
+                    element.style.transform = 'none';
+                    element.dataset.appliedScale = '1';
+                }
+            }
+
+            function fitCurrentActiveCard() {
+                // Hangi panel aktifse onu ölçekle
+                if (invitationFull.classList.contains('revealed') && !invitationFull.classList.contains('hidden')) {
+                    fitElementToScreen(luxuryCard, '.invitation-full');
+                } else if (mapPanel.classList.contains('active')) {
+                    fitElementToScreen(mapCard, '.map-panel');
+                }
+            }
+
+            function handleResize() {
+                clearTimeout(resizeDebounce);
+                resizeDebounce = setTimeout(() => {
+                    fitCurrentActiveCard();
+                }, 150);
+            }
+
+            window.addEventListener('resize', handleResize);
+            window.addEventListener('orientationchange', () => {
+                setTimeout(fitCurrentActiveCard, 300);
+            });
+
+            // ============ KAPI AÇILIŞI ============
+            function openDoors() {
+                if (isRevealed) return;
+                isRevealed = true;
+
+                doorLeft.classList.add('open');
+                doorRight.classList.add('open');
+
+                setTimeout(() => {
+                    if (!musicStarted) {
+                        music.play().then(() => {
+                            musicStarted = true;
+                        }).catch(() => { });
+                    }
+                }, 1200);
+
+                setTimeout(() => {
+                    doorStage.classList.add('dissolved');
+                }, 900);
+
+                setTimeout(() => {
+                    invitationFull.classList.add('revealed');
+                    // Davetiye görünür olduktan sonra ekrana sığdır
+                    setTimeout(fitCurrentActiveCard, 400);
+                }, 1400);
+            }
+
+            doorStage.addEventListener('click', (e) => {
+                openDoors();
+            });
+
+            // ============ HARİTA GÖSTER/GİZLE ============
+            function showMap() {
+                invitationFull.classList.add('hidden');
+                invitationFull.classList.remove('revealed');
+                mapPanel.classList.add('active');
+                // Harita panelini ekrana sığdır
+                setTimeout(fitCurrentActiveCard, 200);
+            }
+
+            function hideMap() {
+                mapPanel.classList.remove('active');
+                invitationFull.classList.remove('hidden');
+                invitationFull.classList.add('revealed');
+                // Davetiye kartını tekrar sığdır
+                setTimeout(fitCurrentActiveCard, 200);
+            }
+
+            btnMap.addEventListener('click', showMap);
+            mapClose.addEventListener('click', hideMap);
+
+            mapPanel.addEventListener('click', (e) => {
+                if (e.target === mapPanel) {
+                    hideMap();
+                }
+            });
+
+            btnNavigate.addEventListener('click', () => {
+                window.open('https://maps.app.goo.gl/SaitHalimPasaLink', '_blank');
+            });
+
+            // ============ WHATSAPP KATILIM ============
+            btnLcv.addEventListener('click', () => {
+                const phone = '905386082155';
+                const message = 'Merhaba, düğününüze katılacağımızı bildirmek istedik! 🎉';
+                window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+            });
+
+            // ============ GERİ SAYIM ============
+            function startCountdown() {
+                const target = new Date(2027, 5, 15, 19, 0, 0).getTime();
+
+                function update() {
+                    const now = new Date().getTime();
+                    const diff = target - now;
+
+                    if (diff > 0) {
+                        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((diff % 86400000) / 3600000);
+                        const minutes = Math.floor((diff % 3600000) / 60000);
+
+                        document.getElementById('days').innerText = days.toString().padStart(2, '0');
+                        document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+                        document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+                    } else {
+                        document.getElementById('days').innerText = '00';
+                        document.getElementById('hours').innerText = '00';
+                        document.getElementById('minutes').innerText = '00';
+                    }
+                }
+
+                update();
+                setInterval(update, 60000);
+            }
+
+            startCountdown();
+
+            // ============ KLAVYE DESTEĞİ ============
+            document.addEventListener('keydown', (e) => {
+                if (e.code === 'Space' || e.code === 'Enter') {
+                    e.preventDefault();
+                    if (!isRevealed) {
+                        openDoors();
+                    }
+                }
+            });
+        });</script>
+</body>
+
+</html>

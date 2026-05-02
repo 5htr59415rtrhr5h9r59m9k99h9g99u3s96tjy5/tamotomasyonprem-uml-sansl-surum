@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Düğün Davetiyesi | Emre & Zeynep</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border-radius: 0 !important;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            background: #fdfaf6;
+        }
+
+        /* GİRİŞ EKRANI */
+        .intro-screen {
+            position: fixed;
+            inset: 0;
+            background: #2c2420;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            cursor: pointer;
+            transition: opacity 1s ease;
+        }
+
+        .intro-content {
+            text-align: center;
+            color: #e8c9a7;
+        }
+
+        .intro-names {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .intro-invite {
+            font-size: 1rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .intro-hint {
+            border: 1px solid #e8c9a7;
+            padding: 12px 30px;
+            margin-top: 25px;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        /* KAPI SAHNESİ */
+        .door-container {
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            display: none;
+            perspective: 2000px;
+        }
+
+        .door {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            background: #f4eade;
+            border: 6px solid #e8c9a7;
+            transition: transform 2.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .top-door {
+            top: 0;
+            transform-origin: top;
+            border-bottom: 3px solid #d4b896;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .bottom-door {
+            bottom: 0;
+            transform-origin: bottom;
+            border-top: 3px solid #d4b896;
+        }
+
+        .seal {
+            width: 60px;
+            height: 60px;
+            background: #9e5a3a;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: bold;
+            margin-bottom: -30px;
+            z-index: 600;
+            border: 2px solid #fff;
+        }
+
+        .door-container.open .top-door {
+            transform: rotateX(110deg);
+        }
+
+        .door-container.open .bottom-door {
+            transform: rotateX(-110deg);
+        }
+
+        /* DAVETİYE KARTI */
+        .invitation-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .invitation-card {
+            width: 100%;
+            max-width: 440px;
+            background: #fff;
+            border: 1px solid #e8c9a7;
+            padding: 22px 20px 28px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.2s ease 1s;
+            margin: auto;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 200;
+        }
+
+        .invitation-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* DİNAMİK ALAN (DAVETİYE <-> HARİTA GEÇİŞİ) - YAVAŞ ANİMASYON (1.4s) */
+        .dynamic-area {
+            margin-bottom: 20px;
+        }
+
+        .invite-content {
+            max-height: 800px;
+            opacity: 1;
+            overflow: hidden;
+            transition: max-height 1.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 1.2s ease, margin 0.8s ease;
+        }
+
+        .map-content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 1.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 1.2s ease;
+            background: #fefaf5;
+            border: 1px solid #f3e7dc;
+        }
+
+        .invitation-card.map-active .invite-content {
+            max-height: 0;
+            opacity: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .invitation-card.map-active .map-content {
+            max-height: 580px;
+            opacity: 1;
+            margin-bottom: 6px;
+        }
+
+        /* KART İÇİ ÖĞELER */
+        .wedding-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            color: #b05f3a;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .couple-names {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            text-align: center;
+            color: #2c2420;
+            margin-bottom: 12px;
+        }
+
+        .amp {
+            color: #cb8b60;
+            font-size: 1.4rem;
+            display: block;
+            margin: -5px 0;
+        }
+
+        .parents-row {
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #f0e0d0;
+            border-bottom: 1px solid #f0e0d0;
+            padding: 12px 0;
+            margin-bottom: 15px;
+        }
+
+        .parent-box {
+            text-align: center;
+            flex: 1;
+        }
+
+        .parent-box small {
+            font-size: 0.6rem;
+            color: #b05f3a;
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .parent-box p {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .parent-contact a {
+            text-decoration: none;
+            font-size: 0.7rem;
+            color: #9e5a3a;
+            font-weight: 600;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .info-item {
+            text-align: center;
+            background: #fdfaf6;
+            padding: 12px 5px;
+            border: 1px solid #faeedd;
+        }
+
+        .info-item strong {
+            display: block;
+            font-size: 0.65rem;
+            color: #b05f3a;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .info-item p {
+            font-size: 0.75rem;
+            line-height: 1.3;
+            color: #444;
+        }
+
+        .mini-timer {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .t-val {
+            background: #2c2420;
+            color: #e8c9a7;
+            width: 52px;
+            padding: 6px 0;
+            text-align: center;
+        }
+
+        .t-val span {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .t-val small {
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        /* BUTONLAR */
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .btn-lcv,
+        .btn-map {
+            text-decoration: none;
+            text-align: center;
+            padding: 14px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            width: 100%;
+            display: block;
+        }
+
+        .btn-lcv {
+            background: #2c2420;
+            color: #e8c9a7;
+        }
+
+        .btn-lcv:hover {
+            background: #41342e;
+        }
+
+        .btn-map {
+            border: 1px solid #2c2420;
+            color: #2c2420;
+            background: transparent;
+        }
+
+        .btn-map:hover {
+            background: #f6efe7;
+        }
+
+        /* HARITA İÇİ */
+        .map-iframe-wrapper {
+            width: 100%;
+            padding: 8px;
+            background: #fff5ea;
+        }
+
+        .map-iframe-wrapper iframe {
+            width: 100%;
+            height: 240px;
+            border: none;
+            display: block;
+        }
+
+        /* YAPRAK EFFECT */
+        #leaf-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .leaf {
+            position: absolute;
+            top: -50px;
+            color: #d4b896;
+            animation: fall linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* MOBİL UYUM */
+        @media (max-height: 680px) {
+            .invitation-card {
+                padding: 16px 18px;
+            }
+
+            .couple-names {
+                font-size: 1.7rem;
+            }
+
+            .parents-row,
+            .info-grid,
+            .mini-timer {
+                margin-bottom: 8px;
+            }
+
+            .btn-lcv,
+            .btn-map {
+                padding: 10px;
+            }
+
+            .map-iframe-wrapper iframe {
+                height: 200px;
+            }
+        }
+    </style>
+    <audio id="bgMusic" loop preload="auto">
+        <source src="sn1.mp3" type="audio/mpeg">
+    </audio>
+    <div id="leaf-container"></div>
+
+    <!-- GİRİŞ EKRANI -->
+    <div class="intro-screen" id="introScreen">
+        <div class="intro-content">
+            <h1 class="intro-names">Emre & Zeynep</h1>
+            <p class="intro-invite">Düğünümüze Davetlisiniz</p>
+            <div class="intro-hint">✉️ DAVETİYEYİ AÇIN</div>
+        </div>
+    </div>
+
+    <!-- KAPI SAHNESİ -->
+    <div class="door-container" id="doorContainer">
+        <div class="door top-door">
+            <div class="seal">E & Z</div>
+        </div>
+        <div class="door bottom-door"></div>
+    </div>
+
+    <!-- ANA DAVETİYE KARTI -->
+    <div class="invitation-container">
+        <div class="invitation-card" id="invitationCard">
+            <div class="dynamic-area">
+                <!-- Normal davetiye içeriği -->
+                <div class="invite-content" id="inviteContent">
+                    <h2 class="wedding-title">EVLİLİK DAVETİYESİ</h2>
+                    <div class="couple-names">
+                        <span>Zeynep Demir</span>
+                        <span class="amp">&</span>
+                        <span>Emre Yılmaz</span>
+                    </div>
+                    <div class="parents-row">
+                        <div class="parent-box">
+                            <small>GELİNİN AİLESİ</small>
+                            <p>Nurten & Mehmet Demir</p>
+                            <div class="parent-contact"><a href="tel:05550000001">📞 Ara</a></div>
+                        </div>
+                        <div class="parent-box">
+                            <small>DAMADIN AİLESİ</small>
+                            <p>Hatice & Ahmet Yılmaz</p>
+                            <div class="parent-contact"><a href="tel:05550000002">📞 Ara</a></div>
+                        </div>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <strong>TARİH & SAAT</strong>
+                            <p>15 Haziran 2027</p>
+                            <p>Salı - 19:00</p>
+                        </div>
+                        <div class="info-item">
+                            <strong>KONUM</strong>
+                            <p>Sait Halim Paşa Yalısı</p>
+                            <p>Bebek / İstanbul</p>
+                        </div>
+                    </div>
+                    <div class="mini-timer">
+                        <div class="t-val"><span id="days">00</span><small>GÜN</small></div>
+                        <div class="t-val"><span id="hours">00</span><small>SAAT</small></div>
+                        <div class="t-val"><span id="minutes">00</span><small>DK</small></div>
+                        <div class="t-val"><span id="seconds">00</span><small>SN</small></div>
+                    </div>
+                </div>
+
+                <!-- HARİTA İÇERİĞİ (başlangıçta gizli) -->
+                <div class="map-content" id="mapContent">
+                    <div class="map-iframe-wrapper">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3007.418706306509!2d29.0559384154164!3d41.11283317928929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab5c5c7db6a41%3A0x8670a5c43d9203!2sSait%20Halim%20Pa%C5%9Fa%20Yal%C4%B1s%C4%B1!5e0!3m2!1str!2str!4v1689600000000!5m2!1str!2str"
+                            allowfullscreen="" loading="lazy" title="Düğün Konumu Haritası">
+                        </iframe>
+                    </div>
+                    <p style="font-size: 0.7rem; text-align: center; padding: 8px 0 4px; color: #9b7b5e;">📍 Sait Halim
+                        Paşa Yalısı, Bebek/İstanbul</p>
+                </div>
+            </div>
+
+            <div class="actions">
+                <!-- KATILIM BİLDİR butonu: direkt WhatsApp'a yönlendirir, form yok -->
+                <button id="btnLcv" class="btn-lcv">📩 KATILIM BİLDİR</button>
+                <button id="btnMap" class="btn-map">🗺️ HARİTADA GÖRÜNTÜLE</button>
+            </div>
+        </div>
+    </div>
+
+    <script>document.addEventListener('DOMContentLoaded', () => {
+            const introScreen = document.getElementById('introScreen');
+            const doorContainer = document.getElementById('doorContainer');
+            const invitationCard = document.getElementById('invitationCard');
+            const bgMusic = document.getElementById('bgMusic');
+            const btnLcv = document.getElementById('btnLcv');
+            const btnMap = document.getElementById('btnMap');
+
+            // Giriş ekranı tıklanınca: müzik çal, kapıyı aç, sonra kapı container'ını kaldır
+            introScreen.addEventListener('click', () => {
+                bgMusic.play().catch(e => console.log("Müzik için etkileşim gerekli", e));
+                introScreen.style.opacity = '0';
+                setTimeout(() => {
+                    introScreen.style.display = 'none';
+                    doorContainer.style.display = 'block';
+                    setTimeout(() => {
+                        doorContainer.classList.add('open');
+                        // Kapı animasyonu bitince container'ı tamamen kaldır (buton tıklama engeli yok)
+                        setTimeout(() => {
+                            doorContainer.style.display = 'none';
+                            invitationCard.classList.add('show');
+                            createLeaves();
+                            startCountdown();
+                        }, 2500);
+                    }, 100);
+                }, 1000);
+            });
+
+            // KATILIM BİLDİR butonu: direkt WhatsApp'a yönlendir, isim sorma
+            btnLcv.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const phoneNumber = "905386082155"; // 0538 608 2155 uluslararası format
+                const message = "Düğününüze katılacağım.";
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            });
+
+            // HARİTA butonu: yumuşak ve yavaş geçiş (toggle)
+            btnMap.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                invitationCard.classList.toggle('map-active');
+                if (invitationCard.classList.contains('map-active')) {
+                    btnMap.innerHTML = '📄 DAVETİYEYİ GÖSTER';
+                } else {
+                    btnMap.innerHTML = '🗺️ HARİTADA GÖRÜNTÜLE';
+                }
+            });
+
+            // Yaprak animasyonu
+            function createLeaves() {
+                const container = document.getElementById('leaf-container');
+                const icons = ['🍂', '🍃', '🌿'];
+                setInterval(() => {
+                    const leaf = document.createElement('div');
+                    leaf.className = 'leaf';
+                    leaf.innerText = icons[Math.floor(Math.random() * icons.length)];
+                    leaf.style.left = Math.random() * 100 + 'vw';
+                    leaf.style.animationDuration = (Math.random() * 4 + 5) + 's';
+                    leaf.style.fontSize = (Math.random() * 12 + 16) + 'px';
+                    container.appendChild(leaf);
+                    setTimeout(() => leaf.remove(), 8000);
+                }, 650);
+            }
+
+            // Geri sayım sayacı (15 Haziran 2027, 19:00)
+            function startCountdown() {
+                const target = new Date(2027, 5, 15, 19, 0, 0).getTime();
+                const daysSpan = document.getElementById('days');
+                const hoursSpan = document.getElementById('hours');
+                const minutesSpan = document.getElementById('minutes');
+                const secondsSpan = document.getElementById('seconds');
+
+                function update() {
+                    const now = new Date().getTime();
+                    const diff = target - now;
+                    if (diff <= 0) {
+                        daysSpan.innerText = "00";
+                        hoursSpan.innerText = "00";
+                        minutesSpan.innerText = "00";
+                        secondsSpan.innerText = "00";
+                        return;
+                    }
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (86400000)) / (3600000));
+                    const minutes = Math.floor((diff % 3600000) / 60000);
+                    const seconds = Math.floor((diff % 60000) / 1000);
+                    daysSpan.innerText = days.toString().padStart(2, '0');
+                    hoursSpan.innerText = hours.toString().padStart(2, '0');
+                    minutesSpan.innerText = minutes.toString().padStart(2, '0');
+                    secondsSpan.innerText = seconds.toString().padStart(2, '0');
+                }
+                update();
+                setInterval(update, 1000);
+            }
+        });</script>
+</body>
+
+</html>

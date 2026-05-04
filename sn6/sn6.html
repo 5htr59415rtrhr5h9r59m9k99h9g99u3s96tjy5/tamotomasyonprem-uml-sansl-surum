@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Düğün Davetiyesi</title>
+    <link rel="icon" href="../logo.png">
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap"
         rel="stylesheet">
@@ -192,7 +193,7 @@
             }
         }
 
-        /* ========== KAYAN YAZI ARKA PLANI ========== */
+        /* ========== KAYAN YAZI ========== */
         .marquee-wrapper {
             position: fixed;
             top: -50%;
@@ -314,7 +315,7 @@
             letter-spacing: 4px;
             color: var(--blue-light);
             cursor: pointer;
-            transition: all 0.4s;
+            transition: 0.4s;
             text-transform: uppercase;
             position: relative;
             overflow: hidden;
@@ -358,7 +359,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 10px;
             opacity: 0;
             pointer-events: none;
             transform: translateY(30px);
@@ -602,7 +603,7 @@
             font-family: 'Montserrat', sans-serif;
             letter-spacing: 2px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: 0.3s;
             text-transform: uppercase;
             font-weight: 500;
             position: relative;
@@ -726,14 +727,66 @@
                 font-size: 1rem;
             }
         }
+
+        /* ===== MOBİL DÜZELTMELERİ (480px ve altı) ===== */
+        @media (max-width: 480px) {
+            .families-names {
+                font-size: 0.85rem !important;
+                /* normalde 1.2rem → küçült */
+            }
+
+            .parent-group {
+                margin: 0 3px !important;
+                /* yan boşlukları azalt */
+            }
+
+            .label-small {
+                font-size: 0.5rem !important;
+                /* etiketler biraz daha küçük */
+                letter-spacing: 1px !important;
+            }
+
+            .parent-names {
+                font-size: 0.7rem !important;
+                /* isimler biraz daha küçük */
+            }
+
+            .families-label {
+                font-size: 0.6rem !important;
+                letter-spacing: 2px !important;
+            }
+
+            .families-divider {
+                margin: 4px auto !important;
+            }
+
+            .event-date {
+                font-size: 0.7rem !important;
+                /* etkinlik tarihleri de küçülsün */
+            }
+
+            .countdown-label {
+                font-size: 0.55rem !important;
+            }
+
+            .btn {
+                padding: 12px !important;
+                /* butonlar biraz küçülsün */
+                font-size: 0.7rem !important;
+            }
+
+            .main-card {
+                padding: 20px 18px 24px !important;
+                /* kart iç boşluğunu azalt */
+            }
+        }
     </style>
 </head>
-<link rel="icon" href="../logo.png">
 
 <body>
 
     <audio id="bgMusic" loop preload="auto">
-        <source src="sn6.mp3" type="audio/mpeg">
+        <source src="../sn6.mp3" type="audio/mpeg">
     </audio>
 
     <div class="light-beam"></div>
@@ -816,36 +869,20 @@
             console.log("Müşteri kodu (sn6):", musteriKodu);
 
             const varsayilan = {
-                gelinAd: "Ebru",
-                damatAd: "Mert",
-                gelinAnne: "Ayşe",
-                gelinBaba: "Ahmet",
-                damatAnne: "Fatma",
-                damatBaba: "Mehmet",
-                etkinlik1Baslik: "Kına Gecesi",
-                etkinlik1Tarih: "14 Haziran 2027",
-                etkinlik1Gun: "Cumartesi",
-                etkinlik1Saat: "19:00",
-                etkinlik2Baslik: "Düğün Töreni",
-                etkinlik2Tarih: "15 Haziran 2027",
-                etkinlik2Gun: "Pazar",
-                etkinlik2Saat: "19:30",
-                konum: "Sait Halim Paşa Yalısı",
-                ilce: "Yeniköy",
-                sehir: "İstanbul",
+                gelinAd: "Ebru", damatAd: "Mert",
+                gelinAnne: "Ayşe", gelinBaba: "Ahmet",
+                damatAnne: "Fatma", damatBaba: "Mehmet",
+                etkinlik1Baslik: "Kına Gecesi", etkinlik1Tarih: "14 Haziran 2027", etkinlik1Gun: "Cumartesi", etkinlik1Saat: "19:00",
+                etkinlik2Baslik: "Düğün Töreni", etkinlik2Tarih: "15 Haziran 2027", etkinlik2Gun: "Pazar", etkinlik2Saat: "19:30",
+                konum: "Sait Halim Paşa Yalısı", ilce: "Yeniköy", sehir: "İstanbul",
                 haritaIframe: "https://maps.google.com/maps?q=Sait+Halim+Pa%C5%9Fa+Yal%C4%B1s%C4%B1+Yenik%C3%B6y+%C4%B0stanbul&output=embed",
-                whatsappNo: "905386082155",
-                whatsappMesaj: "Merhaba, düğününüze katılacağız!",
+                whatsappNo: "905386082155", whatsappMesaj: "Merhaba, düğününüze katılacağız!",
                 geriSayim: "2027-06-15T19:30:00",
-                kartBaslik: "BİZ EVLENİYORUZ",
-                introMesaj: "Bu mutlu günümüze davetlisiniz"
+                kartBaslik: "BİZ EVLENİYORUZ", introMesaj: "Bu mutlu günümüze davetlisiniz"
             };
 
             function sayfayiDoldur(veri) {
-                console.log("Sayfa dolduruluyor (sn6):", veri);
-
                 document.getElementById("introNames").textContent = veri.gelinAd + " & " + veri.damatAd;
-
                 document.getElementById("kartBaslik").textContent = veri.kartBaslik || "BİZ EVLENİYORUZ";
                 document.getElementById("gelinAd").textContent = veri.gelinAd;
                 document.getElementById("damatAd").textContent = veri.damatAd;
@@ -853,57 +890,38 @@
                 const familiesDiv = document.getElementById("familiesNames");
                 let aileHtml = '';
                 if (veri.gelinAnne || veri.gelinBaba) {
-                    aileHtml += '<div class="parent-group">';
-                    aileHtml += '<span class="label-small">Gelin Ailesi</span>';
-                    aileHtml += [veri.gelinAnne, veri.gelinBaba].filter(Boolean).join(' & ');
-                    aileHtml += '</div>';
+                    aileHtml += '<div class="parent-group"><span class="label-small">Gelin Ailesi</span>';
+                    aileHtml += [veri.gelinAnne, veri.gelinBaba].filter(Boolean).join(' & ') + '</div>';
                 }
                 if ((veri.gelinAnne || veri.gelinBaba) && (veri.damatAnne || veri.damatBaba)) {
                     aileHtml += '<span style="display:inline-block;margin:0 10px;color:var(--blue-mid);font-size:1.4rem;">•</span>';
                 }
                 if (veri.damatAnne || veri.damatBaba) {
-                    aileHtml += '<div class="parent-group">';
-                    aileHtml += '<span class="label-small">Damat Ailesi</span>';
-                    aileHtml += [veri.damatAnne, veri.damatBaba].filter(Boolean).join(' & ');
-                    aileHtml += '</div>';
+                    aileHtml += '<div class="parent-group"><span class="label-small">Damat Ailesi</span>';
+                    aileHtml += [veri.damatAnne, veri.damatBaba].filter(Boolean).join(' & ') + '</div>';
                 }
                 familiesDiv.innerHTML = aileHtml;
-                if (!aileHtml) {
-                    document.getElementById("familiesSection").style.display = "none";
-                }
+                if (!aileHtml) document.getElementById("familiesSection").style.display = "none";
 
                 document.getElementById("etkinlik1Baslik").textContent = veri.etkinlik1Baslik || "Kına Gecesi";
-                document.getElementById("etkinlik1Detay").textContent =
-                    (veri.etkinlik1Tarih || "14 Haziran 2027") + ", " +
-                    (veri.etkinlik1Gun || "Cumartesi") + " - " + (veri.etkinlik1Saat || "19:00");
-                document.getElementById("etkinlik1Konum").textContent =
-                    veri.konum || "Sait Halim Paşa Yalısı";
+                document.getElementById("etkinlik1Detay").textContent = (veri.etkinlik1Tarih || "14 Haziran 2027") + ", " + (veri.etkinlik1Gun || "Cumartesi") + " - " + (veri.etkinlik1Saat || "19:00");
+                document.getElementById("etkinlik1Konum").textContent = veri.konum || "Sait Halim Paşa Yalısı";
 
                 document.getElementById("etkinlik2Baslik").textContent = veri.etkinlik2Baslik || "Düğün Töreni";
-                document.getElementById("etkinlik2Detay").textContent =
-                    (veri.etkinlik2Tarih || "15 Haziran 2027") + ", " +
-                    (veri.etkinlik2Gun || "Pazar") + " - " + (veri.etkinlik2Saat || "19:30");
-                document.getElementById("etkinlik2Konum").textContent =
-                    veri.konum || "Sait Halim Paşa Yalısı";
+                document.getElementById("etkinlik2Detay").textContent = (veri.etkinlik2Tarih || "15 Haziran 2027") + ", " + (veri.etkinlik2Gun || "Pazar") + " - " + (veri.etkinlik2Saat || "19:30");
+                document.getElementById("etkinlik2Konum").textContent = veri.konum || "Sait Halim Paşa Yalısı";
 
-                if (veri.haritaIframe) {
-                    document.getElementById("haritaIframe").src = veri.haritaIframe;
-                }
+                if (veri.haritaIframe) document.getElementById("haritaIframe").src = veri.haritaIframe;
 
                 document.getElementById("btnLcv").addEventListener("click", function () {
-                    const msg = veri.whatsappMesaj || "Düğününüze katılacağız!";
-                    window.open("https://wa.me/" + veri.whatsappNo + "?text=" + encodeURIComponent(msg), "_blank");
+                    window.open("https://wa.me/" + veri.whatsappNo + "?text=" + encodeURIComponent(veri.whatsappMesaj), "_blank");
                 });
-
                 document.getElementById("btnNavigate").addEventListener("click", function () {
-                    const adres = (veri.konum || "Sait Halim Paşa Yalısı") + ", " +
-                        (veri.ilce || "Yeniköy") + ", " + (veri.sehir || "İstanbul");
+                    const adres = (veri.konum || "Sait Halim Paşa Yalısı") + ", " + (veri.ilce || "Yeniköy") + ", " + (veri.sehir || "İstanbul");
                     window.open("https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(adres), "_blank");
                 });
 
-                if (veri.geriSayim) {
-                    window.geriSayimHedef = new Date(veri.geriSayim).getTime();
-                }
+                if (veri.geriSayim) window.geriSayimHedef = new Date(veri.geriSayim).getTime();
 
                 const marqueeText = veri.gelinAd + " & " + veri.damatAd + " • BİZ EVLENİYORUZ • ";
                 const marqueeWrapper = document.getElementById("marqueeWrapper");
@@ -912,9 +930,7 @@
                     const line = document.createElement("div");
                     line.className = "marquee-line";
                     let icerik = "";
-                    for (let j = 0; j < 15; j++) {
-                        icerik += `<span>${marqueeText}</span>`;
-                    }
+                    for (let j = 0; j < 15; j++) icerik += `<span>${marqueeText}</span>`;
                     line.innerHTML = icerik;
                     marqueeWrapper.appendChild(line);
                 }
@@ -922,21 +938,15 @@
 
             if (musteriKodu) {
                 fetch("/data/sn6/" + musteriKodu + ".json")
-                    .then(res => {
-                        if (!res.ok) throw new Error("Veri bulunamadı");
-                        return res.json();
-                    })
+                    .then(res => res.ok ? res.json() : Promise.reject())
                     .then(veri => sayfayiDoldur(veri))
-                    .catch(hata => {
-                        console.warn("JSON yüklenemedi, varsayılan kullanılıyor:", hata);
-                        sayfayiDoldur(varsayilan);
-                    });
+                    .catch(() => sayfayiDoldur(varsayilan));
             } else {
                 sayfayiDoldur(varsayilan);
             }
         })();
 
-        // ========== PARÇACIK & KALP ANİMASYONLARI ==========
+        // ========== PARÇACIK & KALP ==========
         (function () {
             const particlesContainer = document.getElementById('particlesContainer');
             const particleColors = ['particle', 'particle gold', 'particle rose'];
@@ -954,10 +964,8 @@
                 const duration = parseFloat(particle.style.animationDuration) + parseFloat(particle.style.animationDelay);
                 setTimeout(() => { if (particle.parentNode) particle.remove(); }, duration * 1000 + 500);
             }
-
             for (let i = 0; i < 25; i++) setTimeout(() => createParticle(), i * 300);
             setInterval(() => { if (!document.hidden) createParticle(); }, 2000);
-
 
         })();
 
@@ -970,32 +978,33 @@
             const mapPanel = document.getElementById('mapPanel');
             let countdownInterval;
 
-            // Kartı ekrana sığdır
+            // Kartı ekrana sığdır – sadece mainCard ölçeklenir
             function fitCardToScreen() {
-                cardContainer.style.transform = 'none';
-                cardContainer.style.transformOrigin = 'center center';
+                // Geçici olarak scale sıfırla, doğal boyutu al
+                mainCard.style.transform = 'none';
+                mainCard.style.transformOrigin = 'center center';
 
                 const containerRect = cardContainer.getBoundingClientRect();
-                const cardRect = mainCard.getBoundingClientRect();
+                const cardHeight = mainCard.offsetHeight;
+                const cardWidth = mainCard.offsetWidth;
 
                 const availableHeight = containerRect.height * 0.92;
                 const availableWidth = containerRect.width * 0.92;
 
-                let scaleY = 1, scaleX = 1;
-                if (cardRect.height > availableHeight) scaleY = availableHeight / cardRect.height;
-                if (cardRect.width > availableWidth) scaleX = availableWidth / cardRect.width;
+                let scaleY = availableHeight / cardHeight;
+                let scaleX = availableWidth / cardWidth;
 
                 let scale = Math.min(scaleY, scaleX, 1);
-                scale = Math.max(scale, 0.55);
+                scale = Math.max(scale, 0.5);      // en küçük %50
 
                 if (scale < 1) {
-                    cardContainer.style.transform = `scale(${scale})`;
+                    mainCard.style.transform = `scale(${scale})`;
                 } else {
-                    cardContainer.style.transform = 'none';
+                    mainCard.style.transform = 'none';
                 }
             }
 
-            // Açılış
+            // "Davetiyeyi Aç" tıklaması
             document.getElementById('tapBtn').addEventListener('click', () => {
                 bgMusic.play().catch(() => { });
                 introOverlay.classList.add('gone');
@@ -1005,9 +1014,10 @@
 
                 setTimeout(() => {
                     cardContainer.classList.add('revealed');
-                    fitCardToScreen();               // <-- ÖLÇEKLENDİR
+                    fitCardToScreen();               // ← kartı sığdır
                     startCountdown();
 
+                    // Ara ara kalp
                     setInterval(() => {
                         if (cardContainer.classList.contains('revealed') && !mapPanel.classList.contains('active') && Math.random() > 0.6) {
                             window.spawnHeart && spawnHeart();
@@ -1016,7 +1026,7 @@
                 }, 500);
             });
 
-            // Harita aç/kapa
+            // Harita aç / kapat
             document.getElementById('btnMap').addEventListener('click', () => {
                 cardContainer.classList.remove('revealed');
                 mapPanel.classList.add('active');
@@ -1024,7 +1034,7 @@
             document.getElementById('mapClose').addEventListener('click', () => {
                 mapPanel.classList.remove('active');
                 cardContainer.classList.add('revealed');
-                fitCardToScreen();               // <-- GERİ DÖNÜNCE ÖLÇ
+                fitCardToScreen();                   // ← haritadan dönünce tekrar sığdır
             });
 
             // Geri sayım
@@ -1046,7 +1056,7 @@
                 countdownInterval = setInterval(update, 1000);
             }
 
-            // Ekran dönüşü / boyut değişimi
+            // Ekran dönüşü / yeniden boyutlandırma
             window.addEventListener('resize', () => {
                 if (cardContainer.classList.contains('revealed')) fitCardToScreen();
             });

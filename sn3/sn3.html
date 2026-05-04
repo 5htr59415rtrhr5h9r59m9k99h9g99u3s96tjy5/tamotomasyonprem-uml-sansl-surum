@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Zeynep & Emre | Davetlisiniz</title>
+    <title>Düğün Davetiyesi</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
 </head>
+<link rel="icon" href="../logo.png">
 
 <body>
     <style>
@@ -41,7 +42,6 @@
             user-select: none;
         }
 
-        /* ============ ARKA PLAN FOTOĞRAF ============ */
         .bg-photo-wrapper {
             position: fixed;
             inset: 0;
@@ -64,7 +64,6 @@
                 linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8));
         }
 
-        /* ============ PARTİKÜLLER ============ */
         .particles {
             position: fixed;
             inset: 0;
@@ -104,7 +103,6 @@
             }
         }
 
-        /* ============ KAPI SAHNESİ ============ */
         .door-stage {
             position: fixed;
             inset: 0;
@@ -151,11 +149,7 @@
             top: 0;
             width: 50%;
             height: 100%;
-            background: linear-gradient(180deg,
-                    #5c4a3a 0%,
-                    #3a2e24 30%,
-                    #5c4a3a 60%,
-                    #2b1f16 100%);
+            background: linear-gradient(180deg, #5c4a3a 0%, #3a2e24 30%, #5c4a3a 60%, #2b1f16 100%);
             box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6), 0 10px 25px rgba(0, 0, 0, 0.5);
             transition: transform 1.5s cubic-bezier(0.68, -0.25, 0.27, 1.2);
             border: 2px solid rgba(212, 175, 55, 0.4);
@@ -262,7 +256,6 @@
             transition: opacity 0.5s;
         }
 
-        /* ============ ANA DAVETİYE KARTI ============ */
         .invitation-full {
             position: fixed;
             inset: 0;
@@ -275,7 +268,6 @@
             pointer-events: none;
             transform: scale(0.7);
             transition: all 1s cubic-bezier(0.68, -0.15, 0.27, 1.15);
-            /* JS ile scale ayarlanacak, bu nedenle transform'u JS yönetecek */
             will-change: transform, opacity;
         }
 
@@ -302,11 +294,8 @@
             width: 100%;
             max-width: 400px;
             text-align: center;
-            box-shadow:
-                0 25px 60px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.03);
             animation: cardGlow 4s ease-in-out infinite;
-            /* overflow-y: auto KALDIRILDI, taşma JS ile önlenecek */
             transform-origin: center center;
         }
 
@@ -324,12 +313,7 @@
 
         .gold-line {
             height: 1.5px;
-            background: linear-gradient(90deg,
-                    transparent 5%,
-                    var(--gold-dark) 20%,
-                    var(--gold-light) 50%,
-                    var(--gold-dark) 80%,
-                    transparent 95%);
+            background: linear-gradient(90deg, transparent 5%, var(--gold-dark) 20%, var(--gold-light) 50%, var(--gold-dark) 80%, transparent 95%);
             border-radius: 50%;
             margin: 0 auto;
         }
@@ -602,7 +586,6 @@
             font-size: 1rem;
         }
 
-        /* ============ HARİTA PANELİ ============ */
         .map-panel {
             position: fixed;
             inset: 0;
@@ -674,26 +657,22 @@
         .map-btn {
             width: 100%;
         }
-
-        /* Artık ekstra küçük ekranlar için ayrı media query'e gerek yok, clamp() her şeyi hallediyor */
     </style>
-    <!-- Arka Plan Partikülleri -->
+
     <div class="particles" id="particles"></div>
 
-    <!-- Arka Plan Fotoğrafı (blurlu) -->
     <div class="bg-photo-wrapper">
-        <img src="cift-fotografi.jpg" alt="arka plan" class="bg-photo">
+        <img src="cift.jpg" alt="arka plan" class="bg-photo">
         <div class="bg-overlay"></div>
     </div>
 
-    <!-- Müzik -->
     <audio id="bgMusic" loop>
         <source src="sn3.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- ============ KAPI SAHNESİ ============ -->
+    <!-- KAPI SAHNESİ -->
     <div class="door-stage" id="doorStage">
-        <div class="door-header-names">Zeynep & Emre</div>
+        <div class="door-header-names" id="doorNames"> </div>
 
         <div class="door-frame">
             <div class="door door-left" id="doorLeft">
@@ -710,10 +689,10 @@
             </div>
         </div>
 
-        <div class="door-hint-box">🚪 Dokun ve Aç</div>
+        <div class="door-hint-box" id="doorHint">🚪 Dokun ve Aç</div>
     </div>
 
-    <!-- ============ ANA DAVETİYE KARTI ============ -->
+    <!-- ANA DAVETİYE KARTI -->
     <div class="invitation-full" id="invitationFull">
         <div class="luxury-card" id="luxuryCard">
             <div class="gold-line gold-line-top"></div>
@@ -721,29 +700,33 @@
             <div class="couple-photo-frame">
                 <div class="frame-outer">
                     <div class="frame-inner">
-                        <img src="cift.jpg" alt="Zeynep ve Emre" class="couple-img">
+                        <img src="cift.jpg" alt="Çift" class="couple-img">
                     </div>
                 </div>
             </div>
 
             <div class="card-header">
-                <p class="card-subtitle">BİZ EVLENİYORUZ</p>
-                <h1 class="card-names">Zeynep <span class="ampersand">&</span> Emre</h1>
+                <p class="card-subtitle" id="kartBaslik"> </p>
+                <h1 class="card-names">
+                    <span id="gelinAd"> </span>
+                    <span class="ampersand">&</span>
+                    <span id="damatAd"> </span>
+                </h1>
             </div>
 
             <div class="card-details">
                 <div class="detail-date">
-                    <span class="d-day">15</span>
+                    <span class="d-day" id="gunSayisi">15</span>
                     <div class="d-my">
-                        <span>HAZİRAN</span>
-                        <span>2027</span>
+                        <span id="ayAdi">HAZİRAN</span>
+                        <span id="yil">2027</span>
                     </div>
                 </div>
                 <div class="detail-separator">✦</div>
                 <div class="detail-location">
-                    <strong>SAİT HALİM PAŞA YALISI</strong>
-                    <p>Yeniköy, İstanbul</p>
-                    <p class="detail-time">🕗 19:00</p>
+                    <strong id="konum"> </strong>
+                    <p id="ilceSehir"> </p>
+                    <p class="detail-time" id="saat">🕗 19:00</p>
                 </div>
             </div>
 
@@ -758,12 +741,12 @@
             <div class="parents">
                 <div class="parent-group">
                     <span class="parent-label">Gelin Ailesi</span>
-                    <span class="parent-names">Nurten & Mehmet Demir</span>
+                    <span class="parent-names" id="gelinAnneBaba"> </span>
                 </div>
                 <div class="parent-ampersand">&</div>
                 <div class="parent-group">
                     <span class="parent-label">Damat Ailesi</span>
-                    <span class="parent-names">Hatice & Ahmet Yılmaz</span>
+                    <span class="parent-names" id="damatAnneBaba"> </span>
                 </div>
             </div>
 
@@ -780,21 +763,113 @@
         </div>
     </div>
 
-    <!-- ============ HARİTA PANELİ ============ -->
+    <!-- HARİTA PANELİ -->
     <div class="map-panel" id="mapPanel">
         <div class="map-card" id="mapCard">
             <button class="map-back-btn" id="mapClose">↩️ Davetiyeye Dön</button>
-            <iframe
-                src="https://maps.google.com/maps?q=Sait+Halim+Pa%C5%9Fa+Yal%C4%B1s%C4%B1+Yenik%C3%B6y+%C4%B0stanbul&output=embed"
-                class="map-iframe" allowfullscreen loading="lazy"></iframe>
+            <iframe id="haritaIframe" class="map-iframe" src="" allowfullscreen loading="lazy"></iframe>
             <button id="btnNavigate" class="btn btn-primary map-btn">
                 <span class="btn-icon">🧭</span> ADRESE GİT
             </button>
         </div>
     </div>
 
-    <script>document.addEventListener('DOMContentLoaded', () => {
-            // ============ ELEMENTLER ============
+    <script>
+        // ========== DİNAMİK VERİ YÜKLEME ==========
+        (function () {
+            const params = new URLSearchParams(window.location.search);
+            const musteriKodu = params.get("kisi");
+            console.log("Müşteri kodu (sn3):", musteriKodu);
+
+            const varsayilan = {
+                gelinAd: "Zeynep",
+                damatAd: "Emre",
+                gelinAnne: "Nurten",
+                gelinBaba: "Mehmet",
+                damatAnne: "Hatice",
+                damatBaba: "Ahmet",
+                tarih: "15 Haziran 2027",
+                gun: "Salı",
+                saat: "19:00",
+                konum: "SAİT HALİM PAŞA YALISI",
+                ilce: "Yeniköy",
+                sehir: "İstanbul",
+                haritaIframe: "https://maps.google.com/maps?q=Sait+Halim+Pa%C5%9Fa+Yal%C4%B1s%C4%B1+Yenik%C3%B6y+%C4%B0stanbul&output=embed",
+                haritaAdres: "Sait Halim Paşa Yalısı, Yeniköy",
+                whatsappNo: "905386082155",
+                whatsappMesaj: "Merhaba, düğününüze katılacağımızı bildirmek istedik! 🎉",
+                geriSayim: "2027-06-15T19:00:00",
+                kartBaslik: "BİZ EVLENİYORUZ",
+                doorHint: "🚪 Dokun ve Aç"
+            };
+
+            function sayfayiDoldur(veri) {
+                console.log("Sayfa dolduruluyor (sn3):", veri);
+
+                document.getElementById("doorNames").textContent = veri.gelinAd + " & " + veri.damatAd;
+                document.getElementById("doorHint").textContent = veri.doorHint || "🚪 Dokun ve Aç";
+
+                document.getElementById("kartBaslik").textContent = veri.kartBaslik || "BİZ EVLENİYORUZ";
+                document.getElementById("gelinAd").textContent = veri.gelinAd;
+                document.getElementById("damatAd").textContent = veri.damatAd;
+
+                document.getElementById("gelinAnneBaba").textContent = veri.gelinAnne + " & " + veri.gelinBaba;
+                document.getElementById("damatAnneBaba").textContent = veri.damatAnne + " & " + veri.damatBaba;
+
+                document.getElementById("konum").textContent = veri.konum;
+                document.getElementById("ilceSehir").textContent = veri.ilce + ", " + veri.sehir;
+                document.getElementById("saat").textContent = "🕗 " + veri.saat;
+
+                // Tarih detayları: gün, ay, yıl
+                if (veri.tarih) {
+                    const parts = veri.tarih.split(" ");
+                    if (parts.length >= 3) {
+                        document.getElementById("gunSayisi").textContent = parts[0];
+                        document.getElementById("ayAdi").textContent = parts[1];
+                        document.getElementById("yil").textContent = parts[2];
+                    }
+                }
+
+                if (veri.haritaIframe) {
+                    document.getElementById("haritaIframe").src = veri.haritaIframe;
+                }
+
+                // WhatsApp
+                const btnLcv = document.getElementById("btnLcv");
+                btnLcv.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    window.open("https://wa.me/" + veri.whatsappNo + "?text=" + encodeURIComponent(veri.whatsappMesaj), "_blank");
+                });
+
+                // Navigasyon
+                document.getElementById("btnNavigate").addEventListener("click", function () {
+                    window.open("https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(veri.konum + ", " + veri.ilce + ", " + veri.sehir), "_blank");
+                });
+
+                // Geri sayım
+                if (veri.geriSayim) {
+                    window.geriSayimHedef = new Date(veri.geriSayim).getTime();
+                }
+            }
+
+            if (musteriKodu) {
+                fetch("/data/sn3/" + musteriKodu + ".json")
+                    .then(res => {
+                        if (!res.ok) throw new Error("Veri bulunamadı");
+                        return res.json();
+                    })
+                    .then(veri => sayfayiDoldur(veri))
+                    .catch(hata => {
+                        console.warn("JSON yüklenemedi, varsayılan kullanılıyor:", hata);
+                        sayfayiDoldur(varsayilan);
+                    });
+            } else {
+                sayfayiDoldur(varsayilan);
+            }
+        })();
+
+        // ========== ANA İŞLEVLER ==========
+        document.addEventListener('DOMContentLoaded', () => {
             const doorStage = document.getElementById('doorStage');
             const doorLeft = document.getElementById('doorLeft');
             const doorRight = document.getElementById('doorRight');
@@ -805,23 +880,16 @@
             const mapClose = document.getElementById('mapClose');
             const particlesContainer = document.getElementById('particles');
             const music = document.getElementById('bgMusic');
-            const btnLcv = document.getElementById('btnLcv');
             const btnMap = document.getElementById('btnMap');
-            const btnNavigate = document.getElementById('btnNavigate');
 
             let isRevealed = false;
-            let musicStarted = false;
-            let fitScale = 1;
-            let resizeDebounce = null;
 
-            // ============ PARTİKÜL OLUŞTURUCU ============
+            // Partiküller
             const particleImages = ['yildiz1.png', 'yildiz2.png', 'yildiz3.png', 'yildiz4.png'];
-
             function createParticle() {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
-                const randomImg = particleImages[Math.floor(Math.random() * particleImages.length)];
-                particle.style.backgroundImage = `url('${randomImg}')`;
+                particle.style.backgroundImage = `url('${particleImages[Math.floor(Math.random() * particleImages.length)]}')`;
                 particle.style.left = Math.random() * 100 + '%';
                 particle.style.bottom = '-40px';
                 const size = Math.random() * 20 + 15;
@@ -829,192 +897,96 @@
                 particle.style.height = size + 'px';
                 particle.style.animationDuration = (Math.random() * 8 + 6) + 's';
                 particlesContainer.appendChild(particle);
-
-                particle.addEventListener('animationend', () => {
-                    particle.remove();
-                });
+                particle.addEventListener('animationend', () => particle.remove());
             }
+            setInterval(() => {
+                if (particlesContainer.children.length < 35) createParticle();
+            }, 700);
+            for (let i = 0; i < 12; i++) setTimeout(() => createParticle(), i * 350);
 
-            function startParticles() {
-                setInterval(() => {
-                    if (particlesContainer.children.length < 35) {
-                        createParticle();
-                    }
-                }, 700);
-                for (let i = 0; i < 12; i++) {
-                    setTimeout(() => createParticle(), i * 350);
-                }
-            }
-
-            startParticles();
-
-            // ============ EKRANA SIĞDIRMA FONKSİYONU ============
+            // Ekrana sığdırma
             function fitElementToScreen(element, containerSelector) {
                 const container = document.querySelector(containerSelector);
                 if (!element || !container) return;
-
-                // Geçici olarak scale'i sıfırla
                 element.style.transform = 'none';
                 element.style.transformOrigin = 'center center';
-
                 const rect = element.getBoundingClientRect();
-                const elHeight = rect.height;
-                const elWidth = rect.width;
-
-                const containerRect = container.getBoundingClientRect();
-                const availableHeight = containerRect.height * 0.92; // %8 marj
-                const availableWidth = containerRect.width * 0.9;
-
-                let scaleY = 1;
-                let scaleX = 1;
-
-                if (elHeight > availableHeight) {
-                    scaleY = availableHeight / elHeight;
-                }
-                if (elWidth > availableWidth) {
-                    scaleX = availableWidth / elWidth;
-                }
-
-                let scale = Math.min(scaleY, scaleX, 1);
-                scale = Math.max(scale, 0.5); // okunabilirlik alt sınırı
-
-                if (scale < 1) {
-                    element.style.transform = `scale(${scale})`;
-                    element.dataset.appliedScale = scale;
-                } else {
-                    element.style.transform = 'none';
-                    element.dataset.appliedScale = '1';
-                }
+                const availableHeight = container.getBoundingClientRect().height * 0.92;
+                const availableWidth = container.getBoundingClientRect().width * 0.9;
+                let scale = Math.min(availableHeight / rect.height, availableWidth / rect.width, 1);
+                scale = Math.max(scale, 0.5);
+                element.style.transform = scale < 1 ? `scale(${scale})` : 'none';
             }
 
-            function fitCurrentActiveCard() {
-                // Hangi panel aktifse onu ölçekle
-                if (invitationFull.classList.contains('revealed') && !invitationFull.classList.contains('hidden')) {
-                    fitElementToScreen(luxuryCard, '.invitation-full');
-                } else if (mapPanel.classList.contains('active')) {
-                    fitElementToScreen(mapCard, '.map-panel');
-                }
-            }
-
-            function handleResize() {
-                clearTimeout(resizeDebounce);
-                resizeDebounce = setTimeout(() => {
-                    fitCurrentActiveCard();
-                }, 150);
-            }
-
-            window.addEventListener('resize', handleResize);
-            window.addEventListener('orientationchange', () => {
-                setTimeout(fitCurrentActiveCard, 300);
-            });
-
-            // ============ KAPI AÇILIŞI ============
+            // Kapı açılışı
             function openDoors() {
                 if (isRevealed) return;
                 isRevealed = true;
-
                 doorLeft.classList.add('open');
                 doorRight.classList.add('open');
-
-                setTimeout(() => {
-                    if (!musicStarted) {
-                        music.play().then(() => {
-                            musicStarted = true;
-                        }).catch(() => { });
-                    }
-                }, 1200);
-
-                setTimeout(() => {
-                    doorStage.classList.add('dissolved');
-                }, 900);
-
+                setTimeout(() => music.play().catch(() => { }), 1200);
+                setTimeout(() => doorStage.classList.add('dissolved'), 900);
                 setTimeout(() => {
                     invitationFull.classList.add('revealed');
-                    // Davetiye görünür olduktan sonra ekrana sığdır
-                    setTimeout(fitCurrentActiveCard, 400);
+                    setTimeout(() => fitElementToScreen(luxuryCard, '.invitation-full'), 400);
                 }, 1400);
             }
 
-            doorStage.addEventListener('click', (e) => {
-                openDoors();
-            });
+            doorStage.addEventListener('click', openDoors);
 
-            // ============ HARİTA GÖSTER/GİZLE ============
-            function showMap() {
+            // Harita göster/gizle
+            btnMap.addEventListener('click', () => {
                 invitationFull.classList.add('hidden');
                 invitationFull.classList.remove('revealed');
                 mapPanel.classList.add('active');
-                // Harita panelini ekrana sığdır
-                setTimeout(fitCurrentActiveCard, 200);
-            }
+                setTimeout(() => fitElementToScreen(mapCard, '.map-panel'), 200);
+            });
 
-            function hideMap() {
+            mapClose.addEventListener('click', () => {
                 mapPanel.classList.remove('active');
                 invitationFull.classList.remove('hidden');
                 invitationFull.classList.add('revealed');
-                // Davetiye kartını tekrar sığdır
-                setTimeout(fitCurrentActiveCard, 200);
-            }
-
-            btnMap.addEventListener('click', showMap);
-            mapClose.addEventListener('click', hideMap);
+                setTimeout(() => fitElementToScreen(luxuryCard, '.invitation-full'), 200);
+            });
 
             mapPanel.addEventListener('click', (e) => {
-                if (e.target === mapPanel) {
-                    hideMap();
-                }
+                if (e.target === mapPanel) mapClose.click();
             });
 
-            btnNavigate.addEventListener('click', () => {
-                window.open('https://maps.app.goo.gl/SaitHalimPasaLink', '_blank');
-            });
-
-            // ============ WHATSAPP KATILIM ============
-            btnLcv.addEventListener('click', () => {
-                const phone = '905386082155';
-                const message = 'Merhaba, düğününüze katılacağımızı bildirmek istedik! 🎉';
-                window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
-            });
-
-            // ============ GERİ SAYIM ============
+            // Geri sayım
             function startCountdown() {
-                const target = new Date(2027, 5, 15, 19, 0, 0).getTime();
-
-                function update() {
-                    const now = new Date().getTime();
-                    const diff = target - now;
-
-                    if (diff > 0) {
-                        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                        const hours = Math.floor((diff % 86400000) / 3600000);
-                        const minutes = Math.floor((diff % 3600000) / 60000);
-
-                        document.getElementById('days').innerText = days.toString().padStart(2, '0');
-                        document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
-                        document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
-                    } else {
+                const target = window.geriSayimHedef || new Date("2027-06-15T19:00:00").getTime();
+                const update = () => {
+                    const diff = target - Date.now();
+                    if (diff <= 0) {
                         document.getElementById('days').innerText = '00';
                         document.getElementById('hours').innerText = '00';
                         document.getElementById('minutes').innerText = '00';
+                        return;
                     }
-                }
-
+                    document.getElementById('days').innerText = Math.floor(diff / 86400000).toString().padStart(2, '0');
+                    document.getElementById('hours').innerText = Math.floor((diff % 86400000) / 3600000).toString().padStart(2, '0');
+                    document.getElementById('minutes').innerText = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
+                };
                 update();
                 setInterval(update, 60000);
             }
 
-            startCountdown();
-
-            // ============ KLAVYE DESTEĞİ ============
-            document.addEventListener('keydown', (e) => {
-                if (e.code === 'Space' || e.code === 'Enter') {
-                    e.preventDefault();
-                    if (!isRevealed) {
-                        openDoors();
-                    }
-                }
+            window.addEventListener('resize', () => {
+                if (invitationFull.classList.contains('revealed')) fitElementToScreen(luxuryCard, '.invitation-full');
+                if (mapPanel.classList.contains('active')) fitElementToScreen(mapCard, '.map-panel');
             });
-        });</script>
+
+            window.addEventListener('orientationchange', () => {
+                setTimeout(() => {
+                    if (invitationFull.classList.contains('revealed')) fitElementToScreen(luxuryCard, '.invitation-full');
+                    if (mapPanel.classList.contains('active')) fitElementToScreen(mapCard, '.map-panel');
+                }, 300);
+            });
+
+            startCountdown();
+        });
+    </script>
 </body>
 
 </html>

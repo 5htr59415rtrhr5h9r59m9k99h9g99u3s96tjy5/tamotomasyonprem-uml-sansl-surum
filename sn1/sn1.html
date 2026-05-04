@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Düğün Davetiyesi | Emre & Zeynep</title>
+    <title>Düğün Davetiyesi</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
 </head>
+<link rel="icon" href="../logo.png">
 
 <body>
     <style>
@@ -154,7 +155,6 @@
             transform: translateY(0);
         }
 
-        /* DİNAMİK ALAN (DAVETİYE <-> HARİTA GEÇİŞİ) - YAVAŞ ANİMASYON (1.4s) */
         .dynamic-area {
             margin-bottom: 20px;
         }
@@ -188,7 +188,6 @@
             margin-bottom: 6px;
         }
 
-        /* KART İÇİ ÖĞELER */
         .wedding-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: 0.85rem;
@@ -305,7 +304,6 @@
             opacity: 0.8;
         }
 
-        /* BUTONLAR */
         .actions {
             display: flex;
             flex-direction: column;
@@ -352,7 +350,6 @@
             background: #f6efe7;
         }
 
-        /* HARITA İÇİ */
         .map-iframe-wrapper {
             width: 100%;
             padding: 8px;
@@ -366,7 +363,6 @@
             display: block;
         }
 
-        /* YAPRAK EFFECT */
         #leaf-container {
             position: fixed;
             top: 0;
@@ -401,7 +397,6 @@
             }
         }
 
-        /* MOBİL UYUM */
         @media (max-height: 680px) {
             .invitation-card {
                 padding: 16px 18px;
@@ -427,6 +422,7 @@
             }
         }
     </style>
+
     <audio id="bgMusic" loop preload="auto">
         <source src="sn1.mp3" type="audio/mpeg">
     </audio>
@@ -435,8 +431,8 @@
     <!-- GİRİŞ EKRANI -->
     <div class="intro-screen" id="introScreen">
         <div class="intro-content">
-            <h1 class="intro-names">Emre & Zeynep</h1>
-            <p class="intro-invite">Düğünümüze Davetlisiniz</p>
+            <h1 class="intro-names" id="introNames"> </h1>
+            <p class="intro-invite" id="davetMesaji"> </p>
             <div class="intro-hint">✉️ DAVETİYEYİ AÇIN</div>
         </div>
     </div>
@@ -444,7 +440,7 @@
     <!-- KAPI SAHNESİ -->
     <div class="door-container" id="doorContainer">
         <div class="door top-door">
-            <div class="seal">E & Z</div>
+            <div class="seal" id="sealText">E & Z</div>
         </div>
         <div class="door bottom-door"></div>
     </div>
@@ -453,36 +449,35 @@
     <div class="invitation-container">
         <div class="invitation-card" id="invitationCard">
             <div class="dynamic-area">
-                <!-- Normal davetiye içeriği -->
                 <div class="invite-content" id="inviteContent">
-                    <h2 class="wedding-title">EVLİLİK DAVETİYESİ</h2>
+                    <h2 class="wedding-title" id="kartBaslik"> </h2>
                     <div class="couple-names">
-                        <span>Zeynep Demir</span>
+                        <span id="gelinAd"> </span>
                         <span class="amp">&</span>
-                        <span>Emre Yılmaz</span>
+                        <span id="damatAd"> </span>
                     </div>
                     <div class="parents-row">
                         <div class="parent-box">
                             <small>GELİNİN AİLESİ</small>
-                            <p>Nurten & Mehmet Demir</p>
-                            <div class="parent-contact"><a href="tel:05550000001">📞 Ara</a></div>
+                            <p id="gelinAnneBaba"> </p>
+                            <div class="parent-contact"><a id="gelinTelLink" href="#">📞 Ara</a></div>
                         </div>
                         <div class="parent-box">
                             <small>DAMADIN AİLESİ</small>
-                            <p>Hatice & Ahmet Yılmaz</p>
-                            <div class="parent-contact"><a href="tel:05550000002">📞 Ara</a></div>
+                            <p id="damatAnneBaba"> </p>
+                            <div class="parent-contact"><a id="damatTelLink" href="#">📞 Ara</a></div>
                         </div>
                     </div>
                     <div class="info-grid">
                         <div class="info-item">
                             <strong>TARİH & SAAT</strong>
-                            <p>15 Haziran 2027</p>
-                            <p>Salı - 19:00</p>
+                            <p id="tarih"> </p>
+                            <p id="gunSaat"> </p>
                         </div>
                         <div class="info-item">
                             <strong>KONUM</strong>
-                            <p>Sait Halim Paşa Yalısı</p>
-                            <p>Bebek / İstanbul</p>
+                            <p id="konum"> </p>
+                            <p id="ilceSehir"> </p>
                         </div>
                     </div>
                     <div class="mini-timer">
@@ -493,46 +488,134 @@
                     </div>
                 </div>
 
-                <!-- HARİTA İÇERİĞİ (başlangıçta gizli) -->
                 <div class="map-content" id="mapContent">
                     <div class="map-iframe-wrapper">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3007.418706306509!2d29.0559384154164!3d41.11283317928929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab5c5c7db6a41%3A0x8670a5c43d9203!2sSait%20Halim%20Pa%C5%9Fa%20Yal%C4%B1s%C4%B1!5e0!3m2!1str!2str!4v1689600000000!5m2!1str!2str"
-                            allowfullscreen="" loading="lazy" title="Düğün Konumu Haritası">
-                        </iframe>
+                        <iframe id="haritaIframe" src="" allowfullscreen="" loading="lazy"
+                            title="Düğün Konumu Haritası"></iframe>
                     </div>
-                    <p style="font-size: 0.7rem; text-align: center; padding: 8px 0 4px; color: #9b7b5e;">📍 Sait Halim
-                        Paşa Yalısı, Bebek/İstanbul</p>
+                    <p style="font-size: 0.7rem; text-align: center; padding: 8px 0 4px; color: #9b7b5e;"
+                        id="haritaAdres">📍 </p>
                 </div>
             </div>
 
             <div class="actions">
-                <!-- KATILIM BİLDİR butonu: direkt WhatsApp'a yönlendirir, form yok -->
                 <button id="btnLcv" class="btn-lcv">📩 KATILIM BİLDİR</button>
                 <button id="btnMap" class="btn-map">🗺️ HARİTADA GÖRÜNTÜLE</button>
             </div>
         </div>
     </div>
 
-    <script>document.addEventListener('DOMContentLoaded', () => {
+    <script>
+        // ==================== DİNAMİK VERİ YÜKLEME ====================
+        (function () {
+            const params = new URLSearchParams(window.location.search);
+            const musteriKodu = params.get("kisi");
+
+            console.log("Müşteri kodu:", musteriKodu);
+
+            // Varsayılan veri (kisi parametresi yoksa)
+            const varsayilan = {
+                gelinAd: "Zeynep",
+                damatAd: "Emre",
+                gelinAnne: "Nurten",
+                gelinBaba: "Mehmet",
+                damatAnne: "Hatice",
+                damatBaba: "Ahmet",
+                tarih: "15 Haziran 2027",
+                gun: "Salı",
+                saat: "19:00",
+                konum: "Sait Halim Paşa Yalısı",
+                ilce: "Bebek",
+                sehir: "İstanbul",
+                gelinTel: "05550000001",
+                damatTel: "05550000002",
+                haritaIframe: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3007.418706306509!2d29.0559384154164!3d41.11283317928929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab5c5c7db6a41%3A0x8670a5c43d9203!2sSait%20Halim%20Pa%C5%9Fa%20Yal%C4%B1s%C4%B1!5e0!3m2!1str!2str!4v1689600000000!5m2!1str!2str",
+                haritaAdres: "Sait Halim Paşa Yalısı, Bebek/İstanbul",
+                whatsappNo: "905386082155",
+                whatsappMesaj: "Düğününüze katılacağım.",
+                geriSayim: "2027-06-15T19:00:00",
+                davetMesaji: "Düğünümüze Davetlisiniz",
+                kartBaslik: "EVLİLİK DAVETİYESİ"
+            };
+
+            function sayfayiDoldur(veri) {
+                console.log("Sayfa dolduruluyor:", veri);
+
+                document.getElementById("introNames").textContent = veri.gelinAd + " & " + veri.damatAd;
+                document.getElementById("davetMesaji").textContent = veri.davetMesaji || "Düğünümüze Davetlisiniz";
+                document.getElementById("sealText").textContent = veri.gelinAd.charAt(0) + " & " + veri.damatAd.charAt(0);
+                document.getElementById("gelinAd").textContent = veri.gelinAd;
+                document.getElementById("damatAd").textContent = veri.damatAd;
+                document.getElementById("gelinAnneBaba").textContent = veri.gelinAnne + " & " + veri.gelinBaba;
+                document.getElementById("damatAnneBaba").textContent = veri.damatAnne + " & " + veri.damatBaba;
+                document.getElementById("tarih").textContent = veri.tarih;
+                document.getElementById("gunSaat").textContent = veri.gun + " - " + veri.saat;
+                document.getElementById("konum").textContent = veri.konum;
+                document.getElementById("ilceSehir").textContent = veri.ilce + " / " + veri.sehir;
+                document.getElementById("kartBaslik").textContent = veri.kartBaslik || "EVLİLİK DAVETİYESİ";
+
+                document.getElementById("gelinTelLink").href = "tel:" + veri.gelinTel;
+                document.getElementById("damatTelLink").href = "tel:" + veri.damatTel;
+
+                if (veri.haritaIframe) {
+                    document.getElementById("haritaIframe").src = veri.haritaIframe;
+                }
+                document.getElementById("haritaAdres").textContent = "📍 " + veri.haritaAdres;
+
+                // WhatsApp butonuna özel mesaj ve numara
+                const btnLcv = document.getElementById("btnLcv");
+                btnLcv.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const msg = veri.whatsappMesaj || "Düğününüze katılacağım.";
+                    window.open("https://wa.me/" + veri.whatsappNo + "?text=" + encodeURIComponent(msg), "_blank");
+                });
+
+                // Geri sayım hedefini ayarla (global değişken)
+                if (veri.geriSayim) {
+                    window.geriSayimHedef = new Date(veri.geriSayim).getTime();
+                } else {
+                    window.geriSayimHedef = new Date("2027-06-15T19:00:00").getTime();
+                }
+            }
+
+            if (musteriKodu) {
+                fetch("/data/sn1/" + musteriKodu + ".json")
+                    .then(function (res) {
+                        if (!res.ok) throw new Error("Dosya bulunamadı (HTTP " + res.status + ")");
+                        return res.json();
+                    })
+                    .then(function (veri) {
+                        console.log("JSON başarıyla alındı:", veri);
+                        sayfayiDoldur(veri);
+                    })
+                    .catch(function (hata) {
+                        console.warn("JSON yüklenemedi, varsayılan veri kullanılıyor:", hata);
+                        sayfayiDoldur(varsayilan);
+                    });
+            } else {
+                console.log("kisi parametresi yok, varsayılan gösteriliyor.");
+                sayfayiDoldur(varsayilan);
+            }
+        })();
+
+        // ==================== KULLANICI ETKİLEŞİMİ VE SAYAÇ ====================
+        document.addEventListener('DOMContentLoaded', function () {
             const introScreen = document.getElementById('introScreen');
             const doorContainer = document.getElementById('doorContainer');
             const invitationCard = document.getElementById('invitationCard');
             const bgMusic = document.getElementById('bgMusic');
-            const btnLcv = document.getElementById('btnLcv');
             const btnMap = document.getElementById('btnMap');
 
-            // Giriş ekranı tıklanınca: müzik çal, kapıyı aç, sonra kapı container'ını kaldır
-            introScreen.addEventListener('click', () => {
-                bgMusic.play().catch(e => console.log("Müzik için etkileşim gerekli", e));
+            // Giriş ekranına tıklama → kapı açılışı ve davetiye görünümü
+            introScreen.addEventListener('click', function () {
+                bgMusic.play().catch(function (e) { });
                 introScreen.style.opacity = '0';
-                setTimeout(() => {
+                setTimeout(function () {
                     introScreen.style.display = 'none';
                     doorContainer.style.display = 'block';
-                    setTimeout(() => {
+                    setTimeout(function () {
                         doorContainer.classList.add('open');
-                        // Kapı animasyonu bitince container'ı tamamen kaldır (buton tıklama engeli yok)
-                        setTimeout(() => {
+                        setTimeout(function () {
                             doorContainer.style.display = 'none';
                             invitationCard.classList.add('show');
                             createLeaves();
@@ -542,33 +625,21 @@
                 }, 1000);
             });
 
-            // KATILIM BİLDİR butonu: direkt WhatsApp'a yönlendir, isim sorma
-            btnLcv.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const phoneNumber = "905386082155"; // 0538 608 2155 uluslararası format
-                const message = "Düğününüze katılacağım.";
-                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-                window.open(whatsappUrl, '_blank');
-            });
-
-            // HARİTA butonu: yumuşak ve yavaş geçiş (toggle)
-            btnMap.addEventListener('click', (e) => {
+            // Harita / Davetiye geçişi
+            btnMap.addEventListener('click', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
                 invitationCard.classList.toggle('map-active');
-                if (invitationCard.classList.contains('map-active')) {
-                    btnMap.innerHTML = '📄 DAVETİYEYİ GÖSTER';
-                } else {
-                    btnMap.innerHTML = '🗺️ HARİTADA GÖRÜNTÜLE';
-                }
+                btnMap.innerHTML = invitationCard.classList.contains('map-active')
+                    ? '📄 DAVETİYEYİ GÖSTER'
+                    : '🗺️ HARİTADA GÖRÜNTÜLE';
             });
 
             // Yaprak animasyonu
             function createLeaves() {
                 const container = document.getElementById('leaf-container');
                 const icons = ['🍂', '🍃', '🌿'];
-                setInterval(() => {
+                setInterval(function () {
                     const leaf = document.createElement('div');
                     leaf.className = 'leaf';
                     leaf.innerText = icons[Math.floor(Math.random() * icons.length)];
@@ -576,13 +647,15 @@
                     leaf.style.animationDuration = (Math.random() * 4 + 5) + 's';
                     leaf.style.fontSize = (Math.random() * 12 + 16) + 'px';
                     container.appendChild(leaf);
-                    setTimeout(() => leaf.remove(), 8000);
+                    setTimeout(function () { leaf.remove(); }, 8000);
                 }, 650);
             }
 
-            // Geri sayım sayacı (15 Haziran 2027, 19:00)
+            // Geri sayım sayacı
             function startCountdown() {
-                const target = new Date(2027, 5, 15, 19, 0, 0).getTime();
+                // Eğer window.geriSayimHedef tanımlı değilse varsayılan
+                const target = window.geriSayimHedef || new Date("2027-06-15T19:00:00").getTime();
+
                 const daysSpan = document.getElementById('days');
                 const hoursSpan = document.getElementById('hours');
                 const minutesSpan = document.getElementById('minutes');
@@ -598,19 +671,16 @@
                         secondsSpan.innerText = "00";
                         return;
                     }
-                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((diff % (86400000)) / (3600000));
-                    const minutes = Math.floor((diff % 3600000) / 60000);
-                    const seconds = Math.floor((diff % 60000) / 1000);
-                    daysSpan.innerText = days.toString().padStart(2, '0');
-                    hoursSpan.innerText = hours.toString().padStart(2, '0');
-                    minutesSpan.innerText = minutes.toString().padStart(2, '0');
-                    secondsSpan.innerText = seconds.toString().padStart(2, '0');
+                    daysSpan.innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                    hoursSpan.innerText = Math.floor((diff % 86400000) / 3600000).toString().padStart(2, '0');
+                    minutesSpan.innerText = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
+                    secondsSpan.innerText = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
                 }
                 update();
                 setInterval(update, 1000);
             }
-        });</script>
+        });
+    </script>
 </body>
 
 </html>

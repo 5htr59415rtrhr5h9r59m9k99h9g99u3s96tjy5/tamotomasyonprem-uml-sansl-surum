@@ -4,14 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Düğün Davetiyesi | Mete & Elif</title>
+    <title>Düğün Davetiyesi</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
 </head>
+<link rel="icon" href="../logo.png">
 
 <body>
     <style>
@@ -33,8 +34,6 @@
         html,
         body {
             width: 100%;
-            height: 100%;
-            /* mobil tarayıcı adres çubuğu için dinamik yükseklik */
             height: 100dvh;
             overflow: hidden;
             font-family: 'Montserrat', sans-serif;
@@ -186,7 +185,7 @@
             opacity: 1;
         }
 
-        /* ========== DAVETİYE KARTI VE ARKA GLOW ========== */
+        /* ========== DAVETİYE KARTI ========== */
         .invitation-wrapper {
             position: relative;
             width: 100%;
@@ -195,7 +194,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* JS tarafından scale uygulanacak */
             will-change: transform;
             transform-origin: center center;
         }
@@ -480,7 +478,6 @@
             background: var(--light-bg);
         }
 
-        /* Navigasyon butonu */
         .nav-action {
             margin-top: clamp(8px, 1.5vh, 12px);
             display: flex;
@@ -504,7 +501,6 @@
             background: #0b4715;
         }
 
-        /* ========== EKSTRA KÜÇÜK EKRANLAR İÇİN MEDIA QUERY ========== */
         @media (max-height: 600px) {
             .card {
                 padding: 12px 14px;
@@ -570,6 +566,7 @@
             }
         }
     </style>
+
     <audio id="bgMusic" loop preload="auto">
         <source src="sn2.mp3" type="audio/mpeg">
     </audio>
@@ -583,53 +580,53 @@
                     stroke="#e9f5db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
             <div class="rotating-names">
-                <span class="name-top">METE</span>
-                <span class="name-bottom">ELİF</span>
+                <span class="name-top" id="introGelinAd"> </span>
+                <span class="name-bottom" id="introDamatAd"> </span>
             </div>
         </div>
         <div class="hint-box">
-            <span class="intro-hint">DOKUN VE AÇ</span>
+            <span class="intro-hint" id="introHint">DOKUN VE AÇ</span>
         </div>
     </div>
 
     <!-- YEŞİL IŞIK HÜZMESİ -->
     <div id="lightOverlay"></div>
 
-    <!-- DAVETİYE KARTI + ARKA GLOW -->
+    <!-- DAVETİYE KARTI -->
     <div class="invitation-wrapper" id="invitationWrapper">
         <div class="card-glow" id="cardGlow"></div>
 
         <div class="card" id="invitationCard">
             <!-- Davetiye Paneli -->
             <div class="panel invite-panel active" id="invitePanel">
-                <h2 class="wedding-title">MUTLULUĞUMUZA DAVETLİSİNİZ</h2>
+                <h2 class="wedding-title" id="kartBaslik"> </h2>
                 <div class="couple-names">
-                    <span>Elif Demir</span>
+                    <span id="gelinAd"> </span>
                     <span class="amp">&</span>
-                    <span>Mete Yılmaz</span>
+                    <span id="damatAd"> </span>
                 </div>
 
                 <div class="parents-row">
                     <div class="parent-box">
                         <small>GELİNİN AİLESİ</small>
-                        <p>Ayşe & Ali Demir</p>
+                        <p id="gelinAnneBaba"> </p>
                     </div>
                     <div class="parent-box">
                         <small>DAMADIN AİLESİ</small>
-                        <p>Zeynep & Can Yılmaz</p>
+                        <p id="damatAnneBaba"> </p>
                     </div>
                 </div>
 
                 <div class="info-grid">
                     <div class="info-item">
                         <strong>TARİH & SAAT</strong>
-                        <p>20 Ağustos 2027</p>
-                        <p>Cuma - 19:30</p>
+                        <p id="tarih"> </p>
+                        <p id="gunSaat"> </p>
                     </div>
                     <div class="info-item">
                         <strong>KONUM</strong>
-                        <p>Koru Park Garden</p>
-                        <p>Beykoz / İstanbul</p>
+                        <p id="konum"> </p>
+                        <p id="ilceSehir"> </p>
                     </div>
                 </div>
 
@@ -644,11 +641,9 @@
             <!-- Harita Paneli -->
             <div class="panel map-panel" id="mapPanel">
                 <div class="map-frame">
-                    <iframe
-                        src="https://maps.google.com/maps?q=Koru%20Park%20Garden%20Beykoz&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                        allowfullscreen="" loading="lazy"></iframe>
+                    <iframe id="haritaIframe" src="" allowfullscreen="" loading="lazy"></iframe>
                 </div>
-                <p class="map-address">📍 Koru Park Garden, Beykoz</p>
+                <p class="map-address" id="haritaAdres">📍 </p>
             </div>
 
             <!-- Butonlar -->
@@ -663,12 +658,109 @@
         </div>
     </div>
 
-    <script>document.addEventListener('DOMContentLoaded', () => {
+    <script>
+        // ========== DİNAMİK VERİ YÜKLEME ==========
+        (function () {
+            const params = new URLSearchParams(window.location.search);
+            const musteriKodu = params.get("kisi");
+
+            console.log("Müşteri kodu (sn2):", musteriKodu);
+
+            const varsayilan = {
+                gelinAd: "Elif",
+                damatAd: "Mete",
+                gelinAnne: "Ayşe",
+                gelinBaba: "Ali",
+                damatAnne: "Zeynep",
+                damatBaba: "Can",
+                tarih: "20 Ağustos 2027",
+                gun: "Cuma",
+                saat: "19:30",
+                konum: "Koru Park Garden",
+                ilce: "Beykoz",
+                sehir: "İstanbul",
+                haritaIframe: "https://maps.google.com/maps?q=Koru%20Park%20Garden%20Beykoz&t=&z=13&ie=UTF8&iwloc=&output=embed",
+                haritaAdres: "Koru Park Garden, Beykoz",
+                whatsappNo: "905386082155",
+                whatsappMesaj: "Merhaba, düğününüze katılmaktan mutluluk duyarız! 🎉",
+                geriSayim: "2027-08-20T19:30:00",
+                kartBaslik: "MUTLULUĞUMUZA DAVETLİSİNİZ",
+                introHint: "DOKUN VE AÇ"
+            };
+
+            function sayfayiDoldur(veri) {
+                console.log("Sayfa dolduruluyor (sn2):", veri);
+
+                // Giriş ekranı dönen isimler
+                document.getElementById("introGelinAd").textContent = veri.gelinAd;
+                document.getElementById("introDamatAd").textContent = veri.damatAd;
+                // Hint yazısı
+                document.getElementById("introHint").textContent = veri.introHint || "DOKUN VE AÇ";
+
+                // Kart başlığı
+                document.getElementById("kartBaslik").textContent = veri.kartBaslik || "MUTLULUĞUMUZA DAVETLİSİNİZ";
+                // İsimler
+                document.getElementById("gelinAd").textContent = veri.gelinAd;
+                document.getElementById("damatAd").textContent = veri.damatAd;
+                // Anne-baba
+                document.getElementById("gelinAnneBaba").textContent = veri.gelinAnne + " & " + veri.gelinBaba;
+                document.getElementById("damatAnneBaba").textContent = veri.damatAnne + " & " + veri.damatBaba;
+                // Tarih & saat
+                document.getElementById("tarih").textContent = veri.tarih;
+                document.getElementById("gunSaat").textContent = veri.gun + " - " + veri.saat;
+                // Konum
+                document.getElementById("konum").textContent = veri.konum;
+                document.getElementById("ilceSehir").textContent = veri.ilce + " / " + veri.sehir;
+                // Harita
+                if (veri.haritaIframe) {
+                    document.getElementById("haritaIframe").src = veri.haritaIframe;
+                }
+                document.getElementById("haritaAdres").textContent = "📍 " + (veri.haritaAdres || (veri.konum + ", " + veri.ilce));
+
+                // WhatsApp butonu
+                const btnLcv = document.getElementById("btnLcv");
+                btnLcv.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const msg = veri.whatsappMesaj || "Düğününüze katılacağım.";
+                    window.open("https://wa.me/" + veri.whatsappNo + "?text=" + encodeURIComponent(msg), "_blank");
+                });
+
+                // Geri sayım hedefini ayarla
+                if (veri.geriSayim) {
+                    window.geriSayimHedef = new Date(veri.geriSayim).getTime();
+                } else {
+                    window.geriSayimHedef = new Date("2027-08-20T19:30:00").getTime();
+                }
+
+                // Navigasyon adresi
+                window.navigasyonAdresi = veri.konum + ", " + veri.ilce + ", " + veri.sehir;
+            }
+
+            if (musteriKodu) {
+                fetch("/data/sn2/" + musteriKodu + ".json")
+                    .then(res => {
+                        if (!res.ok) throw new Error("Dosya bulunamadı (HTTP " + res.status + ")");
+                        return res.json();
+                    })
+                    .then(veri => {
+                        sayfayiDoldur(veri);
+                    })
+                    .catch(hata => {
+                        console.warn("JSON yüklenemedi, varsayılan kullanılıyor:", hata);
+                        sayfayiDoldur(varsayilan);
+                    });
+            } else {
+                console.log("kisi parametresi yok, varsayılan gösteriliyor.");
+                sayfayiDoldur(varsayilan);
+            }
+        })();
+
+        // ========== ANA İŞLEVLER ==========
+        document.addEventListener('DOMContentLoaded', () => {
             const intro = document.getElementById('introScreen');
             const card = document.getElementById('invitationCard');
             const wrapper = document.getElementById('invitationWrapper');
             const music = document.getElementById('bgMusic');
-            const btnLcv = document.getElementById('btnLcv');
             const btnMap = document.getElementById('btnMap');
             const btnNav = document.getElementById('btnNav');
             const navAction = document.getElementById('navAction');
@@ -679,93 +771,47 @@
             let fitScale = 1;
             let resizeDebounce = null;
 
-            /**
-             * Kartı ekrana sığdırmak için gerekli scale değerini hesaplar ve uygular.
-             * Hem dikey hem yatay taşmayı kontrol eder.
-             */
             function fitCardToScreen() {
-                // Kart görünür değilse ölçüm yapma
                 if (!card.classList.contains('visible')) return;
-
-                // Önce scale'i sıfırla ki doğal boyutu ölçebilelim
                 wrapper.style.transform = 'none';
                 wrapper.style.transformOrigin = 'center center';
-
-                // Kartın doğal boyutlarını al
                 const cardRect = card.getBoundingClientRect();
                 const cardHeight = cardRect.height;
                 const cardWidth = cardRect.width;
-
-                // Kullanılabilir alan (kenar boşlukları için %8 pay bırak)
                 const verticalMargin = window.innerHeight * 0.08;
                 const horizontalMargin = window.innerWidth * 0.06;
                 const availableHeight = window.innerHeight - verticalMargin;
                 const availableWidth = window.innerWidth - horizontalMargin;
-
-                // Dikey ve yatay için scale hesapla
-                let scaleY = 1;
-                let scaleX = 1;
-
-                if (cardHeight > availableHeight) {
-                    scaleY = availableHeight / cardHeight;
-                }
-
-                if (cardWidth > availableWidth) {
-                    scaleX = availableWidth / cardWidth;
-                }
-
-                // En küçük scale'i kullan (her iki yönde de sığsın)
-                fitScale = Math.min(scaleY, scaleX, 1); // 1'den büyük olmasın (büyütme yapma)
-
-                // Okunabilirliği korumak için alt sınır
+                let scaleY = 1, scaleX = 1;
+                if (cardHeight > availableHeight) scaleY = availableHeight / cardHeight;
+                if (cardWidth > availableWidth) scaleX = availableWidth / cardWidth;
+                fitScale = Math.min(scaleY, scaleX, 1);
                 fitScale = Math.max(fitScale, 0.52);
-
-                // Hesaplanan scale'i uygula
-                if (fitScale < 1) {
-                    wrapper.style.transform = `scale(${fitScale})`;
-                } else {
-                    wrapper.style.transform = 'none';
-                }
+                if (fitScale < 1) wrapper.style.transform = `scale(${fitScale})`;
+                else wrapper.style.transform = 'none';
             }
 
-            /**
-             * Debounce'lu yeniden boyutlandırma
-             */
             function handleResize() {
                 clearTimeout(resizeDebounce);
-                resizeDebounce = setTimeout(() => {
-                    fitCardToScreen();
-                }, 150);
+                resizeDebounce = setTimeout(() => fitCardToScreen(), 150);
             }
 
-            // ========== AÇILIŞ – YEŞİL IŞIK HÜZMESİ ==========
             intro.addEventListener('click', () => {
                 music.play().catch(() => { });
                 intro.classList.add('fade-out');
-
-                // 0.8 saniye sonra kart ve ışık aynı anda belirir
                 setTimeout(() => {
                     card.classList.add('visible');
                     lightOverlay.classList.add('active');
                     startCountdown();
-
-                    // Kart görünür olduktan sonra ekrana sığdır
-                    // (geçiş animasyonu 1.2s sürdüğü için biraz gecikmeli)
-                    setTimeout(() => {
-                        fitCardToScreen();
-                    }, 300);
-
-                    // 0.5 saniye sonra ışığı soldur, giriş ekranını kaldır
+                    setTimeout(() => fitCardToScreen(), 300);
                     setTimeout(() => {
                         lightOverlay.classList.remove('active');
                         intro.style.display = 'none';
-                        // Işık efekti kalktıktan sonra tekrar ölç
                         fitCardToScreen();
                     }, 500);
                 }, 800);
             });
 
-            // ========== HARİTA BUTONU ==========
             btnMap.addEventListener('click', () => {
                 card.classList.toggle('show-map');
                 if (card.classList.contains('show-map')) {
@@ -779,43 +825,22 @@
                     btnMap.innerHTML = '🗺️ KONUMU GÖR';
                     navAction.style.display = 'none';
                 }
-
-                // Panel değişince kart boyutu değişebilir, yeniden ölç
-                setTimeout(() => {
-                    fitCardToScreen();
-                }, 100);
+                setTimeout(() => fitCardToScreen(), 100);
             });
 
-            // ========== NAVİGASYON BUTONU ==========
             btnNav.addEventListener('click', () => {
-                const destination = encodeURIComponent('Koru Park Garden, Beykoz, İstanbul');
-                window.open(`https://www.google.com/maps/dir/?api=1&destination=${destination}`, '_blank');
+                const adres = window.navigasyonAdresi || "Koru Park Garden, Beykoz, İstanbul";
+                window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(adres)}`, '_blank');
             });
 
-            // ========== WHATSAPP KATILIM ==========
-            btnLcv.addEventListener('click', () => {
-                const msg = encodeURIComponent("Merhaba, Mete & Elif! Düğününüze katılmaktan mutluluk duyarız. 🎉");
-                window.open(`https://wa.me/905386082155?text=${msg}`, '_blank');
-            });
-
-            // ========== PENCERE BOYUTU DEĞİŞİNCE YENİDEN ÖLÇ ==========
             window.addEventListener('resize', handleResize);
+            window.addEventListener('orientationchange', () => setTimeout(fitCardToScreen, 300));
 
-            // ========== CİHAZ YÖNÜ DEĞİŞİNCE (orientationchange) YENİDEN ÖLÇ ==========
-            window.addEventListener('orientationchange', () => {
-                // orientationchange sonrası boyutların güncellenmesi için kısa gecikme
-                setTimeout(() => {
-                    fitCardToScreen();
-                }, 300);
-            });
-
-            // ========== GERİ SAYIM ==========
             function startCountdown() {
-                const target = new Date("August 20, 2027 19:30:00").getTime();
+                const target = window.geriSayimHedef || new Date("2027-08-20T19:30:00").getTime();
                 const update = () => {
                     const now = Date.now();
                     const diff = target - now;
-
                     if (diff <= 0) {
                         document.getElementById('days').textContent = '00';
                         document.getElementById('hours').textContent = '00';
@@ -823,20 +848,16 @@
                         document.getElementById('seconds').textContent = '00';
                         return;
                     }
-
-                    document.getElementById('days').textContent = Math.floor(diff / (1000 * 60 * 60 * 24))
-                        .toString().padStart(2, '0');
-                    document.getElementById('hours').textContent = Math.floor((diff % 86400000) / 3600000)
-                        .toString().padStart(2, '0');
-                    document.getElementById('minutes').textContent = Math.floor((diff % 3600000) / 60000)
-                        .toString().padStart(2, '0');
-                    document.getElementById('seconds').textContent = Math.floor((diff % 60000) / 1000)
-                        .toString().padStart(2, '0');
+                    document.getElementById('days').textContent = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                    document.getElementById('hours').textContent = Math.floor((diff % 86400000) / 3600000).toString().padStart(2, '0');
+                    document.getElementById('minutes').textContent = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
+                    document.getElementById('seconds').textContent = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
                 };
                 update();
                 setInterval(update, 1000);
             }
-        });</script>
+        });
+    </script>
 </body>
 
 </html>

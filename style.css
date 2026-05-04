@@ -1309,3 +1309,8 @@ body {
         -webkit-overflow-scrolling: touch;
     }
 }
+
+.top-banner {
+    will-change: transform;
+    backface-visibility: hidden;
+}

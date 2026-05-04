@@ -331,3 +331,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
+// Sonsuz kayan banner (Kesintisiz döngü)
+function setupInfiniteBanner() {
+    document.querySelectorAll('.top-banner .banner-track').forEach(track => {
+        // Eğer zaten klonlanmışsa tekrar yapma
+        if (track.dataset.cloned === 'true') return;
+
+        const children = Array.from(track.children);
+        // İçeriği iki kopya haline getir
+        children.forEach(child => {
+            const clone = child.cloneNode(true);
+            track.appendChild(clone);
+        });
+        track.dataset.cloned = 'true';
+
+        // İçerik genişliğine göre animasyon süresini ayarla (isteğe bağlı)
+        const totalWidth = track.scrollWidth;
+        const duration = Math.max(15, totalWidth / 50); // 50px/saniye hız
+        track.style.animationDuration = `${duration}s`;
+    });
+}
+
+// DOM yüklendiğinde çalıştır
+document.addEventListener('DOMContentLoaded', setupInfiniteBanner);

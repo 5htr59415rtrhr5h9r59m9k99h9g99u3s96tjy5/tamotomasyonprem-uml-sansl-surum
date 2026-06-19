@@ -3,13 +3,12 @@
 
 <head>
     <meta property="og:title" content="Merve & Ahmet Düğün Davetiyesi">
-<meta property="og:description" content="Mutlu günümüzde sizleri aramızda görmekten mutluluk duyarız.">
-<meta property="og:image" content="https://sanaldavetiyelik.com/data/ahmetmerve.jpg">
-<meta property="og:url" content="https://sanaldavetiyelik.com/ahmetmerve">
-<meta property="og:type" content="website">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://sanaldavetiyelik.com/data/ahmetmerve.jpg">
+    <meta property="og:description" content="Mutlu günümüzde sizleri aramızda görmekten mutluluk duyarız.">
+    <meta property="og:image" content="https://sanaldavetiyelik.com/data/ahmetmerve.jpg">
+    <meta property="og:url" content="https://sanaldavetiyelik.com/ahmetmerve">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://sanaldavetiyelik.com/data/ahmetmerve.jpg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Merve & Ahmet - Düğün Davetiyesi</title>
@@ -19,12 +18,10 @@
     <style>
         /* ===== TÜM STİLLER BURADA ===== */
         :root {
-:root {
-    --color-dark: #000000;
-    --color-soft: #111111;
-    --color-muted: #222222;
-    --color-gold: #8a6b42;
-}
+            --color-dark: #000000;
+            --color-soft: #111111;
+            --color-muted: #222222;
+            --color-gold: #8a6b42;
         }
 
         * {
@@ -77,181 +74,174 @@
             inset: 0;
             z-index: 5;
             pointer-events: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 40px 80px;
             overflow: visible;
-            padding: 20px;
         }
 
         .feather {
-            width: clamp(70px, 16vw, 140px);
+            position: absolute;
+            width: clamp(60px, 12vw, 100px);
             height: auto;
-            opacity: 0.6;
+            opacity: 0.3;
             filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.06));
             transition: transform 2.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-                opacity 2.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            will-change: transform, opacity;
-            position: absolute;
+                opacity 2.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                top 2.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                left 2.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                right 2.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                bottom 2.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            will-change: transform, opacity, top, left, right, bottom;
         }
 
+        /* ===== BÜYÜK ORTA TÜY (feather-1) ===== */
         .feather-1 {
-            top: clamp(5%, 8vh, 12%);
-            left: clamp(3%, 5vw, 10%);
-            transform: rotate(-20deg);
-            animation: floatFeather1 6s ease-in-out infinite;
+            /* Başlangıçta tam ortada, büyük, isimlerin arkasında */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1.8) rotate(-10deg);
+            width: clamp(200px, 50vw, 500px);
+            opacity: 0.8;
+            z-index: 6;
+            animation: none;
+            /* sabit dursun */;
         }
+
+        /* Diğer tüyler küçük ve dağınık */
         .feather-2 {
-            top: clamp(3%, 6vh, 10%);
-            right: clamp(3%, 5vw, 10%);
-            transform: rotate(20deg);
+            top: 5%;
+            right: 5%;
+            transform: rotate(20deg) scale(0.6);
             animation: floatFeather2 7s ease-in-out infinite;
         }
         .feather-3 {
-            bottom: clamp(5%, 8vh, 12%);
-            left: clamp(5%, 8vw, 15%);
-            transform: rotate(-30deg);
+            bottom: 8%;
+            left: 8%;
+            transform: rotate(-30deg) scale(0.7);
             animation: floatFeather3 8s ease-in-out infinite;
         }
         .feather-4 {
-            bottom: clamp(3%, 6vh, 10%);
-            right: clamp(5%, 8vw, 15%);
-            transform: rotate(30deg);
+            bottom: 5%;
+            right: 5%;
+            transform: rotate(30deg) scale(0.6);
             animation: floatFeather4 6.5s ease-in-out infinite;
         }
         .feather-5 {
             top: 50%;
-            left: clamp(1%, 2vw, 5%);
-            transform: translateY(-50%) rotate(-10deg);
+            left: 2%;
+            transform: translateY(-50%) rotate(-10deg) scale(0.5);
             animation: floatFeather5 7.5s ease-in-out infinite;
         }
         .feather-6 {
             top: 50%;
-            right: clamp(1%, 2vw, 5%);
-            transform: translateY(-50%) rotate(10deg);
+            right: 2%;
+            transform: translateY(-50%) rotate(10deg) scale(0.5);
             animation: floatFeather6 6.8s ease-in-out infinite;
         }
 
-        @keyframes floatFeather1 {
-            0%,
-            100% {
-                transform: rotate(-20deg) scale(1);
-                top: clamp(5%, 8vh, 12%);
-                left: clamp(3%, 5vw, 10%);
-            }
-            50% {
-                transform: rotate(-28deg) scale(1.08);
-                top: clamp(2%, 4vh, 8%);
-                left: clamp(1%, 3vw, 7%);
-            }
+        /* ===== AÇILINCA (active) BÜYÜK TÜY DAĞILSIN ===== */
+        .invitation-wrapper.active~.feather-container .feather-1 {
+            top: -20% !important;
+            left: 60% !important;
+            transform: rotate(45deg) scale(0.2) !important;
+            opacity: 0 !important;
+            transition: all 3.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
+
+        /* Diğer tüyler de dağılsın (mevcut) */
+        .invitation-wrapper.active~.feather-container .feather-2 {
+            top: -15%;
+            right: -10%;
+            transform: rotate(50deg) scale(0.8);
+            opacity: 0.2;
+        }
+        .invitation-wrapper.active~.feather-container .feather-3 {
+            bottom: -10%;
+            left: -8%;
+            transform: rotate(-55deg) scale(0.7);
+            opacity: 0.2;
+        }
+        .invitation-wrapper.active~.feather-container .feather-4 {
+            bottom: -15%;
+            right: -15%;
+            transform: rotate(60deg) scale(0.9);
+            opacity: 0.2;
+        }
+        .invitation-wrapper.active~.feather-container .feather-5 {
+            top: -5%;
+            left: 40%;
+            transform: rotate(-30deg) scale(0.8);
+            opacity: 0.2;
+        }
+        .invitation-wrapper.active~.feather-container .feather-6 {
+            bottom: -5%;
+            right: 35%;
+            transform: rotate(35deg) scale(0.7);
+            opacity: 0.2;
+        }
+
+        /* Float animasyonları (sadece diğer tüyler için) */
         @keyframes floatFeather2 {
             0%,
             100% {
-                transform: rotate(20deg) scale(1);
-                top: clamp(3%, 6vh, 10%);
-                right: clamp(3%, 5vw, 10%);
+                transform: rotate(20deg) scale(0.6);
+                top: 5%;
+                right: 5%;
             }
             50% {
-                transform: rotate(28deg) scale(1.06);
-                top: clamp(1%, 3vh, 6%);
-                right: clamp(1%, 3vw, 7%);
+                transform: rotate(28deg) scale(0.7);
+                top: 3%;
+                right: 3%;
             }
         }
         @keyframes floatFeather3 {
             0%,
             100% {
-                transform: rotate(-30deg) scale(1);
-                bottom: clamp(5%, 8vh, 12%);
-                left: clamp(5%, 8vw, 15%);
+                transform: rotate(-30deg) scale(0.7);
+                bottom: 8%;
+                left: 8%;
             }
             50% {
-                transform: rotate(-38deg) scale(1.1);
-                bottom: clamp(3%, 5vh, 8%);
-                left: clamp(3%, 5vw, 10%);
+                transform: rotate(-38deg) scale(0.8);
+                bottom: 5%;
+                left: 5%;
             }
         }
         @keyframes floatFeather4 {
             0%,
             100% {
-                transform: rotate(30deg) scale(1);
-                bottom: clamp(3%, 6vh, 10%);
-                right: clamp(5%, 8vw, 15%);
+                transform: rotate(30deg) scale(0.6);
+                bottom: 5%;
+                right: 5%;
             }
             50% {
-                transform: rotate(38deg) scale(1.07);
-                bottom: clamp(1%, 3vh, 6%);
-                right: clamp(3%, 5vw, 10%);
+                transform: rotate(38deg) scale(0.7);
+                bottom: 3%;
+                right: 3%;
             }
         }
         @keyframes floatFeather5 {
             0%,
             100% {
-                transform: translateY(-50%) rotate(-10deg) scale(1);
-                left: clamp(1%, 2vw, 5%);
+                transform: translateY(-50%) rotate(-10deg) scale(0.5);
+                left: 2%;
             }
             50% {
-                transform: translateY(-45%) rotate(-16deg) scale(1.05);
-                left: clamp(0%, 1vw, 3%);
+                transform: translateY(-45%) rotate(-16deg) scale(0.6);
+                left: 1%;
             }
         }
         @keyframes floatFeather6 {
             0%,
             100% {
-                transform: translateY(-50%) rotate(10deg) scale(1);
-                right: clamp(1%, 2vw, 5%);
+                transform: translateY(-50%) rotate(10deg) scale(0.5);
+                right: 2%;
             }
             50% {
-                transform: translateY(-55%) rotate(16deg) scale(1.04);
-                right: clamp(0%, 1vw, 3%);
+                transform: translateY(-55%) rotate(16deg) scale(0.6);
+                right: 1%;
             }
         }
 
-        /* ===== AÇILINCA TÜYLER DAĞILSIN ===== */
-        .invitation-wrapper.active~.feather-container .feather {
-            animation: none !important;
-            transition: transform 3.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-                opacity 3.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-                top 3.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-                left 3.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-                right 3.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-                bottom 3.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            opacity: 0.2 !important;
-        }
-        .invitation-wrapper.active~.feather-container .feather-1 {
-            top: -15%;
-            left: -20%;
-            transform: rotate(-45deg) scale(1.3);
-        }
-        .invitation-wrapper.active~.feather-container .feather-2 {
-            top: -20%;
-            right: -15%;
-            transform: rotate(50deg) scale(1.4);
-        }
-        .invitation-wrapper.active~.feather-container .feather-3 {
-            bottom: -15%;
-            left: -10%;
-            transform: rotate(-55deg) scale(1.2);
-        }
-        .invitation-wrapper.active~.feather-container .feather-4 {
-            bottom: -20%;
-            right: -20%;
-            transform: rotate(60deg) scale(1.5);
-        }
-        .invitation-wrapper.active~.feather-container .feather-5 {
-            top: -10%;
-            left: 40%;
-            transform: rotate(-30deg) scale(1.6);
-        }
-        .invitation-wrapper.active~.feather-container .feather-6 {
-            bottom: -10%;
-            right: 35%;
-            transform: rotate(35deg) scale(1.3);
-        }
-
-        /* ===== ANA DAVETİYE ===== */
+        /* ===== ANA DAVETİYE (diğer stiller aynen) ===== */
         .invitation-wrapper {
             position: fixed;
             inset: 0;
@@ -343,6 +333,9 @@
             align-items: center;
             flex-wrap: nowrap;
             gap: 15px;
+            position: relative;
+            z-index: 10;
+            /* isimler tüyün üstünde */;
         }
         .ampersand {
             font-size: 0.65em;
@@ -707,140 +700,58 @@
             margin-bottom: 25px;
         }
 
-        /* MOBİL İYİLEŞTİRMELER */
+        /* ===== TELEFONDA YAZILARI KALINLAŞTIR VE OKUNAKLI YAP ===== */
         @media (max-width: 768px) {
-            .feather-container {
-                gap: 20px;
-                padding: 10px;
+
+            /* Büyük tüy boyutu biraz küçülsün ama yine ortalı */
+.feather-1 {
+    width: clamp(120px, 50vw, 280px);
+    transform: translate(-50%, -50%) scale(1.4) rotate(-10deg);
+}
+
+            /* Tüm yazılar kalın ve gölgeli */
+            .couple-names,
+            .main-date,
+            .wedding-quote,
+            .event-name,
+            .event-time,
+            .event-place,
+            .parent-fullname,
+            .parent-surname,
+            .countdown-label,
+            .time-element span,
+            .action-btn,
+            .click-hint,
+            .rsvp-question,
+            .modal-title,
+            .photo-desc,
+            .parent-phone,
+            .parent-group>span {
+                font-weight: 700 !important;
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.4), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+                color: #000 !important;
+                /* siyah net */;
             }
-            .feather {
-                width: clamp(50px, 12vw, 80px);
+
+            /* Özellikle isimler daha büyük */
+            .couple-names {
+                font-size: clamp(3.5rem, 18vw, 5rem) !important;
             }
-            .feather-1 {
-                top: clamp(2%, 4vh, 6%);
-                left: clamp(1%, 3vw, 5%);
+
+            .event-time,
+            .event-place,
+            .parent-surname {
+                font-size: 0.9rem !important;
             }
-            .feather-2 {
-                top: clamp(1%, 3vh, 5%);
-                right: clamp(1%, 3vw, 5%);
+
+            .action-btn {
+                font-size: 0.75rem !important;
+                padding: 10px 16px !important;
             }
-            .feather-3 {
-                bottom: clamp(2%, 4vh, 6%);
-                left: clamp(2%, 4vw, 8%);
-            }
-            .feather-4 {
-                bottom: clamp(1%, 3vh, 5%);
-                right: clamp(2%, 4vw, 8%);
-            }
-            .feather-5 {
-                left: clamp(0%, 1vw, 2%);
-            }
-            .feather-6 {
-                right: clamp(0%, 1vw, 2%);
-            }
-            @keyframes floatFeather1 {
-                0%,
-                100% {
-                    transform: rotate(-20deg) scale(1);
-                    top: clamp(2%, 4vh, 6%);
-                    left: clamp(1%, 3vw, 5%);
-                }
-                50% {
-                    transform: rotate(-28deg) scale(1.08);
-                    top: clamp(1%, 2vh, 4%);
-                    left: clamp(0%, 1vw, 3%);
-                }
-            }
-            @keyframes floatFeather2 {
-                0%,
-                100% {
-                    transform: rotate(20deg) scale(1);
-                    top: clamp(1%, 3vh, 5%);
-                    right: clamp(1%, 3vw, 5%);
-                }
-                50% {
-                    transform: rotate(28deg) scale(1.06);
-                    top: clamp(0%, 1vh, 3%);
-                    right: clamp(0%, 1vw, 3%);
-                }
-            }
-            @keyframes floatFeather3 {
-                0%,
-                100% {
-                    transform: rotate(-30deg) scale(1);
-                    bottom: clamp(2%, 4vh, 6%);
-                    left: clamp(2%, 4vw, 8%);
-                }
-                50% {
-                    transform: rotate(-38deg) scale(1.1);
-                    bottom: clamp(1%, 2vh, 4%);
-                    left: clamp(1%, 2vw, 5%);
-                }
-            }
-            @keyframes floatFeather4 {
-                0%,
-                100% {
-                    transform: rotate(30deg) scale(1);
-                    bottom: clamp(1%, 3vh, 5%);
-                    right: clamp(2%, 4vw, 8%);
-                }
-                50% {
-                    transform: rotate(38deg) scale(1.07);
-                    bottom: clamp(0%, 1vh, 3%);
-                    right: clamp(1%, 2vw, 5%);
-                }
-            }
-            @keyframes floatFeather5 {
-                0%,
-                100% {
-                    transform: translateY(-50%) rotate(-10deg) scale(1);
-                    left: clamp(0%, 1vw, 2%);
-                }
-                50% {
-                    transform: translateY(-45%) rotate(-16deg) scale(1.05);
-                    left: clamp(-1%, 0vw, 1%);
-                }
-            }
-            @keyframes floatFeather6 {
-                0%,
-                100% {
-                    transform: translateY(-50%) rotate(10deg) scale(1);
-                    right: clamp(0%, 1vw, 2%);
-                }
-                50% {
-                    transform: translateY(-55%) rotate(16deg) scale(1.04);
-                    right: clamp(-1%, 0vw, 1%);
-                }
-            }
-            .invitation-wrapper.active~.feather-container .feather-1 {
-                top: -10%;
-                left: -15%;
-                transform: rotate(-45deg) scale(1.2);
-            }
-            .invitation-wrapper.active~.feather-container .feather-2 {
-                top: -15%;
-                right: -10%;
-                transform: rotate(50deg) scale(1.3);
-            }
-            .invitation-wrapper.active~.feather-container .feather-3 {
-                bottom: -10%;
-                left: -8%;
-                transform: rotate(-55deg) scale(1.1);
-            }
-            .invitation-wrapper.active~.feather-container .feather-4 {
-                bottom: -15%;
-                right: -15%;
-                transform: rotate(60deg) scale(1.4);
-            }
-            .invitation-wrapper.active~.feather-container .feather-5 {
-                top: -5%;
-                left: 35%;
-                transform: rotate(-30deg) scale(1.5);
-            }
-            .invitation-wrapper.active~.feather-container .feather-6 {
-                bottom: -5%;
-                right: 30%;
-                transform: rotate(35deg) scale(1.2);
+
+            body {
+                -webkit-font-smoothing: antialiased;
+                text-rendering: optimizeLegibility;
             }
         }
 
@@ -867,43 +778,7 @@
             .photo-inner {
                 padding: 20px 16px;
             }
-        }/* TELEFONDA YAZILARI DAHA KALIN YAP */
-@media (max-width: 768px) {
-
-    .couple-names {
-        font-weight: 700 !important;
-        text-shadow: 0 1px 3px rgba(0,0,0,0.15);
-    }
-
-    .main-date,
-    .wedding-quote,
-    .event-name,
-    .event-time,
-    .event-place,
-    .parent-fullname,
-    .parent-surname,
-    .countdown-label,
-    .time-element span,
-    .action-btn {
-        font-weight: 700 !important;
-        color: #000 !important;
-    }
-
-    body {
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-    }
-
-    .event-time,
-    .event-place,
-    .parent-surname {
-        font-size: 0.9rem !important;
-    }
-
-    .action-btn {
-        font-size: 0.75rem !important;
-    }
-}
+        }
     </style>
 </head>
 
@@ -918,7 +793,9 @@
 
     <!-- ===== TÜY KONTEYNERİ ===== -->
     <div class="feather-container" id="featherContainer">
+        <!-- BÜYÜK ORTA TÜY -->
         <img src="../data/tuy1.png" class="feather feather-1" alt="tüy">
+        <!-- Diğer küçük tüyler -->
         <img src="../data/tuy2.png" class="feather feather-2" alt="tüy">
         <img src="../data/tuy3.png" class="feather feather-3" alt="tüy">
         <img src="../data/tuy1.png" class="feather feather-4" alt="tüy">
@@ -1108,7 +985,6 @@
                 familiesDiv.innerHTML = aileHtml;
                 if (!aileHtml) document.getElementById("familiesSection").style.display = "none";
 
-                // Telefon linklerinde tıklama yayılmasın
                 const phoneLinks = familiesDiv.querySelectorAll('.parent-phone');
                 phoneLinks.forEach(link => {
                     link.addEventListener('click', (e) => e.stopPropagation());
@@ -1182,7 +1058,6 @@
                     window.open(veri.haritaYolTarifi || "https://maps.app.goo.gl/UvWaiM168FJQP9Eq9", "_blank");
                 });
 
-                // Geri sayım hedefi
                 window.targetTimestamp = veri.geriSayim ? new Date(veri.geriSayim).getTime() : new Date(
                     "2026-06-28T19:00:00").getTime();
             }
@@ -1191,7 +1066,6 @@
             const params = new URLSearchParams(window.location.search);
             let musteriKodu = params.get("kisi");
 
-            // Eğer ?kisi= yoksa, bulunduğu klasörün adını al (örnek: /ahmetmerve/ -> ahmetmerve)
             if (!musteriKodu) {
                 const pathParts = window.location.pathname.split('/').filter(p => p.length > 0);
                 if (pathParts.length > 0) {
@@ -1199,10 +1073,8 @@
                 }
             }
 
-            // Hala boşsa varsayılan
             if (!musteriKodu) musteriKodu = "ahmetmerve";
 
-            // JSON'u dene (data ana dizinde)
             fetch("../data/" + musteriKodu + ".json")
                 .then(res => res.ok ? res.json() : Promise.reject())
                 .then(veri => verileriArayuzeYaz(veri))
@@ -1262,7 +1134,7 @@
                     const diff = target - Date.now();
                     if (diff > 0) {
                         document.getElementById('days').innerText = Math.floor(diff / 86400000).toString().padStart(2,
-                        '0');
+                            '0');
                         document.getElementById('hours').innerText = Math.floor((diff % 86400000) / 3600000)
                             .toString().padStart(2, '0');
                         document.getElementById('minutes').innerText = Math.floor((diff % 3600000) / 60000)

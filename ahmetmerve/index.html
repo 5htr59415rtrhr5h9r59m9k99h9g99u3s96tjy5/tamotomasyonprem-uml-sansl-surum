@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Merve & Ahmet - Düğün Davetiyesi</title>
     <link rel="icon" href="../data/logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         /* ===== TÜM STİLLER BURADA ===== */
@@ -44,6 +44,15 @@
             color: var(--color-dark);
             -webkit-tap-highlight-color: transparent;
             user-select: none;
+        }
+
+        /* ===== FONT YÜKLENENE KADAR BEKLEME ===== */
+        .wf-loading body {
+            visibility: hidden;
+        }
+        .wf-active body,
+        .wf-inactive body {
+            visibility: visible;
         }
 
         .bg-overlay {
@@ -92,7 +101,6 @@
             will-change: transform, opacity, top, left, right, bottom;
         }
 
-        /* ===== BÜYÜK ORTA TÜY (feather-1) – KÜÇÜLTÜLDÜ ===== */
         .feather-1 {
             top: 50%;
             left: 50%;
@@ -103,7 +111,6 @@
             animation: none;
         }
 
-        /* Diğer tüyler küçük ve dağınık */
         .feather-2 {
             top: 5%;
             right: 5%;
@@ -135,7 +142,6 @@
             animation: floatFeather6 6.8s ease-in-out infinite;
         }
 
-        /* ===== AÇILINCA (active) BÜYÜK TÜY DAĞILSIN ===== */
         .invitation-wrapper.active~.feather-container .feather-1 {
             top: -20% !important;
             left: 60% !important;
@@ -143,7 +149,6 @@
             opacity: 0 !important;
             transition: all 3.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-
         .invitation-wrapper.active~.feather-container .feather-2 {
             top: -15%;
             right: -10%;
@@ -175,7 +180,6 @@
             opacity: 0.2;
         }
 
-        /* Float animasyonları (sadece diğer tüyler için) */
         @keyframes floatFeather2 {
             0%,
             100% {
@@ -253,7 +257,6 @@
             will-change: opacity, transform;
         }
 
-        /* ===== HEADER – İSİM GEÇİŞİ İYİLEŞTİRİLDİ ===== */
         .header-section {
             text-align: center;
             position: absolute;
@@ -276,7 +279,6 @@
             transform: translateY(-50%);
         }
 
-        /* ===== ÇİFT İSİMLERİ – KÜÇÜLTÜLDÜ, GAP AZALTILDI ===== */
         .couple-names {
             font-family: 'Pinyon Script', cursive;
             font-size: clamp(3.6rem, 13vw, 5.4rem);
@@ -290,6 +292,9 @@
             gap: 12px;
             position: relative;
             z-index: 10;
+            /* Kalınlaştırma: text-stroke + shadow */
+            -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.08);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         }
 
         .ampersand {
@@ -300,7 +305,7 @@
 
         .main-date {
             font-size: clamp(0.85rem, 3.8vw, 1.05rem);
-            font-weight: 500;
+            font-weight: 600;
             letter-spacing: 5px;
             color: var(--color-soft);
             text-transform: uppercase;
@@ -316,7 +321,7 @@
 
         .click-hint {
             font-size: 0.65rem;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 3px;
             color: var(--color-gold);
             margin-top: 30px;
@@ -343,7 +348,6 @@
             }
         }
 
-        /* ===== AKTİF DURUM – İSİMLER YUKARI ÇIKAR (scale kaldırıldı) ===== */
         .invitation-wrapper.active {
             cursor: default;
         }
@@ -363,7 +367,6 @@
             opacity: 0 !important;
         }
 
-        /* ===== DETAY BÖLÜMÜ ===== */
         .details-section {
             width: 100%;
             max-width: 420px;
@@ -391,7 +394,6 @@
             padding: 0 15px;
         }
 
-        /* AİLE */
         .families-section {
             margin-bottom: 25px;
             width: 100%;
@@ -412,7 +414,7 @@
         }
         .parent-group>span {
             font-size: 0.58rem;
-            font-weight: 500;
+            font-weight: 700;
             letter-spacing: 1.5px;
             color: var(--color-muted);
             display: block;
@@ -434,7 +436,7 @@
         }
         .parent-surname {
             font-size: 0.72rem;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--color-muted);
             letter-spacing: 4px;
             margin-top: 2px;
@@ -445,7 +447,7 @@
             justify-content: center;
             margin-top: 4px;
             font-size: 0.68rem;
-            font-weight: 500;
+            font-weight: 700;
             color: var(--color-gold);
             text-decoration: none;
             padding: 4px 6px;
@@ -467,7 +469,6 @@
             box-shadow: none;
         }
 
-        /* ETKİNLİK */
         .events-grid {
             display: flex;
             flex-direction: column;
@@ -476,26 +477,26 @@
         }
         .event-name {
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: 700;
             letter-spacing: 1.5px;
             color: var(--color-dark);
             margin-bottom: 3px;
         }
         .event-time {
             font-size: 0.78rem;
-            font-weight: 400;
+            font-weight: 600;
             color: var(--color-soft);
         }
         .event-place {
             font-size: 0.75rem;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--color-gold);
             margin-top: 1px;
         }
 
         .countdown-label {
             font-size: 0.62rem;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 3px;
             color: var(--color-muted);
             text-transform: uppercase;
@@ -509,12 +510,12 @@
         }
         .time-element span {
             font-size: 1.25rem;
-            font-weight: 500;
+            font-weight: 700;
             color: var(--color-dark);
         }
         .time-element small {
             font-size: 0.52rem;
-            font-weight: 500;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--color-muted);
@@ -535,7 +536,7 @@
             font-size: 0.62rem;
             font-family: 'Montserrat', sans-serif;
             letter-spacing: 2px;
-            font-weight: 500;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.4s ease;
             text-transform: uppercase;
@@ -557,6 +558,7 @@
             padding: 10px 18px;
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            font-weight: 700;
         }
         .btn-rsvp:hover {
             background: rgba(255, 255, 255, 1);
@@ -574,7 +576,6 @@
             color: var(--color-gold);
         }
 
-        /* MODALLAR */
         .rsvp-modal,
         .photo-modal,
         .map-modal {
@@ -620,7 +621,7 @@
 
         .rsvp-question {
             font-size: 0.95rem;
-            font-weight: 500;
+            font-weight: 700;
             color: var(--color-dark);
             margin: 15px 0 25px 0;
             line-height: 1.4;
@@ -634,6 +635,7 @@
 
         .photo-desc {
             font-size: 0.8rem;
+            font-weight: 600;
             color: var(--color-soft);
             margin: 10px 0 20px 0;
             line-height: 1.5;
@@ -656,6 +658,7 @@
             cursor: pointer;
             font-size: 0.7rem;
             letter-spacing: 2px;
+            font-weight: 700;
             color: var(--color-soft);
             transition: all 0.3s ease;
             background: rgba(255, 255, 255, 0.1);
@@ -688,7 +691,7 @@
 
         .modal-title {
             font-size: 0.75rem;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 5px;
             color: var(--color-soft);
             margin-bottom: 10px;
@@ -707,22 +710,25 @@
            ============================================================ */
         @media (max-width: 768px) {
 
-            /* Büyük tüy boyutu biraz küçülsün */
             .feather-1 {
                 width: clamp(120px, 50vw, 280px);
                 transform: translate(-50%, -50%) scale(1.4) rotate(-10deg);
             }
 
-            /* Çift isimleri – daha küçük, gap az, kayma engellendi */
             .couple-names {
                 font-size: clamp(2.8rem, 14vw, 4.2rem) !important;
                 gap: 8px !important;
                 flex-wrap: nowrap !important;
                 white-space: nowrap !important;
+                /* Kalıcı kalınlaştırma */
+                -webkit-text-stroke: 1px rgba(0, 0, 0, 0.15) !important;
+                text-shadow: 0 0 30px rgba(255, 255, 255, 0.9),
+                    0 2px 10px rgba(0, 0, 0, 0.1) !important;
+                font-weight: 400 !important;
+                /* Pinyon Script sadece 400 destekler */;
             }
 
-            /* TÜM METİNLER EN KALIN VE GÜÇLÜ GÖLGE */
-            .couple-names,
+            /* ===== TÜM METİNLER İÇİN KALINLAŞTIRMA ===== */
             .main-date,
             .wedding-quote,
             .event-name,
@@ -733,52 +739,53 @@
             .countdown-label,
             .time-element span,
             .time-element small,
-            .action-btn,
             .click-hint,
             .rsvp-question,
             .modal-title,
             .photo-desc,
             .parent-phone,
             .parent-group>span,
-            .btn-rsvp,
             .photo-label,
-            .action-btn,
-            .btn-filled,
-            .btn-photos,
             .rsvp-inner,
             .photo-inner,
-            .map-inner {
-                font-weight: 900 !important;
-                /* EN KALIN */
-                text-shadow: 0 0 25px rgba(255, 255, 255, 0.7),
-                    0 2px 8px rgba(0, 0, 0, 0.15) !important;
+            .map-inner,
+            .action-btn,
+            .btn-rsvp,
+            .btn-filled,
+            .btn-photos {
+                font-weight: 800 !important;
+                /* Montserrat için en kalın */
+                -webkit-text-stroke: 0.3px rgba(0, 0, 0, 0.1) !important;
+                text-shadow: 0 0 30px rgba(255, 255, 255, 0.8),
+                    0 2px 10px rgba(0, 0, 0, 0.12) !important;
                 color: #000000 !important;
-                /* SİYAH NET */
             }
 
-            /* Özellikle tarih, saat, yer gibi detaylar biraz büyüsün */
+            .action-btn,
+            .btn-rsvp,
+            .btn-filled,
+            .btn-photos {
+                font-size: 0.8rem !important;
+                padding: 12px 18px !important;
+                letter-spacing: 2px !important;
+                font-weight: 800 !important;
+            }
+
+            .btn-rsvp {
+                font-size: 0.85rem !important;
+                padding: 14px 20px !important;
+                font-weight: 800 !important;
+            }
+
             .event-time,
             .event-place,
             .parent-surname {
                 font-size: 0.95rem !important;
             }
 
-            .action-btn {
-                font-size: 0.8rem !important;
-                padding: 12px 18px !important;
-                letter-spacing: 2px !important;
-            }
-
-            /* Butonlar daha belirgin */
-            .btn-rsvp {
-                font-weight: 900 !important;
-                font-size: 0.85rem !important;
-                padding: 14px 20px !important;
-            }
-
             .photo-label {
-                font-weight: 900 !important;
                 font-size: 0.8rem !important;
+                font-weight: 800 !important;
             }
 
             body {
@@ -816,18 +823,14 @@
 
 <body>
 
-    <!-- Arka Plan Müziği -->
     <audio id="bgMusic" loop preload="auto">
         <source src="../data/sn9.mp3" type="audio/mpeg">
     </audio>
 
     <div class="bg-overlay"></div>
 
-    <!-- ===== TÜY KONTEYNERİ ===== -->
     <div class="feather-container" id="featherContainer">
-        <!-- BÜYÜK ORTA TÜY -->
         <img src="../data/tuy1.png" class="feather feather-1" alt="tüy">
-        <!-- Diğer küçük tüyler -->
         <img src="../data/tuy2.png" class="feather feather-2" alt="tüy">
         <img src="../data/tuy3.png" class="feather feather-3" alt="tüy">
         <img src="../data/tuy1.png" class="feather feather-4" alt="tüy">
@@ -835,7 +838,6 @@
         <img src="../data/tuy3.png" class="feather feather-6" alt="tüy">
     </div>
 
-    <!-- ===== ANA DAVETİYE ===== -->
     <div class="invitation-wrapper" id="invitationWrapper">
 
         <div class="header-section" id="headerSection">
@@ -854,7 +856,6 @@
 
             <div class="families-section" id="familiesSection">
                 <div class="families-flex" id="familiesNames">
-                    <!-- JS ile doldurulacak -->
                 </div>
             </div>
 
@@ -882,7 +883,6 @@
         </div>
     </div>
 
-    <!-- ===== RSVP MODAL ===== -->
     <div class="rsvp-modal" id="rsvpPanel">
         <div class="rsvp-inner">
             <div class="modal-title">KATILIM DURUMUNUZ</div>
@@ -895,7 +895,6 @@
         </div>
     </div>
 
-    <!-- ===== FOTOĞRAF MODAL ===== -->
     <div class="photo-modal" id="photoPanel">
         <div class="photo-inner">
             <div class="modal-title">FOTOĞRAF GÖNDER</div>
@@ -913,7 +912,6 @@
         </div>
     </div>
 
-    <!-- ===== HARİTA MODAL ===== -->
     <div class="map-modal" id="mapPanel">
         <div class="map-inner">
             <div class="modal-title">ETKİNLİK LOKASYONU</div>
@@ -926,12 +924,7 @@
     </div>
 
     <script>
-        // ===================================================================
-        //  TÜM JAVASCRIPT BURADA – JSON OKUMA VE DİNAMİK DOLDURMA
-        // ===================================================================
-
         (function() {
-            // ---------- Varsayılan veriler ----------
             const varsayilan = {
                 gelinAd: "Merve",
                 damatAd: "Ahmet",
@@ -1027,7 +1020,6 @@
 
                 if (veri.haritaIframe) document.getElementById("haritaIframe").src = veri.haritaIframe;
 
-                // ---------- RSVP ----------
                 const rsvpBtn = document.getElementById("btnLcv");
                 const rsvpPanel = document.getElementById("rsvpPanel");
                 const rsvpClose = document.getElementById("rsvpClose");
@@ -1071,7 +1063,6 @@
                     document.getElementById("invitationWrapper").style.pointerEvents = "auto";
                 });
 
-                // ---------- FOTOĞRAF ----------
                 const photoBtn = document.getElementById("btnPhotos");
                 photoBtn.addEventListener("click", (e) => {
                     e.stopPropagation();
@@ -1082,7 +1073,6 @@
                     mesaj), "_blank");
                 });
 
-                // ---------- HARİTA ----------
                 document.getElementById("btnNavigate").addEventListener("click", (e) => {
                     e.stopPropagation();
                     window.open(veri.haritaYolTarifi || "https://maps.app.goo.gl/UvWaiM168FJQP9Eq9", "_blank");
@@ -1092,7 +1082,6 @@
                     "2026-06-28T19:00:00").getTime();
             }
 
-            // ---------- JSON OKU ----------
             const params = new URLSearchParams(window.location.search);
             let musteriKodu = params.get("kisi");
 
@@ -1112,7 +1101,6 @@
 
         })();
 
-        // ========== SAYFA YÜKLENİNCE "LOADED" CLASS'INI EKLE ==========
         document.addEventListener('DOMContentLoaded', function() {
             const wrapper = document.getElementById('invitationWrapper');
             setTimeout(() => {
@@ -1120,7 +1108,6 @@
             }, 200);
         });
 
-        // ========== INTERAKTIF AKIŞ VE SAYAÇ ==========
         (function() {
             const bgMusic = document.getElementById('bgMusic');
             const invitationWrapper = document.getElementById('invitationWrapper');

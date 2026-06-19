@@ -702,8 +702,11 @@
             margin-bottom: 25px;
         }
 
-        /* ===== TELEFONDA YAZILARI KALINLAŞTIR, KAYMAYI ÖNLE, İSİMLERİ KÜÇÜLT ===== */
+        /* ============================================================
+           TELEFONDA TÜM YAZILARI ÇOK KALIN VE OKUNAKLI YAP
+           ============================================================ */
         @media (max-width: 768px) {
+
             /* Büyük tüy boyutu biraz küçülsün */
             .feather-1 {
                 width: clamp(120px, 50vw, 280px);
@@ -718,7 +721,8 @@
                 white-space: nowrap !important;
             }
 
-            /* Tüm yazılar kalın ve gölgeli */
+            /* TÜM METİNLER EN KALIN VE GÜÇLÜ GÖLGE */
+            .couple-names,
             .main-date,
             .wedding-quote,
             .event-name,
@@ -728,27 +732,53 @@
             .parent-surname,
             .countdown-label,
             .time-element span,
+            .time-element small,
             .action-btn,
             .click-hint,
             .rsvp-question,
             .modal-title,
             .photo-desc,
             .parent-phone,
-            .parent-group>span {
-                font-weight: 700 !important;
-                text-shadow: 0 0 15px rgba(255, 255, 255, 0.4), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-                color: #000 !important;
+            .parent-group>span,
+            .btn-rsvp,
+            .photo-label,
+            .action-btn,
+            .btn-filled,
+            .btn-photos,
+            .rsvp-inner,
+            .photo-inner,
+            .map-inner {
+                font-weight: 900 !important;
+                /* EN KALIN */
+                text-shadow: 0 0 25px rgba(255, 255, 255, 0.7),
+                    0 2px 8px rgba(0, 0, 0, 0.15) !important;
+                color: #000000 !important;
+                /* SİYAH NET */
             }
 
+            /* Özellikle tarih, saat, yer gibi detaylar biraz büyüsün */
             .event-time,
             .event-place,
             .parent-surname {
-                font-size: 0.9rem !important;
+                font-size: 0.95rem !important;
             }
 
             .action-btn {
-                font-size: 0.75rem !important;
-                padding: 10px 16px !important;
+                font-size: 0.8rem !important;
+                padding: 12px 18px !important;
+                letter-spacing: 2px !important;
+            }
+
+            /* Butonlar daha belirgin */
+            .btn-rsvp {
+                font-weight: 900 !important;
+                font-size: 0.85rem !important;
+                padding: 14px 20px !important;
+            }
+
+            .photo-label {
+                font-weight: 900 !important;
+                font-size: 0.8rem !important;
             }
 
             body {

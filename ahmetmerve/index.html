@@ -19,10 +19,12 @@
     <style>
         /* ===== TÜM STİLLER BURADA ===== */
         :root {
-            --color-dark: #222222;
-            --color-soft: #444444;
-            --color-muted: #666666;
-            --color-gold: #B39266;
+:root {
+    --color-dark: #000000;
+    --color-soft: #111111;
+    --color-muted: #222222;
+    --color-gold: #8a6b42;
+}
         }
 
         * {
@@ -865,7 +867,43 @@
             .photo-inner {
                 padding: 20px 16px;
             }
-        }
+        }/* TELEFONDA YAZILARI DAHA KALIN YAP */
+@media (max-width: 768px) {
+
+    .couple-names {
+        font-weight: 700 !important;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+
+    .main-date,
+    .wedding-quote,
+    .event-name,
+    .event-time,
+    .event-place,
+    .parent-fullname,
+    .parent-surname,
+    .countdown-label,
+    .time-element span,
+    .action-btn {
+        font-weight: 700 !important;
+        color: #000 !important;
+    }
+
+    body {
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+    }
+
+    .event-time,
+    .event-place,
+    .parent-surname {
+        font-size: 0.9rem !important;
+    }
+
+    .action-btn {
+        font-size: 0.75rem !important;
+    }
+}
     </style>
 </head>
 

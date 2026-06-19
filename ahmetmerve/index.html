@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Merve & Ahmet - Düğün Davetiyesi</title>
     <link rel="icon" href="../data/logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         /* ===== TÜM STİLLER BURADA ===== */
@@ -44,15 +44,6 @@
             color: var(--color-dark);
             -webkit-tap-highlight-color: transparent;
             user-select: none;
-        }
-
-        /* ===== FONT YÜKLENENE KADAR BEKLEME ===== */
-        .wf-loading body {
-            visibility: hidden;
-        }
-        .wf-active body,
-        .wf-inactive body {
-            visibility: visible;
         }
 
         .bg-overlay {
@@ -279,10 +270,11 @@
             transform: translateY(-50%);
         }
 
+        /* ===== ÇİFT İSİMLERİ - DANCING SCRIPT (DAHA DÜZ) ===== */
         .couple-names {
-            font-family: 'Pinyon Script', cursive;
+            font-family: 'Dancing Script', cursive;
             font-size: clamp(3.6rem, 13vw, 5.4rem);
-            font-weight: 400;
+            font-weight: 700;
             color: var(--color-dark);
             line-height: 1.1;
             display: flex;
@@ -292,9 +284,9 @@
             gap: 12px;
             position: relative;
             z-index: 10;
-            /* Kalınlaştırma: text-stroke + shadow */
-            -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.08);
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            /* Kalınlaştırma */
+            text-shadow: 0 0 25px rgba(255, 255, 255, 0.4),
+                0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         .ampersand {
@@ -305,7 +297,7 @@
 
         .main-date {
             font-size: clamp(0.85rem, 3.8vw, 1.05rem);
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 5px;
             color: var(--color-soft);
             text-transform: uppercase;
@@ -720,12 +712,9 @@
                 gap: 8px !important;
                 flex-wrap: nowrap !important;
                 white-space: nowrap !important;
-                /* Kalıcı kalınlaştırma */
-                -webkit-text-stroke: 1px rgba(0, 0, 0, 0.15) !important;
+                font-weight: 700 !important;
                 text-shadow: 0 0 30px rgba(255, 255, 255, 0.9),
                     0 2px 10px rgba(0, 0, 0, 0.1) !important;
-                font-weight: 400 !important;
-                /* Pinyon Script sadece 400 destekler */;
             }
 
             /* ===== TÜM METİNLER İÇİN KALINLAŞTIRMA ===== */
@@ -754,8 +743,6 @@
             .btn-filled,
             .btn-photos {
                 font-weight: 800 !important;
-                /* Montserrat için en kalın */
-                -webkit-text-stroke: 0.3px rgba(0, 0, 0, 0.1) !important;
                 text-shadow: 0 0 30px rgba(255, 255, 255, 0.8),
                     0 2px 10px rgba(0, 0, 0, 0.12) !important;
                 color: #000000 !important;

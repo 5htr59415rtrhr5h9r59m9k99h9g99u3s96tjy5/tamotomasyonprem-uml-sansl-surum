@@ -251,7 +251,7 @@
         .header-section {
             text-align: center;
             position: absolute;
-            top: 50%; /* BAŞLANGIÇTA ORTADA (tam merkez) */
+            top: 50%;
             transform: translateY(-30px);
             opacity: 0;
             transition: top 2.8s cubic-bezier(0.22, 1, 0.36, 1),
@@ -270,7 +270,6 @@
             transform: translateY(-50%);
         }
 
-        /* ===== ÇİFT İSİMLERİ – TANGERINE (KALINLAŞTIRILDI) ===== */
         .couple-names {
             font-family: 'Tangerine', cursive;
             font-size: clamp(3.8rem, 14vw, 5.6rem);
@@ -341,9 +340,8 @@
         .invitation-wrapper.active {
             cursor: default;
         }
-        /* Açıldığında isimler biraz aşağıda kalsın (eskisine göre daha aşağı) */
         .invitation-wrapper.active .header-section {
-            top: clamp(50px, 7vh, 90px) !important; /* artırıldı */
+            top: clamp(50px, 7vh, 90px) !important;
             transform: translateY(0) scale(1);
             opacity: 1;
         }
@@ -696,16 +694,11 @@
             margin-bottom: 25px;
         }
 
-        /* ============================================================
-           TELEFONDA TÜM YAZILARI DAHA KALIN VE OKUNAKLI YAP
-           ============================================================ */
         @media (max-width: 768px) {
-
             .feather-1 {
                 width: clamp(120px, 50vw, 280px);
                 transform: translate(-50%, -50%) scale(1.4) rotate(-10deg);
             }
-
             .couple-names {
                 font-size: clamp(3rem, 15vw, 4.5rem) !important;
                 gap: 8px !important;
@@ -715,7 +708,6 @@
                 text-shadow: 0 0 30px rgba(255, 255, 255, 0.9),
                     0 2px 10px rgba(0, 0, 0, 0.1) !important;
             }
-
             .main-date,
             .wedding-quote,
             .event-name,
@@ -745,7 +737,6 @@
                     0 2px 10px rgba(0, 0, 0, 0.12) !important;
                 color: #000000 !important;
             }
-
             .action-btn,
             .btn-rsvp,
             .btn-filled,
@@ -755,24 +746,20 @@
                 letter-spacing: 2px !important;
                 font-weight: 900 !important;
             }
-
             .btn-rsvp {
                 font-size: 0.85rem !important;
                 padding: 14px 20px !important;
                 font-weight: 900 !important;
             }
-
             .event-time,
             .event-place,
             .parent-surname {
                 font-size: 0.95rem !important;
             }
-
             .photo-label {
                 font-size: 0.8rem !important;
                 font-weight: 900 !important;
             }
-
             body {
                 -webkit-font-smoothing: antialiased;
                 text-rendering: optimizeLegibility;
@@ -910,13 +897,14 @@
 
     <script>
         (function() {
-            const varsayilan = {
+            // ===== TÜM VERİLER DOĞRUDAN BURADA =====
+            const veri = {
                 gelinAd: "Merve",
                 damatAd: "Ahmet",
                 gelinAnne: "Emine Şengül",
                 gelinBaba: "Adnan Şengül",
                 gelinTel: "05065829734",
-                damatAnne: "Figen Durmaz",
+                damatAnne: "Figen Durmaz",  // ✅ Figen olarak güncellendi
                 damatBaba: "Ali Durmaz",
                 damatTel: "05445174049",
                 etkinlik1Baslik: "Düğün Töreni",
@@ -939,7 +927,7 @@
                 return { ad, soyad };
             }
 
-            function verileriArayuzeYaz(veri) {
+            function sayfayiGuncelle() {
                 document.getElementById("gelinAd").textContent = veri.gelinAd;
                 document.getElementById("damatAd").textContent = veri.damatAd;
 
@@ -1005,84 +993,69 @@
 
                 if (veri.haritaIframe) document.getElementById("haritaIframe").src = veri.haritaIframe;
 
-                const rsvpBtn = document.getElementById("btnLcv");
-                const rsvpPanel = document.getElementById("rsvpPanel");
-                const rsvpClose = document.getElementById("rsvpClose");
-                const rsvpYes = document.getElementById("rsvpYes");
-                const rsvpNo = document.getElementById("rsvpNo");
-                const hedefNumara = "05536913434";
-
-                rsvpBtn.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    document.getElementById("invitationWrapper").style.opacity = "0";
-                    document.getElementById("invitationWrapper").style.pointerEvents = "none";
-                    rsvpPanel.classList.add("active");
-                });
-
-                rsvpClose.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    rsvpPanel.classList.remove("active");
-                    document.getElementById("invitationWrapper").style.opacity = "1";
-                    document.getElementById("invitationWrapper").style.pointerEvents = "auto";
-                });
-
-                rsvpYes.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    const mesaj = "Merhaba, Merve & Ahmet çiftinin düğün törenine katılacağım!";
-                    const temizHedef = hedefNumara.startsWith('0') ? '90' + hedefNumara.substring(1) : hedefNumara;
-                    window.open("https://wa.me/" + temizHedef.replace(/\s+/g, '') + "?text=" + encodeURIComponent(
-                    mesaj), "_blank");
-                    rsvpPanel.classList.remove("active");
-                    document.getElementById("invitationWrapper").style.opacity = "1";
-                    document.getElementById("invitationWrapper").style.pointerEvents = "auto";
-                });
-
-                rsvpNo.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    const mesaj = "Malesef katılamayacağım.";
-                    const temizHedef = hedefNumara.startsWith('0') ? '90' + hedefNumara.substring(1) : hedefNumara;
-                    window.open("https://wa.me/" + temizHedef.replace(/\s+/g, '') + "?text=" + encodeURIComponent(
-                    mesaj), "_blank");
-                    rsvpPanel.classList.remove("active");
-                    document.getElementById("invitationWrapper").style.opacity = "1";
-                    document.getElementById("invitationWrapper").style.pointerEvents = "auto";
-                });
-
-                const photoBtn = document.getElementById("btnPhotos");
-                photoBtn.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    const mesaj = "Merhaba, düğün fotoğraflarımı gönderiyorum.";
-                    const hedefNumara = "05536913434";
-                    const temizHedef = hedefNumara.startsWith('0') ? '90' + hedefNumara.substring(1) : hedefNumara;
-                    window.open("https://wa.me/" + temizHedef.replace(/\s+/g, '') + "?text=" + encodeURIComponent(
-                    mesaj), "_blank");
-                });
-
-                document.getElementById("btnNavigate").addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    window.open(veri.haritaYolTarifi || "https://maps.app.goo.gl/UvWaiM168FJQP9Eq9", "_blank");
-                });
-
                 window.targetTimestamp = veri.geriSayim ? new Date(veri.geriSayim).getTime() : new Date(
                     "2026-06-28T19:00:00").getTime();
             }
 
-            const params = new URLSearchParams(window.location.search);
-            let musteriKodu = params.get("kisi");
+            // ===== JSON OKUMA YOK, DOĞRUDAN SAYFAYI GÜNCELLE =====
+            sayfayiGuncelle();
 
-            if (!musteriKodu) {
-                const pathParts = window.location.pathname.split('/').filter(p => p.length > 0);
-                if (pathParts.length > 0) {
-                    musteriKodu = pathParts[pathParts.length - 1];
-                }
-            }
+            // ===== RSVP ve diğer buton işlevleri =====
+            const rsvpBtn = document.getElementById("btnLcv");
+            const rsvpPanel = document.getElementById("rsvpPanel");
+            const rsvpClose = document.getElementById("rsvpClose");
+            const rsvpYes = document.getElementById("rsvpYes");
+            const rsvpNo = document.getElementById("rsvpNo");
+            const hedefNumara = "05536913434";
 
-            if (!musteriKodu) musteriKodu = "ahmetmerve";
+            rsvpBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                document.getElementById("invitationWrapper").style.opacity = "0";
+                document.getElementById("invitationWrapper").style.pointerEvents = "none";
+                rsvpPanel.classList.add("active");
+            });
 
-            fetch("../data/" + musteriKodu + ".json")
-                .then(res => res.ok ? res.json() : Promise.reject())
-                .then(veri => verileriArayuzeYaz(veri))
-                .catch(() => verileriArayuzeYaz(varsayilan));
+            rsvpClose.addEventListener("click", (e) => {
+                e.stopPropagation();
+                rsvpPanel.classList.remove("active");
+                document.getElementById("invitationWrapper").style.opacity = "1";
+                document.getElementById("invitationWrapper").style.pointerEvents = "auto";
+            });
+
+            rsvpYes.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const mesaj = "Merhaba, Merve & Ahmet çiftinin düğün törenine katılacağım!";
+                const temizHedef = hedefNumara.startsWith('0') ? '90' + hedefNumara.substring(1) : hedefNumara;
+                window.open("https://wa.me/" + temizHedef.replace(/\s+/g, '') + "?text=" + encodeURIComponent(mesaj),
+                    "_blank");
+                rsvpPanel.classList.remove("active");
+                document.getElementById("invitationWrapper").style.opacity = "1";
+                document.getElementById("invitationWrapper").style.pointerEvents = "auto";
+            });
+
+            rsvpNo.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const mesaj = "Malesef katılamayacağım.";
+                const temizHedef = hedefNumara.startsWith('0') ? '90' + hedefNumara.substring(1) : hedefNumara;
+                window.open("https://wa.me/" + temizHedef.replace(/\s+/g, '') + "?text=" + encodeURIComponent(mesaj),
+                    "_blank");
+                rsvpPanel.classList.remove("active");
+                document.getElementById("invitationWrapper").style.opacity = "1";
+                document.getElementById("invitationWrapper").style.pointerEvents = "auto";
+            });
+
+            document.getElementById("btnPhotos").addEventListener("click", (e) => {
+                e.stopPropagation();
+                const mesaj = "Merhaba, düğün fotoğraflarımı gönderiyorum.";
+                const temizHedef = hedefNumara.startsWith('0') ? '90' + hedefNumara.substring(1) : hedefNumara;
+                window.open("https://wa.me/" + temizHedef.replace(/\s+/g, '') + "?text=" + encodeURIComponent(mesaj),
+                    "_blank");
+            });
+
+            document.getElementById("btnNavigate").addEventListener("click", (e) => {
+                e.stopPropagation();
+                window.open(veri.haritaYolTarifi || "https://maps.app.goo.gl/UvWaiM168FJQP9Eq9", "_blank");
+            });
 
         })();
 

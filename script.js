@@ -268,4 +268,15 @@ function setupInfiniteBanner() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', setupInfiniteBanner);
+    // Sağ alttaki WhatsApp butonu - SADECE KANALLARA KAYDIRIR, WHATSAPP AÇMAZ
+    const whatsappFloat = document.getElementById('whatsappFloat');
+    if (whatsappFloat) {
+        whatsappFloat.addEventListener('click', function(e) {
+            e.preventDefault();
+            const kanallar = document.getElementById('siparisKanallari');
+            if (kanallar) {
+                kanallar.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            // window.open kaldırıldı, direkt açılma yok
+        });
+    }

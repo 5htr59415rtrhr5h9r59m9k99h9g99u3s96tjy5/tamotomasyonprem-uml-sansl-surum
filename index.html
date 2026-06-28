@@ -29,7 +29,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Playfair+Display:wght@700;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
   
-  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <link rel="stylesheet" href="style.css" />
   
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
@@ -151,7 +154,6 @@
         </div>
         <h2 class="section-title" style="margin: 0;">KOLEKSİYONUMUZ</h2>
       </div>
-      <div class="section-line"></div>
     </div>
 
     <div class="product-grid" id="productGrid">
@@ -508,7 +510,7 @@
     <div class="section-header">
       <span class="sub-label">S.S.S.</span>
       <h2 class="section-title">Sıkça Sorulan Sorular</h2>
-      <div class="section-line"></div>
+
     </div>
     <div class="faq-container">
       <div class="faq-item">
@@ -544,6 +546,38 @@
     </div>
   </section>
 
+  <!-- ========== SİPARİŞ KANALLARIMIZ (ORTALI & DİKDÖRTGEN) ========== -->
+   
+  <section class="siparis-kanallari reveal" id="siparisKanallari">
+    <div class="section-header">
+      <span class="sub-label">İLETİŞİM</span>
+      <h2 class="section-title">Sipariş Kanallarımız</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="kanal-grid">
+      <a href="https://instagram.com/sanaldavetiyelik" target="_blank" class="kanal-item">
+        <div class="kanal-icon-circle">
+          <i class="fab fa-instagram"></i>
+        </div>
+        <span class="kanal-name">Instagram</span>
+        <span class="kanal-user">@sanaldavetiyelik</span>
+      </a>
+      <a href="https://wa.me/905386082155" target="_blank" class="kanal-item">
+        <div class="kanal-icon-circle">
+          <i class="fab fa-whatsapp"></i>
+        </div>
+        <span class="kanal-name">WhatsApp</span>
+        <span class="kanal-user">Mete - 0538 608 2155</span>
+      </a>
+      <a href="https://tiktok.com/@sanaldavetiyelik" target="_blank" class="kanal-item">
+        <div class="kanal-icon-circle">
+          <i class="fab fa-tiktok"></i>
+        </div>
+        <span class="kanal-name">TikTok</span>
+        <span class="kanal-user">@sanaldavetiyelik</span>
+      </a>
+    </div>
+  </section>
   <!-- Footer Alanı -->
   <footer class="site-footer">
     <div class="footer-grid">
@@ -593,7 +627,10 @@
     </div>
   </footer>
 
-  <a href="https://wa.me/905386082155?text=Merhaba!%20Sanal%20Davetiyelik%20ile%20iletişime%20geçmek%20istiyorum." target="_blank" class="whatsapp-float" aria-label="WhatsApp">💬</a>
+  <!-- Sağ alttaki WhatsApp butonu (sadece scroll yapar) -->
+  <button id="whatsappFloat" class="whatsapp-float" aria-label="Sipariş Kanallarına Git">
+    <i class="fab fa-whatsapp"></i>
+  </button>
 
   <div id="previewModal" class="preview-modal">
     <div class="modal-container">

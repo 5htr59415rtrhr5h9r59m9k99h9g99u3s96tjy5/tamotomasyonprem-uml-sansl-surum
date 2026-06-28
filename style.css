@@ -421,6 +421,7 @@ body {
     background: var(--pudra-koyu);
     margin: 14px auto 0;
     border-radius: 4px;
+
 }
 
 .product-grid {
@@ -711,7 +712,7 @@ body {
 
 /* --- SSS (FAQ) --- */
 .faq-section {
-    padding: 80px 5% 100px;
+    padding: 01px 5% 100px;
     background: var(--krem);
 }
 
@@ -1189,7 +1190,6 @@ body {
 .filter-btn:hover {
   background: var(--kahve);
   color: var(--beyaz);
-  transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(45,31,31,0.15);
 }
 
@@ -1246,4 +1246,160 @@ body {
 .filter-option.active {
   background: var(--kahve);
   color: var(--beyaz);
+}
+/* ===== SSS BÖLÜMÜ BAŞLIK ORTALAMA (KESİN ÇÖZÜM) ===== */
+.faq-section .section-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.faq-section .section-header .sub-label,
+.faq-section .section-header .section-title {
+    text-align: center;
+    width: 100%;
+}
+
+.faq-section .section-line {
+    margin: 14px auto 0;  /* zaten vardı ama otomatik sağ-sol boşluk ile ortalar */
+}
+/* ===== SİPARİŞ KANALLARI - ORTALI & DİKDÖRTGEN ===== */
+.siparis-kanallari {
+    padding: 80px 5% 100px;
+    background: var(--beyaz);
+}
+
+/* Başlık ve alt başlığı tam ortala */
+.siparis-kanallari .section-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.siparis-kanallari .section-header .sub-label,
+.siparis-kanallari .section-header .section-title {
+    text-align: center;
+    width: 100%;
+}
+
+.siparis-kanallari .section-line {
+    margin: 14px auto 0;
+}
+
+/* Grid düzeni - 3'lü yan yana */
+.kanal-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    max-width: 700px;
+    margin: 40px auto 0;
+    flex-wrap: wrap;
+}
+
+/* Dikdörtgen kartlar */
+.kanal-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    background: var(--beyaz);
+    padding: 24px 16px;
+    border-radius: 4px; /* Tam dikdörtgen */
+    border: 2px solid var(--kahve);
+    transition: var(--transition);
+    flex: 1 1 0; /* Eşit genişlik */
+    min-width: 120px;
+    max-width: 200px;
+    color: var(--kahve);
+}
+
+.kanal-item:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+    background: var(--krem);
+}
+
+.kanal-icon-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid var(--kahve);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: var(--kahve);
+    margin-bottom: 12px;
+    transition: var(--transition);
+}
+
+.kanal-item:hover .kanal-icon-circle {
+    background: var(--kahve);
+    color: var(--beyaz);
+}
+
+.kanal-name {
+    font-weight: 900;
+    font-size: 1rem;
+    margin-bottom: 2px;
+}
+
+.kanal-user {
+    font-size: 0.8rem;
+    color: #777;
+    font-weight: 600;
+}
+
+/* Telefonda da yan yana (3'lü) */
+@media (max-width: 768px) {
+    .kanal-grid {
+        gap: 16px;
+    }
+    .kanal-item {
+        min-width: 80px;
+        padding: 16px 8px;
+        flex: 1 1 0;
+        max-width: 160px;
+    }
+    .kanal-icon-circle {
+        width: 48px;
+        height: 48px;
+        font-size: 1.5rem;
+    }
+    .kanal-name {
+        font-size: 0.85rem;
+    }
+    .kanal-user {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .kanal-item {
+        min-width: 70px;
+        padding: 12px 4px;
+        max-width: 120px;
+    }
+    .kanal-icon-circle {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+}
+/* --- SSS (FAQ) --- */
+.faq-section {
+    padding: 60px 5% 40px; /* Üst padding 60, alt padding 40 olarak değiştirildi */
+    background: var(--krem);
+}
+
+/* ===== SİPARİŞ KANALLARI - ORTALI & DİKDÖRTGEN ===== */
+.siparis-kanallari {
+    padding: 40px 5% 80px; /* Üst padding 40 olarak değiştirildi (80'den düşüldü) */
+    background: var(--beyaz);
+    border-top: 3px solid var(--kahve); /* Kahverengi çizgi eklendi */
 }

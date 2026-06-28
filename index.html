@@ -29,8 +29,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Playfair+Display:wght@700;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
   
-  <!-- CSS ve JS dosyaları CDN üzerinden -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/style.css" />
+  <link rel="stylesheet" href="style.css">
   
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
@@ -140,13 +139,24 @@
 
   <section class="product-section" id="ornekler">
     <div class="section-header reveal">
-      <span class="sub-label">HAZIR MODELLER 1 SAATE TESLİM</span>
-      <h2 class="section-title">KOLEKSİYONUMUZ</h2>
+      <div class="header-filter-wrapper" style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px;">
+        <div class="category-filter">
+          <button class="filter-btn" id="filterBtn">Tüm ▾</button>
+          <div class="filter-menu" id="filterMenu">
+            <button class="filter-option active" data-cat="all">Tümü</button>
+            <button class="filter-option" data-cat="dugun">Düğün</button>
+            <button class="filter-option" data-cat="kina">Kına</button>
+            <button class="filter-option" data-cat="diger">Diğer</button>
+          </div>
+        </div>
+        <h2 class="section-title" style="margin: 0;">KOLEKSİYONUMUZ</h2>
+      </div>
       <div class="section-line"></div>
     </div>
+
     <div class="product-grid" id="productGrid">
-      <!-- Ürün SN-1 -->
-      <div class="product-card reveal-scale" data-product-code="SN-1">
+      <!-- ===== DÜĞÜN ÜRÜNLERİ (SN-1 ... SN-12) ===== -->
+      <div class="product-card reveal-scale" data-product-code="SN-1" data-category="dugun">
         <div class="product-img-box">
           <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/sn1/sn1.png" alt="Elegance Gold - Dijital Düğün Davetiyesi Modeli" loading="lazy" />
           <span class="product-tag">SN-1</span>
@@ -159,8 +169,8 @@
           <button class="example-btn" data-kod="SN-1">Örneğine Bak</button>
         </div>
       </div>
-      <!-- Ürün SN-2 -->
-      <div class="product-card reveal-scale" data-product-code="SN-2">
+
+      <div class="product-card reveal-scale" data-product-code="SN-2" data-category="dugun">
         <div class="product-img-box">
           <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/sn2/sn2.png" alt="Minimal Rose - Sanal Nişan ve Düğün Davetiyesi" loading="lazy" />
           <span class="product-tag">SN-2</span>
@@ -172,8 +182,8 @@
           <button class="example-btn" data-kod="SN-2">Örneğine Bak</button>
         </div>
       </div>
-      <!-- Ürün SN-3 -->
-      <div class="product-card reveal-scale" data-product-code="SN-3">
+
+      <div class="product-card reveal-scale" data-product-code="SN-3" data-category="dugun">
         <div class="product-img-box">
           <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/sn3/sn3.png" alt="Garden Party - Dijital Sünnet ve Düğün Davetiyesi" loading="lazy" />
           <span class="product-tag">SN-3</span>
@@ -186,8 +196,8 @@
           <button class="example-btn" data-kod="SN-3">Örneğine Bak</button>
         </div>
       </div>
-      <!-- Ürün SN-4 -->
-      <div class="product-card reveal-scale" data-product-code="SN-4">
+
+      <div class="product-card reveal-scale" data-product-code="SN-4" data-category="dugun">
         <div class="product-img-box">
           <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/sn4/sn4.png" alt="Classic Night - Şık Online Davetiye Tasarımı" loading="lazy" />
           <span class="product-tag">SN-4</span>
@@ -199,8 +209,8 @@
           <button class="example-btn" data-kod="SN-4">Örneğine Bak</button>
         </div>
       </div>
-      <!-- Ürün SN-5 -->
-      <div class="product-card reveal-scale" data-product-code="SN-5">
+
+      <div class="product-card reveal-scale" data-product-code="SN-5" data-category="dugun">
         <div class="product-img-box">
           <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/sn5/sn5.png" alt="Glamour Black - Siyah Lüks Sanal Davetiye" loading="lazy" />
           <span class="product-tag">SN-5</span>
@@ -212,8 +222,8 @@
           <button class="example-btn" data-kod="SN-5">Örneğine Bak</button>
         </div>
       </div>
-      <!-- Ürün SN-6 -->
-      <div class="product-card reveal-scale" data-product-code="SN-6">
+
+      <div class="product-card reveal-scale" data-product-code="SN-6" data-category="dugun">
         <div class="product-img-box">
           <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/sn6/sn6.png" alt="Vintage Lavender - Çiçekli Dijital Davetiye" loading="lazy" />
           <span class="product-tag">SN-6</span>
@@ -226,8 +236,8 @@
           <button class="example-btn" data-kod="SN-6">Örneğine Bak</button>
         </div>
       </div>
-      <!-- Ürün SN-7 -->
-      <div class="product-card reveal-scale" data-product-code="SN-7">
+
+      <div class="product-card reveal-scale" data-product-code="SN-7" data-category="dugun">
         <div class="product-img-box">
           <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/sn7/sn7.png" alt="Rustic Elegance - Rustik Dijital Düğün Davetiyesi" loading="lazy" />
           <span class="product-tag">SN-7</span>
@@ -239,8 +249,8 @@
           <button class="example-btn" data-kod="SN-7">Örneğine Bak</button>
         </div>
       </div>
-      <!-- Ürün SN-8 -->
-      <div class="product-card reveal-scale" data-product-code="SN-8">
+
+      <div class="product-card reveal-scale" data-product-code="SN-8" data-category="dugun">
         <div class="product-img-box">
           <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/sn8/sn8.png" alt="Modern Art - Sanatsal Sanal Davetiye Kartı" loading="lazy" />
           <span class="product-tag">SN-8</span>
@@ -252,8 +262,8 @@
           <button class="example-btn" data-kod="SN-8">Örneğine Bak</button>
         </div>
       </div>
-      <!-- Ürün SN-9 -->
-      <div class="product-card reveal-scale" data-product-code="SN-9">
+
+      <div class="product-card reveal-scale" data-product-code="SN-9" data-category="dugun">
         <div class="product-img-box">
           <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/sn9/sn9.png" alt="Golden Hour - Işıltılı Dijital Nişan Davetiyesi" loading="lazy" />
           <span class="product-tag">SN-9</span>
@@ -266,8 +276,8 @@
           <button class="example-btn" data-kod="SN-9">Örneğine Bak</button>
         </div>
       </div>
-      <!-- Ürün SN-10 -->
-      <div class="product-card reveal-scale" data-product-code="SN-10">
+
+      <div class="product-card reveal-scale" data-product-code="SN-10" data-category="dugun">
         <div class="product-img-box">
           <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/bakım.png" alt="Midnight Blue - Lacivert Premium Online Davetiye" loading="lazy" />
           <span class="product-tag">SN-10</span>
@@ -279,8 +289,8 @@
           <button class="example-btn" data-kod="SN-10">25.05.2026</button>
         </div>
       </div>
-      <!-- Ürün SN-11 -->
-      <div class="product-card reveal-scale" data-product-code="SN-11">
+
+      <div class="product-card reveal-scale" data-product-code="SN-11" data-category="dugun">
         <div class="product-img-box">
           <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/bakım.png" alt="Spring Blossom - Bahar Konseptli Sanal Davetiye" loading="lazy" />
           <span class="product-tag">SN-11</span>
@@ -292,8 +302,8 @@
           <button class="example-btn" data-kod="SN-11">25.05.2026</button>
         </div>
       </div>
-      <!-- Ürün SN-12 -->
-      <div class="product-card reveal-scale" data-product-code="SN-12">
+
+      <div class="product-card reveal-scale" data-product-code="SN-12" data-category="dugun">
         <div class="product-img-box">
           <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/bakım.png" alt="Luxury Velvet - Gösterişli Dijital Davetiye Modeli" loading="lazy" />
           <span class="product-tag">SN-12</span>
@@ -306,6 +316,177 @@
           <button class="example-btn" data-kod="SN-12">25.05.2026</button>
         </div>
       </div>
+
+      <!-- ===== KINA DEMO ÜRÜNLERİ (SN-01 ... SN-06) ===== -->
+      <div class="product-card reveal-scale" data-product-code="SN-01" data-category="kina">
+        <div class="product-img-box">
+          <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/bakım.png" alt="Kına Davetiyesi Demo 1" loading="lazy" />
+          <span class="product-tag">SN-01</span>
+          <span class="product-badge">Demo</span>
+        </div>
+        <div class="product-content">
+          <h3>Kına Özel 1</h3>
+          <p class="product-sub">Geleneksel &amp; Renkli</p>
+          <button class="order-btn" disabled>YAKINDA</button>
+          <button class="example-btn" disabled>Yakında</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal-scale" data-product-code="SN-02" data-category="kina">
+        <div class="product-img-box">
+          <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/bakım.png" alt="Kına Davetiyesi Demo 2" loading="lazy" />
+          <span class="product-tag">SN-02</span>
+          <span class="product-badge">Demo</span>
+        </div>
+        <div class="product-content">
+          <h3>Kına Özel 2</h3>
+          <p class="product-sub">Klasik &amp; Zarif</p>
+          <button class="order-btn" disabled>YAKINDA</button>
+          <button class="example-btn" disabled>Yakında</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal-scale" data-product-code="SN-03" data-category="kina">
+        <div class="product-img-box">
+          <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/bakım.png" alt="Kına Davetiyesi Demo 3" loading="lazy" />
+          <span class="product-tag">SN-03</span>
+          <span class="product-badge">Demo</span>
+        </div>
+        <div class="product-content">
+          <h3>Kına Özel 3</h3>
+          <p class="product-sub">Canlı &amp; Eğlenceli</p>
+          <button class="order-btn" disabled>YAKINDA</button>
+          <button class="example-btn" disabled>Yakında</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal-scale" data-product-code="SN-04" data-category="kina">
+        <div class="product-img-box">
+          <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/bakım.png" alt="Kına Davetiyesi Demo 4" loading="lazy" />
+          <span class="product-tag">SN-04</span>
+          <span class="product-badge">Demo</span>
+        </div>
+        <div class="product-content">
+          <h3>Kına Özel 4</h3>
+          <p class="product-sub">Modern &amp; Şık</p>
+          <button class="order-btn" disabled>YAKINDA</button>
+          <button class="example-btn" disabled>Yakında</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal-scale" data-product-code="SN-05" data-category="kina">
+        <div class="product-img-box">
+          <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/bakım.png" alt="Kına Davetiyesi Demo 5" loading="lazy" />
+          <span class="product-tag">SN-05</span>
+          <span class="product-badge">Demo</span>
+        </div>
+        <div class="product-content">
+          <h3>Kına Özel 5</h3>
+          <p class="product-sub">Gösterişli &amp; Işıltılı</p>
+          <button class="order-btn" disabled>YAKINDA</button>
+          <button class="example-btn" disabled>Yakında</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal-scale" data-product-code="SN-06" data-category="kina">
+        <div class="product-img-box">
+          <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/bakım.png" alt="Kına Davetiyesi Demo 6" loading="lazy" />
+          <span class="product-tag">SN-06</span>
+          <span class="product-badge">Demo</span>
+        </div>
+        <div class="product-content">
+          <h3>Kına Özel 6</h3>
+          <p class="product-sub">Pastel &amp; Romantik</p>
+          <button class="order-btn" disabled>YAKINDA</button>
+          <button class="example-btn" disabled>Yakında</button>
+        </div>
+      </div>
+
+      <!-- ===== DİĞER DEMO ÜRÜNLERİ (SN-001 ... SN-006) ===== -->
+      <div class="product-card reveal-scale" data-product-code="SN-001" data-category="diger">
+        <div class="product-img-box">
+          <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/bakım.png" alt="Diğer Davetiye Demo 1" loading="lazy" />
+          <span class="product-tag">SN-001</span>
+          <span class="product-badge">Demo</span>
+        </div>
+        <div class="product-content">
+          <h3>Özel Gün 1</h3>
+          <p class="product-sub">Farklı &amp; Yaratıcı</p>
+          <button class="order-btn" disabled>YAKINDA</button>
+          <button class="example-btn" disabled>Yakında</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal-scale" data-product-code="SN-002" data-category="diger">
+        <div class="product-img-box">
+          <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/bakım.png" alt="Diğer Davetiye Demo 2" loading="lazy" />
+          <span class="product-tag">SN-002</span>
+          <span class="product-badge">Demo</span>
+        </div>
+        <div class="product-content">
+          <h3>Özel Gün 2</h3>
+          <p class="product-sub">Minimal &amp; Şık</p>
+          <button class="order-btn" disabled>YAKINDA</button>
+          <button class="example-btn" disabled>Yakında</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal-scale" data-product-code="SN-003" data-category="diger">
+        <div class="product-img-box">
+          <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/bakım.png" alt="Diğer Davetiye Demo 3" loading="lazy" />
+          <span class="product-tag">SN-003</span>
+          <span class="product-badge">Demo</span>
+        </div>
+        <div class="product-content">
+          <h3>Özel Gün 3</h3>
+          <p class="product-sub">Eğlenceli &amp; Renkli</p>
+          <button class="order-btn" disabled>YAKINDA</button>
+          <button class="example-btn" disabled>Yakında</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal-scale" data-product-code="SN-004" data-category="diger">
+        <div class="product-img-box">
+          <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/bakım.png" alt="Diğer Davetiye Demo 4" loading="lazy" />
+          <span class="product-tag">SN-004</span>
+          <span class="product-badge">Demo</span>
+        </div>
+        <div class="product-content">
+          <h3>Özel Gün 4</h3>
+          <p class="product-sub">Doğa &amp; Huzur</p>
+          <button class="order-btn" disabled>YAKINDA</button>
+          <button class="example-btn" disabled>Yakında</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal-scale" data-product-code="SN-005" data-category="diger">
+        <div class="product-img-box">
+          <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/bakım.png" alt="Diğer Davetiye Demo 5" loading="lazy" />
+          <span class="product-tag">SN-005</span>
+          <span class="product-badge">Demo</span>
+        </div>
+        <div class="product-content">
+          <h3>Özel Gün 5</h3>
+          <p class="product-sub">Gece &amp; Işıltı</p>
+          <button class="order-btn" disabled>YAKINDA</button>
+          <button class="example-btn" disabled>Yakında</button>
+        </div>
+      </div>
+
+      <div class="product-card reveal-scale" data-product-code="SN-006" data-category="diger">
+        <div class="product-img-box">
+          <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/bakım.png" alt="Diğer Davetiye Demo 6" loading="lazy" />
+          <span class="product-tag">SN-006</span>
+          <span class="product-badge">Demo</span>
+        </div>
+        <div class="product-content">
+          <h3>Özel Gün 6</h3>
+          <p class="product-sub">Sadelik &amp; Zarafet</p>
+          <button class="order-btn" disabled>YAKINDA</button>
+          <button class="example-btn" disabled>Yakında</button>
+        </div>
+      </div>
+      
     </div>
 
     <div class="pagination-container" id="paginationContainer"></div>
@@ -363,8 +544,6 @@
     </div>
   </section>
 
-  
-
   <!-- Footer Alanı -->
   <footer class="site-footer">
     <div class="footer-grid">
@@ -375,7 +554,6 @@
       <div class="footer-item reveal">
         <h3>Yardım &amp; Bilgi</h3>
         <ul class="footer-links">
-          <!-- İade Politikası -->
           <li>
             <a href="#" class="accordion-link" data-target="iade-politikasi">İade Politikası</a>
             <div id="iade-politikasi" class="accordion-content">
@@ -384,7 +562,6 @@
               <p><strong>3. İPTAL DURUMU</strong><br>Sadece tasarım süreci başlamamış siparişler iptal edilebilir. Süreç başladıktan sonra iptal kabul edilmez.</p>
             </div>
           </li>
-          <!-- Mesafeli Satış Sözleşmesi -->
           <li>
             <a href="#" class="accordion-link" data-target="mesafeli-satis">Mesafeli Satış Sözleşmesi</a>
             <div id="mesafeli-satis" class="accordion-content">
@@ -393,7 +570,6 @@
               <p><strong>MADDE 6:</strong> Uyuşmazlıklarda Tüketici Hakem Heyetleri ve Tüketici Mahkemeleri yetkilidir.</p>
             </div>
           </li>
-          <!-- KVKK Aydınlatma Metni -->
           <li>
             <a href="#" class="accordion-link" data-target="kvkk">KVKK Aydınlatma Metni</a>
             <div id="kvkk" class="accordion-content">
@@ -426,8 +602,7 @@
     </div>
   </div>
 
-  <!-- JavaScript dosyası CDN üzerinden -->
-  <script src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 /* ============================================================
-   script.js  –  Hafif, Güvenli ve Yüksek Performanslı Sürüm
+   script.js  –  Tam Güncel Sürüm (Filtre + Sayfalama + Slider + Modal + Accordion + WhatsApp)
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         startAuto();
     }
 
-    // ---------- HEADER SCROLL (Pasif dinleyici ile kaydırma performansı) ----------
+    // ---------- HEADER SCROLL ----------
     const header = document.getElementById('mainHeader');
     if (header) {
         window.addEventListener('scroll', () => {
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => { 
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible'); 
-                observer.unobserve(entry.target); // Bir kere göründükten sonra izlemeyi bırak (Performans)
+                observer.unobserve(entry.target);
             }
         });
     }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
@@ -106,10 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ---------- WHATSAPP SİPARİŞ HATTI ----------
     const WHATSAPP_NO = '905386082155';
-    document.querySelectorAll('.order-btn').forEach(btn => {
+    document.querySelectorAll('.order-btn:not([disabled])').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            if(btn.disabled) return;
             const model = btn.dataset.kod;
             const msg = `Merhaba, web sitenizden ${model} kodlu tasarımı inceledim ve sipariş vermek istiyorum.`;
             window.open(`https://wa.me/${WHATSAPP_NO}?text=${encodeURIComponent(msg)}`, '_blank');
@@ -124,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ---------- ÖRNEĞİNE BAK (MODAL PENCERE) ----------
+    // ---------- ÖRNEĞİNE BAK (MODAL) ----------
     const modal = document.getElementById('previewModal');
     const modalIframe = document.getElementById('modalIframe');
     const closeModalBtn = document.getElementById('closeModalBtn');
@@ -134,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'SN-4': 'sn4/sn4.html', 'SN-5': 'sn5/sn5.html', 'SN-6': 'sn6/sn6.html',
         'SN-7': 'sn7/sn7.html', 'SN-8': 'sn8/sn8.html', 'SN-9': 'sn9/sn9.html',
         'SN-10': 'sn10/sn10.html', 'SN-11': 'sn11/sn11.html', 'SN-12': 'sn12/sn12.html'
+        // Demo ürünler için şimdilik yok, sonra eklenebilir
     };
     
     function openModal(htmlFile) {
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
     }
     
-    document.querySelectorAll('.example-btn').forEach(btn => {
+    document.querySelectorAll('.example-btn:not([disabled])').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
             const productCode = btn.dataset.kod;
@@ -167,59 +167,95 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal && modal.classList.contains('show')) closeModal(); });
 
-    // ========== SAYFALAMA (PAGINATION) ==========
-    const productCards = document.querySelectorAll('.product-card');
+    // ---------- FİLTRELEME + SAYFALAMA (GÜNCELLENMİŞ) ----------
+    const productGrid = document.getElementById('productGrid');
     const paginationContainer = document.getElementById('paginationContainer');
-    
-    if (productCards.length > 0 && paginationContainer) {
-        const productsPerPage = 6;
-        let currentPage = 1;
-        const totalPages = Math.ceil(productCards.length / productsPerPage);
+    const filterBtn = document.getElementById('filterBtn');
+    const filterMenu = document.getElementById('filterMenu');
+    const filterOptions = document.querySelectorAll('.filter-option');
 
-        function showPage(page) {
-            productCards.forEach((card, idx) => {
-                const start = (page - 1) * productsPerPage;
-                const end = start + productsPerPage;
-                if (idx >= start && idx < end) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-            
-            document.querySelectorAll('.page-btn').forEach(btn => {
-                btn.classList.toggle('active', parseInt(btn.dataset.page) === page);
-            });
-            currentPage = page;
-        }
+    let currentCategory = 'all';
+    let currentPage = 1;
+    const productsPerPage = 6;
 
-        function createPaginationButtons() {
-            paginationContainer.innerHTML = '';
-            for (let i = 1; i <= totalPages; i++) {
-                const btn = document.createElement('button');
-                btn.textContent = i;
-                btn.classList.add('page-btn');
-                if (i === currentPage) btn.classList.add('active');
-                btn.dataset.page = i;
-                btn.addEventListener('click', () => {
-                    showPage(i);
-                    document.getElementById('ornekler').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                });
-                paginationContainer.appendChild(btn);
-            }
-        }
+    function getFilteredProducts() {
+        const allCards = Array.from(document.querySelectorAll('.product-card'));
+        if (currentCategory === 'all') return allCards;
+        return allCards.filter(card => card.dataset.category === currentCategory);
+    }
 
-        if (totalPages > 1) {
-            createPaginationButtons();
-            showPage(1);
-        } else {
-            productCards.forEach(card => card.style.display = '');
+    function renderPagination(filteredProducts) {
+        const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+        paginationContainer.innerHTML = '';
+        if (totalPages <= 1) {
             paginationContainer.style.display = 'none';
+            return;
+        }
+        paginationContainer.style.display = 'flex';
+        for (let i = 1; i <= totalPages; i++) {
+            const btn = document.createElement('button');
+            btn.textContent = i;
+            btn.classList.add('page-btn');
+            if (i === currentPage) btn.classList.add('active');
+            btn.dataset.page = i;
+            btn.addEventListener('click', () => {
+                currentPage = i;
+                renderProducts(filteredProducts);
+                document.getElementById('ornekler').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+            paginationContainer.appendChild(btn);
         }
     }
+
+    function renderProducts(filteredProducts) {
+        const start = (currentPage - 1) * productsPerPage;
+        const end = start + productsPerPage;
+        const visible = filteredProducts.slice(start, end);
+        // Tüm kartları gizle
+        document.querySelectorAll('.product-card').forEach(card => card.style.display = 'none');
+        // Sadece görünür olanları göster
+        visible.forEach(card => card.style.display = '');
+        renderPagination(filteredProducts);
+    }
+
+    // Filtre butonuna tıklayınca menüyü aç/kapa
+    if (filterBtn && filterMenu) {
+        filterBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            filterMenu.classList.toggle('active');
+        });
+    }
+
+    // Filtre seçeneğine tıklayınca
+    filterOptions.forEach(opt => {
+        opt.addEventListener('click', (e) => {
+            const cat = e.target.dataset.cat;
+            currentCategory = cat;
+            currentPage = 1;
+            if (filterBtn) filterBtn.textContent = e.target.textContent + ' ▾';
+            if (filterMenu) filterMenu.classList.remove('active');
+            // Aktif sınıfını güncelle
+            filterOptions.forEach(o => o.classList.remove('active'));
+            e.target.classList.add('active');
+            // Ürünleri yeniden filtrele ve göster
+            const filtered = getFilteredProducts();
+            renderProducts(filtered);
+        });
+    });
+
+    // Sayfa dışına tıklayınca menüyü kapat
+    document.addEventListener('click', (e) => {
+        if (filterMenu && !e.target.closest('.category-filter')) {
+            filterMenu.classList.remove('active');
+        }
+    });
+
+    // Sayfa yüklendiğinde ilk gösterim (tümü)
+    const initialFiltered = getFilteredProducts();
+    renderProducts(initialFiltered);
 });
 
-// Sonsuz kayan banner (Gereksiz tekrarlar temizlendi)
+// ---------- SONSuz KAYAN BANNER ----------
 function setupInfiniteBanner() {
     document.querySelectorAll('.top-banner .banner-track').forEach(track => {
         if (track.dataset.cloned === 'true') return;

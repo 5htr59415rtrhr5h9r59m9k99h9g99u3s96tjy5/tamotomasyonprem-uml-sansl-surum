@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta property="og:title" content="Naz & Ramazan Düğün Davetiyesi">
+    <meta property="og:description" content="Mutlu günümüzde sizleri aramızda görmekten mutluluk duyarız.">
+    <meta property="og:image" content="https://sanaldavetiyelik.com/data/nazramazan.jpg">
+    <meta property="og:url" content="https://sanaldavetiyelik.com/nazramazan">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://sanaldavetiyelik.com/data/nazramazan.jpg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Naz & Ramazan - Düğün Davetiyesi</title>
+    <link rel="icon" href="../data/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Tangerine:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== ROOT & RESET ===== */
+        :root {
+            --color-gold: #c5a059;
+            --color-dark: #1a1a1a;
+            --color-cream: #f5f0e8;
+            --font-body: 'Montserrat', sans-serif;
+            --font-script: 'Tangerine', cursive;
+            --font-serif: 'Cormorant Garamond', serif;
+            --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ===== ARKA PLAN (Beyaz Cennet) ===== */
+        html,
+        body {
+            width: 100%;
+            min-height: 100dvh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            font-family: var(--font-body);
+            font-weight: 600;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(197, 160, 89, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(197, 160, 89, 0.04) 0%, transparent 50%),
+                linear-gradient(145deg, #fefcf7 0%, #f5f0e8 100%);
+            color: var(--color-dark);
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(45deg, rgba(197, 160, 89, 0.04) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(197, 160, 89, 0.04) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(197, 160, 89, 0.04) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(197, 160, 89, 0.04) 75%);
+            background-size: 60px 60px;
+            background-position: 0 0, 0 30px, 30px -30px, -30px 0px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .main-container {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            min-height: 100dvh;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            z-index: 1;
+        }
+
+        /* ===== DEKORATİF UÇAN NESNELER (SVG) ===== */
+        #decorations {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .deco-item {
+            position: absolute;
+            will-change: transform, opacity;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            pointer-events: none;
+        }
+        .deco-item svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .deco-item.dove {
+            width: 42px;
+            height: 42px;
+            opacity: 0.5;
+            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.3));
+        }
+        .deco-item.dove svg {
+            fill: rgba(255, 255, 255, 0.7);
+            stroke: rgba(197, 160, 89, 0.15);
+            stroke-width: 0.5;
+        }
+        .deco-item.petal {
+            width: 28px;
+            height: 28px;
+            opacity: 0.4;
+        }
+        .deco-item.petal svg {
+            fill: rgba(240, 230, 211, 0.7);
+            stroke: rgba(197, 160, 89, 0.1);
+            stroke-width: 0.5;
+        }
+
+        /* Uçuş animasyonları */
+        @keyframes flyDove {
+            0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+            25%  { transform: translate(80px, -40px) scale(1.1) rotate(5deg); }
+            50%  { transform: translate(160px, 20px) scale(0.9) rotate(-3deg); }
+            75%  { transform: translate(240px, -50px) scale(1.05) rotate(4deg); }
+            100% { transform: translate(320px, 0) scale(1) rotate(0deg); }
+        }
+        @keyframes flyDoveReverse {
+            0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+            25%  { transform: translate(-80px, 30px) scale(0.9) rotate(-4deg); }
+            50%  { transform: translate(-160px, -20px) scale(1.1) rotate(5deg); }
+            75%  { transform: translate(-240px, 40px) scale(0.95) rotate(-2deg); }
+            100% { transform: translate(-320px, 0) scale(1) rotate(0deg); }
+        }
+        @keyframes fallPetal {
+            0%   { transform: translateY(-20vh) rotate(0deg) scale(0.8); opacity: 0.4; }
+            50%  { transform: translateY(50vh) rotate(180deg) scale(1.1); opacity: 0.7; }
+            100% { transform: translateY(110vh) rotate(360deg) scale(0.9); opacity: 0; }
+        }
+        @keyframes fallPetal2 {
+            0%   { transform: translateY(-30vh) rotate(10deg) scale(0.9); opacity: 0.3; }
+            50%  { transform: translateY(40vh) rotate(200deg) scale(1.2); opacity: 0.8; }
+            100% { transform: translateY(120vh) rotate(400deg) scale(1); opacity: 0; }
+        }
+
+        /* ===== FRAME ===== */
+        .frame-wrapper {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+        .frame-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('cerceve.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            pointer-events: none;
+        }
+
+        .safe-area {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 64%;
+            height: 58%;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            pointer-events: auto;
+            padding: 0 8px;
+        }
+
+        /* ===== SPLASH ===== */
+        #splashScreen {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            animation: slideUpSlow 2.5s var(--transition-smooth) forwards;
+            transform: translateY(100%);
+        }
+        @keyframes slideUpSlow {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(0); }
+        }
+        .splash-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            text-align: center;
+            max-width: 85%;
+            background: transparent;
+            padding: 0;
+        }
+        .splash-dove {
+            width: clamp(180px, 55vw, 420px);
+            height: auto;
+            filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.12));
+            animation: doveFloat 3s ease-in-out infinite;
+            transition: opacity 2.5s ease;
+        }
+        .splash-dove.fade-away {
+            animation: none;
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        @keyframes doveFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        .splash-hint {
+            font-family: var(--font-body);
+            font-size: 0.5rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #555;
+            opacity: 0.9;
+            text-transform: uppercase;
+            animation: pulseHint 3s infinite ease-in-out;
+            transition: opacity 1.5s ease;
+        }
+        .splash-hint.fade-away { opacity: 0; }
+        @keyframes pulseHint {
+            0%, 100% { opacity: 0.4; transform: scale(0.97); }
+            50% { opacity: 0.9; transform: scale(1); }
+        }
+
+        /* ===== DAVETİYE İÇERİK ===== */
+        .invitation-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.8s var(--transition-smooth);
+            transform: scale(0.93);
+            will-change: opacity, transform;
+            z-index: 10;
+            position: relative;
+        }
+        .invitation-wrapper.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+
+        /* ===== ANİMASYONLU ÖĞELER ===== */
+        .anim-item {
+            opacity: 0;
+            transform: translateY(40px);
+            filter: blur(10px);
+            transition: opacity 0.9s var(--transition-smooth),
+                        transform 0.9s var(--transition-smooth),
+                        filter 0.9s var(--transition-smooth);
+            will-change: opacity, transform, filter;
+            width: 100%;
+            text-align: center;
+        }
+        .invitation-wrapper.active .anim-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        /* ===== BÖLÜM ÖZEL STİLLER ===== */
+        .header-section { margin-bottom: 2px; }
+        .couple-names {
+            font-family: var(--font-script);
+            font-size: clamp(1.8rem, 8vw, 2.6rem);
+            font-weight: 700;
+            color: var(--color-gold);
+            line-height: 1.1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            letter-spacing: 2px;
+        }
+        .ampersand { font-size: 0.55em; color: var(--color-gold); }
+
+        .wedding-quote {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            line-height: 1.4;
+            margin-bottom: 4px;
+        }
+
+        .families-section { width: 100%; margin-bottom: 4px; }
+        .families-flex {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            width: 100%;
+        }
+        .parent-group {
+            flex: 1;
+            text-align: center;
+            min-width: 0;
+        }
+        .parent-group>span {
+            font-size: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #333;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+        .parent-fullname {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--color-gold);
+            word-break: break-word;
+        }
+        .parent-surname {
+            font-size: 0.55rem;
+            font-weight: 700;
+            color: var(--color-gold);
+            letter-spacing: 2px;
+            margin-top: 1px;
+        }
+
+        /* —— TARİH —— */
+        .date-section {
+            width: 100%;
+            max-width: 500px;
+            margin: 4px auto;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            grid-template-areas: "left day right" "week week week";
+            align-items: center;
+            row-gap: 4px;
+        }
+        .date-left {
+            grid-area: left;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .date-right {
+            grid-area: right;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .date-day {
+            grid-area: day;
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 8vw, 3rem);
+            line-height: 1;
+            font-weight: 500;
+            color: #222;
+        }
+        .month, .year {
+            font-family: var(--font-body);
+            font-size: clamp(0.65rem, 2.2vw, 0.95rem);
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #222;
+        }
+        .weekday {
+            grid-area: week;
+            text-align: center;
+            font-family: var(--font-body);
+            font-size: clamp(0.75rem, 2.8vw, 1.1rem);
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #222;
+        }
+        .line {
+            width: clamp(18px, 7vw, 45px);
+            height: 1.5px;
+            background: #444;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .line::before,
+        .line::after {
+            content: "";
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border: 1px solid #444;
+            transform: rotate(45deg);
+            background: white;
+        }
+        .line::before { left: -3px; top: -2px; }
+        .line::after { right: -3px; top: -2px; }
+
+        /* —— Mekan —— */
+        .events-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin-bottom: 4px;
+        }
+        .event-spec { width: 100%; }
+        .event-name { display: none; }
+        .event-time,
+        .event-place,
+        .event-address {
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-top: 1px;
+        }
+
+        /* —— TIMELINE (saatler kalıcı) —— */
+        .timeline-container {
+            position: relative;
+            width: 100%;
+            max-width: 260px;
+            margin: 0 auto;
+            padding: 0.6rem 0.1rem 1rem;
+        }
+        .timeline-line {
+            position: absolute;
+            top: 1.4rem;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            width: 0;
+            height: 1.5px;
+            background: #1a1a1a;
+            border-radius: 2px;
+            z-index: 0;
+            transition: width 3.5s var(--transition-smooth);
+            will-change: width;
+        }
+        .timeline-line.animate { width: 100%; }
+
+        .events-wrapper {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            position: relative;
+            z-index: 2;
+        }
+        .event {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 60px;
+            pointer-events: none;
+        }
+        .event-icon {
+            width: 22px;
+            height: 22px;
+            margin-bottom: 4px;
+            color: #1a1a1a;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 0.5s var(--transition-smooth),
+                        transform 0.5s var(--transition-smooth);
+            will-change: opacity, transform;
+        }
+        .event-icon.icon-visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .event-title {
+            font-size: 0.45rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s var(--transition-smooth),
+                        transform 0.4s var(--transition-smooth);
+            will-change: opacity, transform;
+        }
+        .event-title.title-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .event-time {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            letter-spacing: 1px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s var(--transition-smooth),
+                        transform 0.4s var(--transition-smooth);
+            will-change: opacity, transform;
+        }
+        .event-time.time-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* —— Countdown —— */
+        .countdown-label {
+            font-size: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #333;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+        .time-element span {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        .time-element small {
+            font-size: 0.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #444;
+        }
+
+        /* —— Buton —— */
+        .action-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 100%;
+            margin-bottom: 6px;
+        }
+        .action-btn {
+            background: transparent;
+            border: none;
+            color: #1a1a1a;
+            padding: 6px 10px;
+            font-size: 0.55rem;
+            font-family: var(--font-body);
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            border-radius: 2px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            will-change: transform;
+        }
+        .action-btn:hover { background: rgba(0,0,0,0.05); }
+        .action-btn:active { transform: scale(0.96); }
+
+        /* ===== HARİTA MODAL ===== */
+        .map-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(20,15,10,0.5);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(30px);
+            transition: opacity 0.9s var(--transition-smooth), transform 0.9s;
+        }
+        .map-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+        .map-inner {
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            background: rgba(255,250,240,0.95);
+            backdrop-filter: blur(14px);
+            padding: 20px 15px;
+            border-radius: 10px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+        .modal-title {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+        .map-widget {
+            width: 100%;
+            height: 240px;
+            border: 1px solid rgba(0,0,0,0.1);
+            margin-bottom: 18px;
+            border-radius: 4px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 360px) {
+            .safe-area { width: 72%; height: 60%; padding: 5% 4px; }
+            .couple-names { font-size: 1.6rem; }
+            .event { width: 50px; }
+            .event-icon { width: 20px; height: 20px; }
+            .deco-item.dove { width: 32px; height: 32px; }
+            .deco-item.petal { width: 22px; height: 22px; }
+        }
+        @media (min-width: 768px) {
+            .safe-area { width: 58%; height: 54%; }
+            .couple-names { font-size: 2.8rem; }
+        }
+        @media (min-width: 1024px) {
+            .safe-area { width: 55%; height: 52%; }
+            .couple-names { font-size: 3rem; }
+        }
+        @media (min-width: 1920px) {
+            .main-container { max-width: 600px; }
+            .safe-area { width: 50%; height: 50%; }
+            .couple-names { font-size: 3.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Dekoratif SVG katmanı -->
+        <div id="decorations"></div>
+
+        <div class="frame-wrapper">
+            <div class="frame-bg"></div>
+            <div class="safe-area" id="safeArea">
+                <div class="invitation-wrapper" id="invitationWrapper">
+                    <!-- 1. İsimler -->
+                    <div class="anim-item" id="animNames">
+                        <div class="header-section">
+                            <h1 class="couple-names">
+                                <span id="gelinAd">Naz</span>
+                                <span class="ampersand">&</span>
+                                <span id="damatAd">Ramazan</span>
+                            </h1>
+                        </div>
+                    </div>
+
+                    <!-- 2. Açıklama -->
+                    <div class="anim-item" id="animQuote">
+                        <p class="wedding-quote">Bu mutlu günümüzde sizleri de aramızda görmekten mutluluk duyarız.</p>
+                    </div>
+
+                    <!-- 3. Aileler -->
+                    <div class="anim-item" id="animFamilies">
+                        <div class="families-section" id="familiesSection">
+                            <div class="families-flex" id="familiesNames"></div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Tarih -->
+                    <div class="anim-item" id="animDate">
+                        <div class="date-section" id="dateSection">
+                            <div class="date-left">
+                                <span class="line"></span>
+                                <span class="month" id="ayMetni">EYLÜL</span>
+                                <span class="line"></span>
+                            </div>
+                            <div class="date-day" id="gunRakam">06</div>
+                            <div class="date-right">
+                                <span class="line"></span>
+                                <span class="year" id="yilMetni">2026</span>
+                                <span class="line"></span>
+                            </div>
+                            <div class="weekday" id="gunAdi">PAZAR</div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Mekan -->
+                    <div class="anim-item" id="animVenue">
+                        <div class="events-grid">
+                            <div class="event-spec">
+                                <div class="event-time" id="etkinlik1Detay">06 Eylül 2026, Pazar — 19:00</div>
+                                <div class="event-place" id="etkinlik1Konum">Pera Royal Balo ve Davet Salonu</div>
+                                <div class="event-address" id="etkinlik1Adres">Yamanevler Mahallesi Sanayi Caddesi No: 2 / B Kat: 3 (Çakmak Metro Yanı) Ümraniye / İstanbul</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. Timeline -->
+                    <div class="anim-item" id="animTimeline">
+                        <div class="timeline-container" id="timelineContainer">
+                            <div class="timeline-line" id="timelineLine"></div>
+                            <div class="events-wrapper" id="eventsWrapper"></div>
+                        </div>
+                    </div>
+
+                    <!-- 7. Geri sayım -->
+                    <div class="anim-item" id="animCountdown">
+                        <div class="countdown-label">Düğüne Kalan Süre</div>
+                        <div class="countdown" id="timer">
+                            <div class="time-element"><span id="days">00</span><small>Gün</small></div>
+                            <div class="time-element"><span id="hours">00</span><small>Saat</small></div>
+                            <div class="time-element"><span id="minutes">00</span><small>Dakika</small></div>
+                            <div class="time-element"><span id="seconds">00</span><small>Saniye</small></div>
+                        </div>
+                    </div>
+
+                    <!-- 8. Buton -->
+                    <div class="anim-item" id="animButton">
+                        <div class="action-layout">
+                            <button id="btnMap" class="action-btn">📍 KONUMU GÖR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Splash -->
+        <div id="splashScreen">
+            <div class="splash-content">
+                <img src="cift.png" alt="Çift" class="splash-dove" id="splashCift">
+                <div class="splash-hint" id="splashHint">DAVETİYEYİ AÇMAK İÇİN TIKLAYIN</div>
+            </div>
+        </div>
+
+        <!-- Harita modal -->
+        <div class="map-modal" id="mapPanel">
+            <div class="map-inner">
+                <div class="modal-title">ETKİNLİK LOKASYONU</div>
+                <iframe id="haritaIframe" class="map-widget" src="" allowfullscreen loading="lazy"></iframe>
+                <div class="action-layout">
+                    <button id="btnNavigate" class="action-btn">🧭 YOL TARİFİ AL</button>
+                    <button id="mapClose" class="action-btn">↩️ GERİ DÖN</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/data/nazramazan.mpeg" type="audio/mpeg">
+    </audio>
+
+    <script>
+        (function() {
+            // ========== VERİLER ==========
+            const veri = {
+                gelinAd: "Naz",
+                damatAd: "Ramazan",
+                gelinAnne: "Nihal Aktaş",
+                gelinBaba: "Şeref Aktaş",
+                damatAnne: "Hacer Kuruçay",
+                damatBaba: "Reşit Kuruçay",
+                etkinlik1Baslik: "Düğün Töreni",
+                etkinlik1Tarih: "06 Eylül 2026",
+                etkinlik1Gun: "Pazar",
+                etkinlik1Saat: "19:00",
+                konum: "Pera Royal Balo ve Davet Salonu",
+                adresTam: "Yamanevler Mahallesi Sanayi Caddesi No: 2 / B Kat: 3 (Çakmak Metro Yanı) Ümraniye / İstanbul",
+                // GÜNCELLENEN HARİTA IFRAME SRC (kullanıcının verdiği)
+                haritaIframe: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3010.1533908146484!2d29.11959547301637!3d41.021899955746804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cac9573ec20f21%3A0x597005546bafaa68!2sPera%20Royal%20Balo%20Ve%20Davet%20Salonu!5e0!3m2!1str!2str!4v1784040809881!5m2!1str!2str",
+                haritaYolTarifi: "https://maps.app.goo.gl/5cLfZxQj4XvF8qK37",
+                geriSayim: "2026-09-06T19:00:00"
+            };
+
+            // ========== DOM DOLDUR ==========
+            document.getElementById("gelinAd").textContent = veri.gelinAd;
+            document.getElementById("damatAd").textContent = veri.damatAd;
+
+            const gunRakam = document.getElementById("gunRakam");
+            const ayMetni = document.getElementById("ayMetni");
+            const yilMetni = document.getElementById("yilMetni");
+            const gunAdi = document.getElementById("gunAdi");
+            const tarihParcalari = veri.etkinlik1Tarih.split(' ');
+            gunRakam.textContent = tarihParcalari[0] || "06";
+            ayMetni.textContent = tarihParcalari[1]?.toUpperCase() || "EYLÜL";
+            yilMetni.textContent = tarihParcalari[2] || "2026";
+            gunAdi.textContent = veri.etkinlik1Gun.toUpperCase();
+
+            document.getElementById("etkinlik1Detay").textContent = veri.etkinlik1Tarih + ", " + veri.etkinlik1Gun + " — " + veri.etkinlik1Saat;
+            document.getElementById("etkinlik1Konum").textContent = veri.konum;
+            document.getElementById("etkinlik1Adres").textContent = veri.adresTam;
+            if (veri.haritaIframe) document.getElementById("haritaIframe").src = veri.haritaIframe;
+
+            // Aileler
+            const familiesDiv = document.getElementById("familiesNames");
+            let aileHtml = '';
+            function adSoyadAyir(tamIsim) {
+                if (!tamIsim) return { ad: '', soyad: '' };
+                const parts = tamIsim.trim().split(' ');
+                return { ad: parts[0] || '', soyad: parts.slice(1).join(' ') || '' };
+            }
+            if (veri.gelinBaba || veri.gelinAnne) {
+                const baba = adSoyadAyir(veri.gelinBaba);
+                const anne = adSoyadAyir(veri.gelinAnne);
+                const aileSoyad = baba.soyad || anne.soyad || 'Aktaş';
+                aileHtml += `<div class="parent-group"><span>Gelin Ailesi</span><div class="parent-names"><div class="parent-fullname">${baba.ad} & ${anne.ad}</div>`;
+                if (aileSoyad) aileHtml += `<div class="parent-surname">${aileSoyad.toUpperCase()}</div>`;
+                aileHtml += `</div></div>`;
+            }
+            if (veri.damatBaba || veri.damatAnne) {
+                const baba = adSoyadAyir(veri.damatBaba);
+                const anne = adSoyadAyir(veri.damatAnne);
+                const aileSoyad = baba.soyad || anne.soyad || 'Kuruçay';
+                aileHtml += `<div class="parent-group"><span>Damat Ailesi</span><div class="parent-names"><div class="parent-fullname">${baba.ad} & ${anne.ad}</div>`;
+                if (aileSoyad) aileHtml += `<div class="parent-surname">${aileSoyad.toUpperCase()}</div>`;
+                aileHtml += `</div></div>`;
+            }
+            familiesDiv.innerHTML = aileHtml;
+            if (!aileHtml) document.getElementById("familiesSection").style.display = "none";
+
+            window.targetTimestamp = new Date(veri.geriSayim).getTime();
+
+            // ========== TIMELINE (KOKTEYL → BAŞLANGIÇ) ==========
+            const eventsData = [
+                { icon: 'wine', title: 'BAŞLANGIÇ', time: '19.30' },  // değişti
+                { icon: 'rings', title: 'NİKAH', time: '20.00' },
+                { icon: 'food', title: 'YEMEK', time: '20.30' }
+            ];
+            const svgIcons = {
+                wine: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h8l2 6H6l2-6z"/><path d="M6 8v4c0 4 3 6 6 6s6-2 6-6V8"/><line x1="12" y1="14" x2="12" y2="22"/><line x1="9" y1="19" x2="15" y2="19"/></svg>`,
+                rings: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="10" r="4"/><circle cx="16" cy="10" r="4"/><path d="M10 13c-1.5 1.5-3 3.5-2 5.5"/><path d="M14 13c1.5 1.5 3 3.5 2 5.5"/></svg>`,
+                food: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="8"/><path d="M8 8l8 8M16 8l-8 8"/></svg>`
+            };
+            const eventsWrapper = document.getElementById('eventsWrapper');
+            const timelineLine = document.getElementById('timelineLine');
+
+            function buildTimelineEvents() {
+                eventsData.forEach(event => {
+                    const eventDiv = document.createElement('div');
+                    eventDiv.className = 'event';
+                    const iconDiv = document.createElement('div');
+                    iconDiv.className = 'event-icon';
+                    iconDiv.innerHTML = svgIcons[event.icon] || svgIcons.wine;
+                    const titleEl = document.createElement('div');
+                    titleEl.className = 'event-title';
+                    titleEl.textContent = event.title;
+                    const timeEl = document.createElement('div');
+                    timeEl.className = 'event-time';
+                    timeEl.textContent = event.time;
+                    eventDiv.appendChild(iconDiv);
+                    eventDiv.appendChild(titleEl);
+                    eventDiv.appendChild(timeEl);
+                    eventsWrapper.appendChild(eventDiv);
+                });
+            }
+
+            async function runTimelineAnimation() {
+                timelineLine.classList.add('animate');
+                await new Promise(resolve => setTimeout(resolve, 3200));
+
+                const icons = document.querySelectorAll('.event-icon');
+                const titles = document.querySelectorAll('.event-title');
+                const times = document.querySelectorAll('.event-time');
+
+                for (let i = 0; i < icons.length; i++) {
+                    icons[i].classList.add('icon-visible');
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                }
+                for (let i = 0; i < titles.length; i++) {
+                    titles[i].classList.add('title-visible');
+                    times[i].classList.add('time-visible');
+                    await new Promise(resolve => setTimeout(resolve, 350));
+                }
+                times.forEach(el => el.classList.add('time-visible'));
+            }
+
+            // ========== SIRALI AÇILIŞ ==========
+            const animItems = [
+                'animNames',
+                'animQuote',
+                'animFamilies',
+                'animDate',
+                'animVenue',
+                'animTimeline',
+                'animCountdown',
+                'animButton'
+            ];
+
+            async function runSequenceAnimation() {
+                for (let i = 0; i < animItems.length; i++) {
+                    const el = document.getElementById(animItems[i]);
+                    if (el) el.classList.add('visible');
+
+                    if (animItems[i] === 'animTimeline') {
+                        await new Promise(resolve => setTimeout(resolve, 400));
+                        runTimelineAnimation();
+                    }
+                    await new Promise(resolve => setTimeout(resolve, 200));
+                }
+            }
+
+            // ========== DEKORATİF UÇAN NESNELER (SVG) ==========
+            function startDecorations() {
+                const container = document.getElementById('decorations');
+
+                const doveSVG = `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M32 8 C 16 8, 4 20, 4 36 C 4 44, 8 52, 14 56 C 10 52, 8 46, 8 40 C 8 28, 18 18, 30 16 L 28 20 C 22 22, 16 28, 16 36 C 16 42, 20 48, 26 52 C 24 48, 22 44, 22 40 C 22 34, 28 28, 34 26 L 32 30 C 28 32, 24 38, 24 44 C 24 50, 28 56, 34 58 C 30 54, 28 50, 28 46 C 28 42, 32 36, 38 34 L 36 38 C 34 40, 32 44, 32 48 C 32 54, 38 60, 44 60 C 50 60, 56 54, 56 48 C 56 40, 48 32, 40 28 L 44 24 C 52 20, 58 12, 58 4 C 52 8, 44 12, 38 14 C 44 10, 48 6, 50 2 C 44 4, 38 8, 32 8 Z" />
+                </svg>`;
+
+                const petalSVG = `<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 2 C 12 2, 6 8, 6 16 C 6 24, 12 30, 20 30 C 28 30, 34 24, 34 16 C 34 8, 28 2, 20 2 Z" />
+                    <path d="M20 6 C 14 6, 10 10, 10 16 C 10 22, 14 26, 20 26 C 26 26, 30 22, 30 16 C 30 10, 26 6, 20 6 Z" fill="rgba(255,255,240,0.3)" />
+                    <circle cx="20" cy="16" r="3" fill="rgba(197,160,89,0.15)" />
+                    <circle cx="20" cy="16" r="1.5" fill="rgba(197,160,89,0.3)" />
+                </svg>`;
+
+                for (let i = 0; i < 5; i++) {
+                    const el = document.createElement('div');
+                    el.className = 'deco-item dove';
+                    el.innerHTML = doveSVG;
+                    el.style.left = (10 + Math.random() * 80) + '%';
+                    el.style.top = (10 + Math.random() * 80) + '%';
+                    el.style.width = (36 + Math.random() * 24) + 'px';
+                    el.style.height = (36 + Math.random() * 24) + 'px';
+                    el.style.animationDuration = (20 + Math.random() * 15) + 's';
+                    el.style.animationDelay = (Math.random() * 10) + 's';
+                    el.style.animationName = Math.random() > 0.5 ? 'flyDove' : 'flyDoveReverse';
+                    el.style.opacity = 0.35 + Math.random() * 0.3;
+                    container.appendChild(el);
+                }
+
+                for (let i = 0; i < 12; i++) {
+                    const el = document.createElement('div');
+                    el.className = 'deco-item petal';
+                    el.innerHTML = petalSVG;
+                    el.style.left = (Math.random() * 95) + '%';
+                    el.style.top = '-10%';
+                    el.style.width = (22 + Math.random() * 18) + 'px';
+                    el.style.height = (22 + Math.random() * 18) + 'px';
+                    el.style.animationDuration = (12 + Math.random() * 10) + 's';
+                    el.style.animationDelay = (Math.random() * 15) + 's';
+                    el.style.animationName = Math.random() > 0.5 ? 'fallPetal' : 'fallPetal2';
+                    el.style.opacity = 0.25 + Math.random() * 0.35;
+                    container.appendChild(el);
+                }
+            }
+
+            // ========== SPLASH VE MÜZİK ==========
+            const bgMusic = document.getElementById('bgMusic');
+            const invitationWrapper = document.getElementById('invitationWrapper');
+            const splashScreen = document.getElementById('splashScreen');
+            const splashCift = document.getElementById('splashCift');
+            const splashHint = document.getElementById('splashHint');
+            let isRevealed = false;
+
+            splashScreen.addEventListener('click', function() {
+                if (isRevealed) return;
+                isRevealed = true;
+                bgMusic.play().catch(() => {});
+                splashCift.classList.add('fade-away');
+                splashHint.classList.add('fade-away');
+                setTimeout(() => {
+                    splashScreen.style.transition = 'all 1.5s cubic-bezier(0.22, 1, 0.36, 1)';
+                    splashScreen.style.opacity = '0';
+                    splashScreen.style.pointerEvents = 'none';
+                    setTimeout(() => {
+                        splashScreen.style.display = 'none';
+                        invitationWrapper.classList.add('active');
+                        startCountdown();
+                        runSequenceAnimation();
+                        startDecorations();
+                    }, 1500);
+                }, 2500);
+            });
+
+            // ========== HARİTA MODAL ==========
+            document.getElementById("btnMap").addEventListener('click', (e) => {
+                e.stopPropagation();
+                invitationWrapper.style.opacity = "0";
+                invitationWrapper.style.pointerEvents = "none";
+                document.getElementById('mapPanel').classList.add('active');
+            });
+            document.getElementById('mapClose').addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.getElementById('mapPanel').classList.remove('active');
+                invitationWrapper.style.opacity = "1";
+                invitationWrapper.style.pointerEvents = "auto";
+            });
+            document.getElementById("btnNavigate").addEventListener("click", (e) => {
+                e.stopPropagation();
+                window.open(veri.haritaYolTarifi, "_blank");
+            });
+
+            // ========== GERİ SAYIM ==========
+            let countdownInterval;
+            function startCountdown() {
+                if (countdownInterval) clearInterval(countdownInterval);
+                const target = window.targetTimestamp;
+                function update() {
+                    const diff = target - Date.now();
+                    if (diff > 0) {
+                        document.getElementById('days').innerText = Math.floor(diff / 86400000).toString().padStart(2, '0');
+                        document.getElementById('hours').innerText = Math.floor((diff % 86400000) / 3600000).toString().padStart(2, '0');
+                        document.getElementById('minutes').innerText = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
+                        document.getElementById('seconds').innerText = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
+                    } else {
+                        ['days', 'hours', 'minutes', 'seconds'].forEach(id => document.getElementById(id).innerText = '00');
+                    }
+                }
+                update();
+                countdownInterval = setInterval(update, 1000);
+            }
+
+            buildTimelineEvents();
+        })();
+    </script>
+</body>
+</html>

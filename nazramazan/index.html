@@ -60,52 +60,152 @@
             z-index: 1;
         }
 
-        #decorations {
+        #doveContainer {
             position: fixed;
             inset: 0;
             pointer-events: none;
-            z-index: 1;
+            z-index: 2;
             overflow: hidden;
         }
 
-        .guvercin-video {
+        .dove {
             position: absolute;
-            width: 80px;
-            height: auto;
-            opacity: 0;
             pointer-events: none;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+            will-change: transform, left, top, opacity;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: translate3d(0, 0, 0);
+            opacity: 0;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
             object-fit: contain;
             background: transparent !important;
-            will-change: left, transform, opacity;
         }
 
-        @keyframes flyGuvercin {
+        /* Soldan sağa uçuş */
+        @keyframes flyLeft {
             0% {
-                left: -10%;
+                left: -15%;
+                top: var(--start-top);
                 opacity: 0;
-                transform: translateY(0) rotate(0deg);
+                transform: translate3d(0, 0, 0) rotate(0deg);
             }
             5% {
-                opacity: 0.8;
+                opacity: 0.9;
             }
-            25% {
-                transform: translateY(-10px) rotate(2deg);
+            30% {
+                transform: translate3d(0, -30px, 0) rotate(5deg);
             }
-            50% {
-                left: 50%;
-                transform: translateY(5px) rotate(-2deg);
+            60% {
+                transform: translate3d(0, 15px, 0) rotate(-3deg);
             }
-            75% {
-                transform: translateY(-8px) rotate(3deg);
-            }
-            95% {
-                opacity: 0.8;
+            90% {
+                opacity: 0.9;
+                transform: translate3d(0, -10px, 0) rotate(2deg);
             }
             100% {
-                left: 110%;
+                left: 115%;
+                top: var(--start-top);
                 opacity: 0;
-                transform: translateY(0) rotate(0deg);
+                transform: translate3d(0, 0, 0) rotate(0deg);
+            }
+        }
+
+        /* Sağdan sola uçuş */
+        @keyframes flyRight {
+            0% {
+                left: 115%;
+                top: var(--start-top);
+                opacity: 0;
+                transform: translate3d(0, 0, 0) rotate(0deg) scaleX(-1);
+            }
+            5% {
+                opacity: 0.9;
+            }
+            30% {
+                transform: translate3d(0, -25px, 0) rotate(-5deg) scaleX(-1);
+            }
+            60% {
+                transform: translate3d(0, 20px, 0) rotate(3deg) scaleX(-1);
+            }
+            90% {
+                opacity: 0.9;
+                transform: translate3d(0, -15px, 0) rotate(-2deg) scaleX(-1);
+            }
+            100% {
+                left: -15%;
+                top: var(--start-top);
+                opacity: 0;
+                transform: translate3d(0, 0, 0) rotate(0deg) scaleX(-1);
+            }
+        }
+
+        /* Üst kısımda daire çizerek süzülme */
+        @keyframes circleFly {
+            0% {
+                left: 10%;
+                top: -10%;
+                opacity: 0;
+                transform: translate3d(0, 0, 0) rotate(0deg);
+            }
+            10% {
+                opacity: 0.85;
+            }
+            25% {
+                left: 40%;
+                top: 5%;
+                transform: translate3d(0, -15px, 0) rotate(10deg);
+            }
+            50% {
+                left: 75%;
+                top: 15%;
+                transform: translate3d(0, 10px, 0) rotate(-5deg);
+            }
+            75% {
+                left: 25%;
+                top: 20%;
+                transform: translate3d(0, -20px, 0) rotate(8deg);
+            }
+            90% {
+                opacity: 0.85;
+            }
+            100% {
+                left: -15%;
+                top: 30%;
+                opacity: 0;
+                transform: translate3d(0, 0, 0) rotate(0deg);
+            }
+        }
+
+        /* Havada süzülüp çıkma */
+        @keyframes floatFly {
+            0% {
+                left: var(--start-left);
+                top: -15%;
+                opacity: 0;
+                transform: translate3d(0, 0, 0) rotate(0deg);
+            }
+            10% {
+                opacity: 0.9;
+            }
+            30% {
+                left: calc(var(--start-left) + 10%);
+                top: 15%;
+                transform: translate3d(0, -20px, 0) rotate(6deg);
+            }
+            60% {
+                left: calc(var(--start-left) - 5%);
+                top: 40%;
+                transform: translate3d(0, 15px, 0) rotate(-4deg);
+            }
+            85% {
+                opacity: 0.9;
+                transform: translate3d(0, -10px, 0) rotate(3deg);
+            }
+            100% {
+                left: var(--start-left);
+                top: 115%;
+                opacity: 0;
+                transform: translate3d(0, 0, 0) rotate(0deg);
             }
         }
 
@@ -578,7 +678,7 @@
 </head>
 <body>
     <div class="main-container">
-        <div id="decorations"></div>
+        <div id="doveContainer"></div>
 
         <div class="frame-wrapper">
             <div class="frame-bg"></div>
@@ -753,53 +853,70 @@
                 }
             }
 
-            const decorationsContainer = document.getElementById('decorations');
-            let guvercinElements = [];
+            // --- GÜVERCİN ANİMASYON SİSTEMİ ---
+            const doveContainer = document.getElementById('doveContainer');
+            const MAX_DOVES = 4;
+            let activeDoves = 0;
+            const animationTypes = ['flyLeft', 'flyRight', 'circleFly', 'floatFly'];
 
-            function clearDecorations() {
-                guvercinElements.forEach(video => video.remove());
-                guvercinElements = [];
+            function getRandomAnimation() {
+                return animationTypes[Math.floor(Math.random() * animationTypes.length)];
             }
 
-            function startDecorations() {
-                clearDecorations();
-                const count = 4;
-                for (let i = 0; i < count; i++) {
-                    const video = document.createElement('video');
-                    video.className = 'guvercin-video';
-                    video.autoplay = true;
-                    video.loop = true;
-                    video.muted = true;
-                    video.playsInline = true;
-                    video.setAttribute('playsinline', '');
-                    video.style.background = 'transparent';
+            function createDove() {
+                if (activeDoves >= MAX_DOVES) return;
 
-                    const sourceWebM = document.createElement('source');
-                    sourceWebM.src = 'guvercin.webm';
-                    sourceWebM.type = 'video/webm';
-                    video.appendChild(sourceWebM);
+                const dove = document.createElement('img');
+                dove.src = 'guvercin.png';
+                dove.className = 'dove';
+                dove.style.background = 'transparent';
 
-                    const sourceMP4 = document.createElement('source');
-                    sourceMP4.src = 'guvercin_alpha.mp4';
-                    sourceMP4.type = 'video/mp4';
-                    video.appendChild(sourceMP4);
+                // Rastgele boyut
+                const size = 60 + Math.random() * 60; // 60px - 120px
+                dove.style.width = size + 'px';
 
-                    const boyut = 55 + Math.random() * 70;
-                    video.style.width = boyut + 'px';
-                    // SADECE ÜST KISIMDA KALACAK (%5 - %25 arası)
-                    video.style.top = (5 + Math.random() * 20) + '%';
-                    const sure = 8 + Math.random() * 10;
-                    const gecikme = Math.random() * 5;
-                    video.style.animation = `flyGuvercin ${sure}s linear ${gecikme}s infinite`;
-                    video.style.filter = `drop-shadow(0 ${2+Math.random()*6}px ${4+Math.random()*6}px rgba(0,0,0,0.2))`;
+                // Animasyon tipi seç
+                const animType = getRandomAnimation();
+                const duration = 7 + Math.random() * 8; // 7-15 saniye
 
-                    decorationsContainer.appendChild(video);
-                    guvercinElements.push(video);
+                // Başlangıç konumları
+                const startTop = 5 + Math.random() * 35; // %5 - %40 arası yukarıda
+
+                if (animType === 'flyLeft' || animType === 'flyRight') {
+                    dove.style.setProperty('--start-top', startTop + '%');
+                } else if (animType === 'floatFly') {
+                    const startLeft = 10 + Math.random() * 80; // %10 - %90
+                    dove.style.setProperty('--start-left', startLeft + '%');
                 }
+
+                dove.style.animation = `${animType} ${duration}s ease-in-out forwards`;
+
+                // Animasyon bitince sil
+                dove.addEventListener('animationend', () => {
+                    dove.remove();
+                    activeDoves--;
+                });
+
+                doveContainer.appendChild(dove);
+                activeDoves++;
             }
 
-            startDecorations();
+            function startDoveGenerator() {
+                // İlk başta 2 güvercin oluştur
+                setTimeout(() => createDove(), 500);
+                setTimeout(() => createDove(), 1500);
 
+                // Her 5-10 saniyede yeni güvercin üret
+                setInterval(() => {
+                    const delay = 5000 + Math.random() * 5000; // 5-10 sn
+                    setTimeout(() => createDove(), delay);
+                }, 8000);
+            }
+
+            // Sayfa açılışında güvercinleri başlat
+            startDoveGenerator();
+
+            // --- MÜZİK VE AÇILIŞ ---
             const bgMusic = document.getElementById('bgMusic');
             const invitationWrapper = document.getElementById('invitationWrapper');
             const splashScreen = document.getElementById('splashScreen');
@@ -811,7 +928,6 @@
                 if (isRevealed) return;
                 isRevealed = true;
                 bgMusic.play().catch(() => {});
-                clearDecorations();
 
                 splashCift.classList.add('fade-away');
                 splashHint.classList.add('fade-away');
@@ -824,7 +940,6 @@
                         invitationWrapper.classList.add('active');
                         startCountdown();
                         runSequenceAnimation();
-                        startDecorations();
                     }, 1500);
                 }, 2500);
             });

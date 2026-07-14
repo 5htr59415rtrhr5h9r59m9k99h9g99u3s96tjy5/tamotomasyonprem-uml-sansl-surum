@@ -38,7 +38,7 @@
             overflow-y: auto;
             font-family: var(--font-body);
             font-weight: 600;
-            background: #f5f0e8;  /* sadece krem arka plan */
+            background: #f5f0e8;
             color: var(--color-dark);
             -webkit-tap-highlight-color: transparent;
             user-select: none;
@@ -46,8 +46,6 @@
             align-items: flex-start;
             justify-content: center;
         }
-
-        /* Izgara efektleri tamamen kaldırıldı (::before ve ::after yok) */
 
         .main-container {
             position: relative;
@@ -69,36 +67,47 @@
             z-index: 1;
             overflow: hidden;
         }
+
         .guvercin-video {
             position: absolute;
-            width: 80px;
+            width: 80px; /* varsayılan, JS ile değişecek */
             height: auto;
-            opacity: 0.85;
-            animation: flyGuvercin 7s ease-in-out infinite;
+            opacity: 0; /* başlangıçta görünmez, animasyon açacak */
             pointer-events: none;
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
             object-fit: contain;
+            background: transparent !important;
+            mix-blend-mode: screen; /* siyah arka plan için yedek */
+            will-change: left, transform, opacity;
         }
+
+        /* Yeni uçuş animasyonu: soldan sağa + dikey dalgalanma */
         @keyframes flyGuvercin {
             0% {
-                transform: translate(0, 0) scale(1) rotate(0deg);
-                opacity: 0.7;
+                left: -10%;
+                opacity: 0;
+                transform: translateY(0) rotate(0deg);
             }
-            25% {
-                transform: translate(80px, -60px) scale(1.1) rotate(8deg);
-                opacity: 0.9;
-            }
-            50% {
-                transform: translate(150px, 30px) scale(0.9) rotate(-5deg);
+            5% {
                 opacity: 0.8;
             }
+            25% {
+                transform: translateY(-35px) rotate(4deg);
+            }
+            50% {
+                left: 50%;
+                transform: translateY(15px) rotate(-3deg);
+            }
             75% {
-                transform: translate(200px, -40px) scale(1.05) rotate(6deg);
-                opacity: 0.9;
+                transform: translateY(-25px) rotate(5deg);
+            }
+            95% {
+                opacity: 0.8;
             }
             100% {
-                transform: translate(280px, 0) scale(1) rotate(0deg);
-                opacity: 0.7;
+                left: 110%;
+                opacity: 0;
+                transform: translateY(0) rotate(0deg);
             }
         }
 
@@ -111,6 +120,7 @@
             justify-content: center;
             pointer-events: none;
         }
+
         .frame-bg {
             position: absolute;
             inset: 0;
@@ -151,10 +161,12 @@
             animation: slideUpSlow 2.5s var(--transition-smooth) forwards;
             transform: translateY(100%);
         }
+
         @keyframes slideUpSlow {
             0% { transform: translateY(100%); }
             100% { transform: translateY(0); }
         }
+
         .splash-content {
             display: flex;
             flex-direction: column;
@@ -165,6 +177,7 @@
             background: transparent;
             padding: 0;
         }
+
         .splash-dove {
             width: clamp(180px, 55vw, 420px);
             height: auto;
@@ -172,15 +185,18 @@
             animation: doveFloat 3s ease-in-out infinite;
             transition: opacity 2.5s ease;
         }
+
         .splash-dove.fade-away {
             animation: none;
             opacity: 0;
             transform: scale(0.95);
         }
+
         @keyframes doveFloat {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-12px); }
         }
+
         .splash-hint {
             font-family: var(--font-body);
             font-size: 1rem;
@@ -192,7 +208,9 @@
             animation: pulseHint 3s infinite ease-in-out;
             transition: opacity 1.5s ease;
         }
+
         .splash-hint.fade-away { opacity: 0; }
+
         @keyframes pulseHint {
             0%, 100% { opacity: 0.7; transform: scale(0.98); }
             50% { opacity: 1; transform: scale(1.02); }
@@ -214,6 +232,7 @@
             z-index: 10;
             position: relative;
         }
+
         .invitation-wrapper.active {
             opacity: 1;
             pointer-events: auto;
@@ -231,6 +250,7 @@
             width: 100%;
             text-align: center;
         }
+
         .invitation-wrapper.active .anim-item.visible {
             opacity: 1;
             transform: translateY(0);
@@ -251,6 +271,7 @@
             text-shadow: 0 2px 8px rgba(0,0,0,0.15);
             letter-spacing: 2px;
         }
+
         .ampersand { font-size: 0.55em; color: var(--color-gold); }
 
         .main-message {
@@ -264,6 +285,7 @@
             letter-spacing: 1px;
             text-transform: uppercase;
         }
+
         .wedding-sub-message {
             font-size: 0.65rem;
             font-weight: 600;
@@ -280,11 +302,13 @@
             gap: 8px;
             width: 100%;
         }
+
         .parent-group {
             flex: 1;
             text-align: center;
             min-width: 0;
         }
+
         .parent-group>span {
             font-size: 0.5rem;
             font-weight: 700;
@@ -293,12 +317,14 @@
             text-transform: uppercase;
             margin-bottom: 2px;
         }
+
         .parent-fullname {
             font-size: 0.7rem;
             font-weight: 700;
             color: var(--color-gold);
             word-break: break-word;
         }
+
         .parent-surname {
             font-size: 0.55rem;
             font-weight: 700;
@@ -313,68 +339,85 @@
             margin: 4px auto;
             display: grid;
             grid-template-columns: 1fr auto 1fr;
-            grid-template-areas: "left day right" "week week week";
+            grid-template-areas:
+                "left day right"
+                "week week week";
             align-items: center;
+            justify-items: center;
             row-gap: 4px;
         }
+
         .date-left {
             grid-area: left;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
+            width: 100%;
         }
+
         .date-right {
             grid-area: right;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
+            width: 100%;
         }
+
         .date-day {
             grid-area: day;
             font-family: var(--font-serif);
-            font-size: clamp(1rem, 3vw, 1.4rem);
-            line-height: 1;
-            font-weight: 500;
+            font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+            line-height: 1.1;
+            font-weight: 600;
             color: #222;
             text-align: center;
+            white-space: nowrap;
+            padding: 0 4px;
         }
+
         .month, .year {
             font-family: var(--font-body);
-            font-size: clamp(0.65rem, 2.2vw, 0.95rem);
+            font-size: clamp(0.6rem, 2vw, 0.85rem);
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             color: #222;
+            white-space: nowrap;
         }
+
         .weekday {
             grid-area: week;
             text-align: center;
             font-family: var(--font-body);
-            font-size: clamp(0.75rem, 2.8vw, 1.1rem);
+            font-size: clamp(0.7rem, 2.5vw, 1rem);
             font-weight: 700;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             color: #222;
+            width: 100%;
         }
+
         .line {
-            width: clamp(18px, 7vw, 45px);
+            width: clamp(14px, 5vw, 35px);
             height: 1.5px;
             background: #444;
             position: relative;
             flex-shrink: 0;
         }
+
         .line::before,
         .line::after {
             content: "";
             position: absolute;
-            width: 5px;
-            height: 5px;
+            width: 4px;
+            height: 4px;
             border: 1px solid #444;
             transform: rotate(45deg);
             background: white;
         }
-        .line::before { left: -3px; top: -2px; }
-        .line::after { right: -3px; top: -2px; }
+
+        .line::before { left: -2px; top: -1.5px; }
+        .line::after { right: -2px; top: -1.5px; }
 
         .events-grid {
             display: flex;
@@ -382,6 +425,7 @@
             gap: 2px;
             margin-bottom: 4px;
         }
+
         .event-spec { width: 100%; }
         .event-name { display: none; }
         .event-time,
@@ -401,17 +445,20 @@
             text-transform: uppercase;
             margin-bottom: 3px;
         }
+
         .countdown {
             display: flex;
             justify-content: center;
             gap: 10px;
             margin-bottom: 6px;
         }
+
         .time-element span {
             font-size: 0.9rem;
             font-weight: 700;
             color: #1a1a1a;
         }
+
         .time-element small {
             font-size: 0.4rem;
             font-weight: 700;
@@ -427,6 +474,7 @@
             width: 100%;
             margin-bottom: 6px;
         }
+
         .action-btn {
             background: transparent;
             border: none;
@@ -442,6 +490,7 @@
             transition: background 0.3s ease, transform 0.2s ease;
             will-change: transform;
         }
+
         .action-btn:hover { background: rgba(0,0,0,0.05); }
         .action-btn:active { transform: scale(0.96); }
 
@@ -460,11 +509,13 @@
             transform: translateY(30px);
             transition: opacity 0.9s var(--transition-smooth), transform 0.9s;
         }
+
         .map-modal.active {
             opacity: 1;
             pointer-events: auto;
             transform: translateY(0);
         }
+
         .map-inner {
             width: 100%;
             max-width: 360px;
@@ -475,6 +526,7 @@
             border-radius: 10px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.15);
         }
+
         .modal-title {
             font-size: 0.65rem;
             font-weight: 700;
@@ -482,6 +534,7 @@
             color: #1a1a1a;
             margin-bottom: 12px;
         }
+
         .map-widget {
             width: 100%;
             height: 240px;
@@ -490,30 +543,38 @@
             border-radius: 4px;
         }
 
-        @media (max-width: 360px) {
-            .safe-area { width: 72%; height: 60%; padding: 5% 4px; }
+        /* Responsive */
+        @media (max-width: 380px) {
+            .safe-area { width: 70%; height: 60%; padding: 4% 4px; }
             .couple-names { font-size: 2rem; }
             .splash-hint { font-size: 0.8rem; }
             .main-message { font-size: 0.6rem; }
         }
-        @media (min-width: 768px) {
-            .safe-area { width: 58%; height: 54%; }
-            .couple-names { font-size: 3.8rem; }
-            .splash-hint { font-size: 1.4rem; }
-            .main-message { font-size: 0.8rem; }
+
+        @media (min-width: 381px) and (max-width: 480px) {
+            .safe-area { width: 64%; height: 58%; }
+            .couple-names { font-size: 2.8rem; }
         }
-        @media (min-width: 1024px) {
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .safe-area { width: 58%; height: 54%; }
+            .couple-names { font-size: 3.2rem; }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .safe-area { width: 55%; height: 52%; }
+            .couple-names { font-size: 3.8rem; }
+        }
+
+        @media (min-width: 1025px) {
             .safe-area { width: 55%; height: 52%; }
             .couple-names { font-size: 4.2rem; }
-            .splash-hint { font-size: 1.6rem; }
-            .main-message { font-size: 0.9rem; }
         }
+
         @media (min-width: 1920px) {
             .main-container { max-width: 600px; }
             .safe-area { width: 50%; height: 50%; }
             .couple-names { font-size: 4.8rem; }
-            .splash-hint { font-size: 1.8rem; }
-            .main-message { font-size: 1rem; }
         }
     </style>
 </head>
@@ -704,8 +765,9 @@
 
             function startDecorations() {
                 clearDecorations();
-                const videoSrc = 'guvercin.png';
-                const count = 3;
+                // video dosya adı (webm, alfa kanallı olmalı)
+                const videoSrc = 'guvercin.webm';
+                const count = 4; // biraz daha fazla güvercin, daha canlı
                 for (let i = 0; i < count; i++) {
                     const video = document.createElement('video');
                     video.src = videoSrc;
@@ -715,10 +777,23 @@
                     video.muted = true;
                     video.playsInline = true;
                     video.setAttribute('playsinline', '');
-                    video.style.left = (10 + Math.random() * 80) + '%';
-                    video.style.top = (10 + Math.random() * 80) + '%';
-                    video.style.animationDuration = (6 + Math.random() * 4) + 's';
-                    video.style.animationDelay = (Math.random() * 2) + 's';
+                    video.style.background = 'transparent';
+
+                    // Rastgele boyut (küçük-orta arası)
+                    const boyut = 55 + Math.random() * 70; // 55px - 125px
+                    video.style.width = boyut + 'px';
+
+                    // Dikey konum (üstten %)
+                    video.style.top = (5 + Math.random() * 80) + '%'; // %5 - %85 arası
+
+                    // Animasyon süresi ve gecikme (her biri farklı hızlarda)
+                    const sure = 8 + Math.random() * 10; // 8 - 18 saniye
+                    const gecikme = Math.random() * 5; // 0 - 5 saniye
+                    video.style.animation = `flyGuvercin ${sure}s linear ${gecikme}s infinite`;
+
+                    // drop-shadow da rastgele yoğunluk
+                    video.style.filter = `drop-shadow(0 ${2+Math.random()*6}px ${4+Math.random()*6}px rgba(0,0,0,0.2))`;
+
                     decorationsContainer.appendChild(video);
                     guvercinElements.push(video);
                 }

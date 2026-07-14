@@ -70,18 +70,16 @@
 
         .guvercin-video {
             position: absolute;
-            width: 80px; /* varsayılan, JS ile değişecek */
+            width: 80px;
             height: auto;
-            opacity: 0; /* başlangıçta görünmez, animasyon açacak */
+            opacity: 0;
             pointer-events: none;
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
             object-fit: contain;
             background: transparent !important;
-            mix-blend-mode: screen; /* siyah arka plan için yedek */
             will-change: left, transform, opacity;
         }
 
-        /* Yeni uçuş animasyonu: soldan sağa + dikey dalgalanma */
         @keyframes flyGuvercin {
             0% {
                 left: -10%;
@@ -92,14 +90,14 @@
                 opacity: 0.8;
             }
             25% {
-                transform: translateY(-35px) rotate(4deg);
+                transform: translateY(-10px) rotate(2deg);
             }
             50% {
                 left: 50%;
-                transform: translateY(15px) rotate(-3deg);
+                transform: translateY(5px) rotate(-2deg);
             }
             75% {
-                transform: translateY(-25px) rotate(5deg);
+                transform: translateY(-8px) rotate(3deg);
             }
             95% {
                 opacity: 0.8;
@@ -765,12 +763,9 @@
 
             function startDecorations() {
                 clearDecorations();
-                // video dosya adı (webm, alfa kanallı olmalı)
-                const videoSrc = 'guvercin.webm';
-                const count = 4; // biraz daha fazla güvercin, daha canlı
+                const count = 4;
                 for (let i = 0; i < count; i++) {
                     const video = document.createElement('video');
-                    video.src = videoSrc;
                     video.className = 'guvercin-video';
                     video.autoplay = true;
                     video.loop = true;
@@ -779,19 +774,23 @@
                     video.setAttribute('playsinline', '');
                     video.style.background = 'transparent';
 
-                    // Rastgele boyut (küçük-orta arası)
-                    const boyut = 55 + Math.random() * 70; // 55px - 125px
+                    const sourceWebM = document.createElement('source');
+                    sourceWebM.src = 'guvercin.webm';
+                    sourceWebM.type = 'video/webm';
+                    video.appendChild(sourceWebM);
+
+                    const sourceMP4 = document.createElement('source');
+                    sourceMP4.src = 'guvercin_alpha.mp4';
+                    sourceMP4.type = 'video/mp4';
+                    video.appendChild(sourceMP4);
+
+                    const boyut = 55 + Math.random() * 70;
                     video.style.width = boyut + 'px';
-
-                    // Dikey konum (üstten %)
-                    video.style.top = (5 + Math.random() * 80) + '%'; // %5 - %85 arası
-
-                    // Animasyon süresi ve gecikme (her biri farklı hızlarda)
-                    const sure = 8 + Math.random() * 10; // 8 - 18 saniye
-                    const gecikme = Math.random() * 5; // 0 - 5 saniye
+                    // SADECE ÜST KISIMDA KALACAK (%5 - %25 arası)
+                    video.style.top = (5 + Math.random() * 20) + '%';
+                    const sure = 8 + Math.random() * 10;
+                    const gecikme = Math.random() * 5;
                     video.style.animation = `flyGuvercin ${sure}s linear ${gecikme}s infinite`;
-
-                    // drop-shadow da rastgele yoğunluk
                     video.style.filter = `drop-shadow(0 ${2+Math.random()*6}px ${4+Math.random()*6}px rgba(0,0,0,0.2))`;
 
                     decorationsContainer.appendChild(video);

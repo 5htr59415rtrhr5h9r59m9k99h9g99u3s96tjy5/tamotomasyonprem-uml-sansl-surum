@@ -140,25 +140,37 @@
             background-repeat: no-repeat;
             pointer-events: none;
         }
-
-        .safe-area {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 64%;
-            height: 58%;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            pointer-events: auto;
-            /* Daha fazla aşağı kaydırmak için padding-top artırıldı */
-            padding: 42px 8px 0 8px;
-        }
-
+.safe-area {
+    position: absolute;
+    left: 50%;
+    top: 53%; /* biraz aşağı indirildi */
+    transform: translate(-50%, -50%);
+    width: 60%; /* biraz daraltıldı */
+    height: 54%; /* hafif küçültüldü */
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    pointer-events: auto;
+    padding: 0 8px;
+}
+@media (max-width: 380px) {
+    .safe-area {
+        width: 64%;
+        height: 56%;
+        top: 54%;
+        padding: 4% 4px;
+    }
+}
+@media (min-width: 381px) and (max-width: 480px) {
+    .safe-area {
+        width: 60%;
+        height: 54%;
+        top: 53%;
+    }
+}
         #splashScreen {
             position: fixed;
             inset: 0;
@@ -621,8 +633,7 @@
             .safe-area {
                 width: 70%;
                 height: 60%;
-                /* küçük ekranda biraz daha aşağı */
-                padding: 48px 4px 0 4px;
+                padding: 4% 4px;
             }
             .couple-names {
                 font-size: clamp(2.1rem, 11vw, 2.8rem);
@@ -644,8 +655,6 @@
             .safe-area {
                 width: 64%;
                 height: 58%;
-                /* bu aralık için de 42px yeterli, ama garanti olsun */
-                padding-top: 42px;
             }
             .couple-names {
                 font-size: clamp(2.4rem, 10vw, 3.2rem);
@@ -655,7 +664,6 @@
             .safe-area {
                 width: 58%;
                 height: 54%;
-                padding-top: 42px;
             }
             .couple-names {
                 font-size: clamp(2.8rem, 9vw, 3.6rem);
@@ -665,7 +673,6 @@
             .safe-area {
                 width: 55%;
                 height: 52%;
-                padding-top: 42px;
             }
             .couple-names {
                 font-size: clamp(3rem, 8vw, 4rem);
@@ -675,7 +682,6 @@
             .safe-area {
                 width: 55%;
                 height: 52%;
-                padding-top: 42px;
             }
             .couple-names {
                 font-size: clamp(3.4rem, 7vw, 4.4rem);
@@ -688,7 +694,6 @@
             .safe-area {
                 width: 50%;
                 height: 50%;
-                padding-top: 42px;
             }
             .couple-names {
                 font-size: 4.8rem;

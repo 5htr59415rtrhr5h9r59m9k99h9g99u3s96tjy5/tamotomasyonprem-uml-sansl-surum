@@ -68,41 +68,56 @@
             overflow: hidden;
         }
 
-        .sparkle {
+        .sparkle-wrapper {
             position: absolute;
             pointer-events: none;
             will-change: transform, opacity;
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
-            opacity: 0;
-            color: #e0c878;
-            text-shadow: 0 0 6px #ffd764, 0 0 12px rgba(255, 200, 60, 0.5);
             animation: sparkleFall var(--dur) ease-in forwards;
             animation-delay: var(--delay);
-            font-family: 'Segoe UI', 'Arial Unicode MS', sans-serif;
-            line-height: 1;
+            opacity: 0;
+        }
+
+        .sparkle {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #ffffff 0%, #ffd966 40%, #c5a059 80%, #8b6914 100%);
+            box-shadow: 0 0 8px 3px rgba(255, 215, 0, 0.8), 0 0 16px 6px rgba(255, 200, 50, 0.5);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: sparkleRotate var(--rot-dur) linear infinite;
+            will-change: transform;
         }
 
         @keyframes sparkleFall {
             0% {
-                transform: translateY(-5vh) translateX(0) scale(0.3) rotate(0deg);
+                transform: translateY(-5vh) translateX(0) scale(0.3);
                 opacity: 0;
             }
             8% {
                 opacity: 1;
-                transform: translateY(2vh) translateX(2px) scale(1) rotate(10deg);
+                transform: translateY(2vh) translateX(2px) scale(1);
             }
             40% {
                 opacity: 0.9;
-                transform: translateY(38vh) translateX(var(--drift)) scale(0.8) rotate(25deg);
+                transform: translateY(38vh) translateX(var(--drift)) scale(0.8);
             }
             75% {
                 opacity: 0.5;
-                transform: translateY(72vh) translateX(calc(var(--drift) * 0.3)) scale(0.5) rotate(45deg);
+                transform: translateY(72vh) translateX(calc(var(--drift) * 0.3)) scale(0.5);
             }
             100% {
-                transform: translateY(105vh) translateX(calc(var(--drift) * -0.5)) scale(0.2) rotate(60deg);
+                transform: translateY(105vh) translateX(calc(var(--drift) * -0.5)) scale(0.2);
                 opacity: 0;
+            }
+        }
+
+        @keyframes sparkleRotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
             }
         }
 
@@ -140,7 +155,8 @@
             align-items: center;
             overflow: hidden;
             pointer-events: auto;
-            padding: 0 8px;
+            /* Daha fazla aşağı kaydırmak için padding-top artırıldı */
+            padding: 42px 8px 0 8px;
         }
 
         #splashScreen {
@@ -158,8 +174,12 @@
         }
 
         @keyframes slideUpSlow {
-            0% { transform: translateY(100%); }
-            100% { transform: translateY(0); }
+            0% {
+                transform: translateY(100%);
+            }
+            100% {
+                transform: translateY(0);
+            }
         }
 
         .splash-content {
@@ -188,8 +208,13 @@
         }
 
         @keyframes doveFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
         }
 
         .splash-hint {
@@ -206,11 +231,20 @@
             line-height: 1.3;
         }
 
-        .splash-hint.fade-away { opacity: 0; }
+        .splash-hint.fade-away {
+            opacity: 0;
+        }
 
         @keyframes pulseHint {
-            0%, 100% { opacity: 0.7; transform: scale(0.98); }
-            50% { opacity: 1; transform: scale(1.02); }
+            0%,
+            100% {
+                opacity: 0.7;
+                transform: scale(0.98);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.02);
+            }
         }
 
         .splash-date {
@@ -224,7 +258,9 @@
             margin-bottom: 2px;
         }
 
-        .splash-date.fade-away { opacity: 0; }
+        .splash-date.fade-away {
+            opacity: 0;
+        }
 
         .invitation-wrapper {
             width: 100%;
@@ -236,8 +272,8 @@
             gap: 4px;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 1.8s var(--transition-smooth), transform 1.8s var(--transition-smooth);
-            transform: scale(0.93) translateY(0);
+            transition: opacity 1.8s var(--transition-smooth);
+            transform: scale(0.93);
             will-change: opacity, transform;
             z-index: 10;
             position: relative;
@@ -246,16 +282,14 @@
         .invitation-wrapper.active {
             opacity: 1;
             pointer-events: auto;
-            transform: scale(1) translateY(5%); /* aşağı kaydırma */
+            transform: scale(1);
         }
 
         .anim-item {
             opacity: 0;
             transform: translateY(40px);
             filter: blur(10px);
-            transition: opacity 0.9s var(--transition-smooth),
-                transform 0.9s var(--transition-smooth),
-                filter 0.9s var(--transition-smooth);
+            transition: opacity 0.9s var(--transition-smooth), transform 0.9s var(--transition-smooth), filter 0.9s var(--transition-smooth);
             will-change: opacity, transform, filter;
             width: 100%;
             text-align: center;
@@ -267,7 +301,9 @@
             filter: blur(0);
         }
 
-        .header-section { margin-bottom: 0px; }
+        .header-section {
+            margin-bottom: 0px;
+        }
 
         .couple-names {
             font-family: var(--font-script);
@@ -311,129 +347,352 @@
             margin-top: 2px;
         }
 
-        .families-section { width: 100%; margin-bottom: 2px; }
-        .families-flex { display: flex; justify-content: space-between; gap: 8px; width: 100%; }
-        .parent-group { flex: 1; text-align: center; min-width: 0; }
-        .parent-group>span { font-size: 0.5rem; font-weight: 700; letter-spacing: 1.5px; color: #333; text-transform: uppercase; margin-bottom: 2px; display: block; }
-        .parent-fullname { font-size: 0.7rem; font-weight: 700; color: var(--color-gold); word-break: break-word; }
-        .parent-surname { font-size: 0.55rem; font-weight: 700; color: var(--color-gold); letter-spacing: 2px; margin-top: 1px; }
-
-        .date-section { width: 100%; text-align: center; margin: 5px auto; display: flex; flex-direction: column; align-items: center; gap: 3px; }
-        .date-main { font-family: var(--font-body); font-size: clamp(0.85rem, 3vw, 1.15rem); font-weight: 800; letter-spacing: 2px; color: #1a1a1a; line-height: 1.2; }
-        .date-sub { font-family: var(--font-body); font-size: clamp(0.7rem, 2.5vw, 0.95rem); font-weight: 700; letter-spacing: 1.5px; color: #333; }
-
-        .events-grid { display: flex; flex-direction: column; gap: 2px; margin-bottom: 2px; }
-        .event-spec { width: 100%; }
-        .event-name { display: none; }
-        .event-time, .event-place, .event-address { font-size: 0.55rem; font-weight: 600; color: #1a1a1a; margin-top: 1px; }
-
-        .countdown-label { font-size: 0.5rem; font-weight: 700; letter-spacing: 2px; color: #333; text-transform: uppercase; margin-bottom: 3px; }
-        .countdown { display: flex; justify-content: center; gap: 10px; margin-bottom: 4px; }
-        .time-element { display: flex; flex-direction: column; align-items: center; }
-        .time-element span { font-size: 0.9rem; font-weight: 700; color: #1a1a1a; }
-        .time-element small { font-size: 0.4rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #444; }
-
-        .action-layout { display: flex; flex-direction: column; gap: 4px; width: 100%; margin-bottom: 4px; }
-        .action-btn {
-            background: transparent; border: none; color: #1a1a1a;
-            padding: 6px 10px; font-size: 0.55rem; font-family: var(--font-body);
-            letter-spacing: 1.5px; font-weight: 700; cursor: pointer;
-            text-transform: uppercase; border-radius: 2px;
-            transition: background 0.3s ease, transform 0.2s ease; will-change: transform;
+        .families-section {
+            width: 100%;
+            margin-bottom: 2px;
         }
-        .action-btn:hover { background: rgba(0, 0, 0, 0.05); }
-        .action-btn:active { transform: scale(0.96); }
+        .families-flex {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            width: 100%;
+        }
+        .parent-group {
+            flex: 1;
+            text-align: center;
+            min-width: 0;
+        }
+        .parent-group>span {
+            font-size: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #333;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+            display: block;
+        }
+        .parent-fullname {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--color-gold);
+            word-break: break-word;
+        }
+        .parent-surname {
+            font-size: 0.55rem;
+            font-weight: 700;
+            color: var(--color-gold);
+            letter-spacing: 2px;
+            margin-top: 1px;
+        }
+
+        .date-section {
+            width: 100%;
+            text-align: center;
+            margin: 5px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+        }
+        .date-main {
+            font-family: var(--font-body);
+            font-size: clamp(0.85rem, 3vw, 1.15rem);
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #1a1a1a;
+            line-height: 1.2;
+        }
+        .date-sub {
+            font-family: var(--font-body);
+            font-size: clamp(0.7rem, 2.5vw, 0.95rem);
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #333;
+        }
+
+        .events-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin-bottom: 2px;
+        }
+        .event-spec {
+            width: 100%;
+        }
+        .event-name {
+            display: none;
+        }
+        .event-time,
+        .event-place,
+        .event-address {
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-top: 1px;
+        }
+
+        .countdown-label {
+            font-size: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #333;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+        .time-element {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .time-element span {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        .time-element small {
+            font-size: 0.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #444;
+        }
+
+        .action-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 100%;
+            margin-bottom: 4px;
+        }
+        .action-btn {
+            background: transparent;
+            border: none;
+            color: #1a1a1a;
+            padding: 6px 10px;
+            font-size: 0.55rem;
+            font-family: var(--font-body);
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            border-radius: 2px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            will-change: transform;
+        }
+        .action-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        .action-btn:active {
+            transform: scale(0.96);
+        }
 
         .choice-modal {
-            position: fixed; inset: 0; z-index: 200;
-            background: rgba(20, 15, 10, 0.5); backdrop-filter: blur(6px);
-            display: flex; align-items: center; justify-content: center;
-            padding: 24px; opacity: 0; pointer-events: none;
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(20, 15, 10, 0.5);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            pointer-events: none;
             transform: translateY(30px);
             transition: opacity 0.7s var(--transition-smooth), transform 0.7s;
         }
         .choice-modal.active {
-            opacity: 1; pointer-events: auto; transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
         }
         .choice-inner {
-            width: 100%; max-width: 300px; text-align: center;
-            background: rgba(255, 250, 240, 0.95); backdrop-filter: blur(14px);
-            padding: 20px 15px; border-radius: 10px;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            background: rgba(255, 250, 240, 0.95);
+            backdrop-filter: blur(14px);
+            padding: 20px 15px;
+            border-radius: 10px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-            display: flex; flex-direction: column; gap: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
         .choice-title {
-            font-family: var(--font-body); font-size: 0.7rem;
-            font-weight: 800; letter-spacing: 2px; color: #1a1a1a;
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #1a1a1a;
             text-transform: uppercase;
         }
         .choice-buttons {
-            display: flex; gap: 10px; justify-content: center;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
         }
         .choice-btn {
-            flex: 1; padding: 12px 8px; font-size: 0.65rem;
-            font-family: var(--font-body); font-weight: 700;
-            letter-spacing: 1px; border: 1.5px solid var(--color-gold);
-            background: transparent; color: var(--color-gold);
-            border-radius: 6px; cursor: pointer;
+            flex: 1;
+            padding: 12px 8px;
+            font-size: 0.65rem;
+            font-family: var(--font-body);
+            font-weight: 700;
+            letter-spacing: 1px;
+            border: 1.5px solid var(--color-gold);
+            background: transparent;
+            color: var(--color-gold);
+            border-radius: 6px;
+            cursor: pointer;
             text-transform: uppercase;
             transition: all 0.3s ease;
         }
-        .choice-btn:hover { background: rgba(197, 160, 89, 0.1); }
-        .choice-btn:active { transform: scale(0.96); }
+        .choice-btn:hover {
+            background: rgba(197, 160, 89, 0.1);
+        }
+        .choice-btn:active {
+            transform: scale(0.96);
+        }
         .choice-cancel {
-            font-family: var(--font-body); font-size: 0.55rem;
-            font-weight: 700; letter-spacing: 1.5px; color: #888;
-            background: none; border: none; cursor: pointer;
-            padding: 6px; text-transform: uppercase;
+            font-family: var(--font-body);
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #888;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            text-transform: uppercase;
         }
 
         .map-modal {
-            position: fixed; inset: 0; z-index: 100;
-            background: rgba(20, 15, 10, 0.5); backdrop-filter: blur(6px);
-            display: flex; align-items: center; justify-content: center;
-            padding: 24px; opacity: 0; pointer-events: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(20, 15, 10, 0.5);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            pointer-events: none;
             transform: translateY(30px);
             transition: opacity 0.9s var(--transition-smooth), transform 0.9s;
         }
-        .map-modal.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        .map-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
         .map-inner {
-            width: 100%; max-width: 360px; text-align: center;
-            background: rgba(255, 250, 240, 0.95); backdrop-filter: blur(14px);
-            padding: 20px 15px; border-radius: 10px;
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            background: rgba(255, 250, 240, 0.95);
+            backdrop-filter: blur(14px);
+            padding: 20px 15px;
+            border-radius: 10px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
         }
-        .modal-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; color: #1a1a1a; margin-bottom: 12px; }
-        .map-widget { width: 100%; height: 240px; border: 1px solid rgba(0, 0, 0, 0.1); margin-bottom: 18px; border-radius: 4px; }
+        .modal-title {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+        .map-widget {
+            width: 100%;
+            height: 240px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            margin-bottom: 18px;
+            border-radius: 4px;
+        }
 
         @media (max-width: 380px) {
-            .safe-area { width: 70%; height: 60%; padding: 4% 4px; }
-            .couple-names { font-size: clamp(2.1rem, 11vw, 2.8rem); }
-            .splash-hint { font-size: 0.6rem; }
-            .main-message { font-size: 0.6rem; }
-            .date-main { font-size: 0.75rem; }
-            .date-sub { font-size: 0.65rem; }
+            .safe-area {
+                width: 70%;
+                height: 60%;
+                /* küçük ekranda biraz daha aşağı */
+                padding: 48px 4px 0 4px;
+            }
+            .couple-names {
+                font-size: clamp(2.1rem, 11vw, 2.8rem);
+            }
+            .splash-hint {
+                font-size: 0.6rem;
+            }
+            .main-message {
+                font-size: 0.6rem;
+            }
+            .date-main {
+                font-size: 0.75rem;
+            }
+            .date-sub {
+                font-size: 0.65rem;
+            }
         }
         @media (min-width: 381px) and (max-width: 480px) {
-            .safe-area { width: 64%; height: 58%; }
-            .couple-names { font-size: clamp(2.4rem, 10vw, 3.2rem); }
+            .safe-area {
+                width: 64%;
+                height: 58%;
+                /* bu aralık için de 42px yeterli, ama garanti olsun */
+                padding-top: 42px;
+            }
+            .couple-names {
+                font-size: clamp(2.4rem, 10vw, 3.2rem);
+            }
         }
         @media (min-width: 481px) and (max-width: 768px) {
-            .safe-area { width: 58%; height: 54%; }
-            .couple-names { font-size: clamp(2.8rem, 9vw, 3.6rem); }
+            .safe-area {
+                width: 58%;
+                height: 54%;
+                padding-top: 42px;
+            }
+            .couple-names {
+                font-size: clamp(2.8rem, 9vw, 3.6rem);
+            }
         }
         @media (min-width: 769px) and (max-width: 1024px) {
-            .safe-area { width: 55%; height: 52%; }
-            .couple-names { font-size: clamp(3rem, 8vw, 4rem); }
+            .safe-area {
+                width: 55%;
+                height: 52%;
+                padding-top: 42px;
+            }
+            .couple-names {
+                font-size: clamp(3rem, 8vw, 4rem);
+            }
         }
         @media (min-width: 1025px) {
-            .safe-area { width: 55%; height: 52%; }
-            .couple-names { font-size: clamp(3.4rem, 7vw, 4.4rem); }
+            .safe-area {
+                width: 55%;
+                height: 52%;
+                padding-top: 42px;
+            }
+            .couple-names {
+                font-size: clamp(3.4rem, 7vw, 4.4rem);
+            }
         }
         @media (min-width: 1920px) {
-            .main-container { max-width: 600px; }
-            .safe-area { width: 50%; height: 50%; }
-            .couple-names { font-size: 4.8rem; }
+            .main-container {
+                max-width: 600px;
+            }
+            .safe-area {
+                width: 50%;
+                height: 50%;
+                padding-top: 42px;
+            }
+            .couple-names {
+                font-size: 4.8rem;
+            }
         }
     </style>
 </head>
@@ -557,13 +816,15 @@
 
             document.getElementById("gelinAd").textContent = veri.gelinAd;
             document.getElementById("damatAd").textContent = veri.damatAd;
-            document.getElementById("etkinlik1Detay").textContent = veri.etkinlik1Tarih + ", " + veri.etkinlik1Gun + " — " + veri.etkinlik1Saat;
+            document.getElementById("etkinlik1Detay").textContent = veri.etkinlik1Tarih + ", " + veri.etkinlik1Gun + " — " +
+                veri.etkinlik1Saat;
             document.getElementById("etkinlik1Konum").textContent = veri.konum;
             document.getElementById("etkinlik1Adres").textContent = veri.adresTam;
             if (veri.haritaIframe) document.getElementById("haritaIframe").src = veri.haritaIframe;
 
             const familiesDiv = document.getElementById("familiesNames");
             let aileHtml = '';
+
             function adSoyadAyir(tamIsim) {
                 if (!tamIsim) return { ad: '', soyad: '' };
                 const parts = tamIsim.trim().split(' ');
@@ -573,7 +834,8 @@
                 const baba = adSoyadAyir(veri.gelinBaba);
                 const anne = adSoyadAyir(veri.gelinAnne);
                 const aileSoyad = baba.soyad || anne.soyad || 'Aktaş';
-                aileHtml += `<div class="parent-group"><span>Gelin Ailesi</span><div class="parent-names"><div class="parent-fullname">${baba.ad} & ${anne.ad}</div>`;
+                aileHtml +=
+                    `<div class="parent-group"><span>Gelin Ailesi</span><div class="parent-names"><div class="parent-fullname">${baba.ad} & ${anne.ad}</div>`;
                 if (aileSoyad) aileHtml += `<div class="parent-surname">${aileSoyad.toUpperCase()}</div>`;
                 aileHtml += `</div></div>`;
             }
@@ -581,7 +843,8 @@
                 const baba = adSoyadAyir(veri.damatBaba);
                 const anne = adSoyadAyir(veri.damatAnne);
                 const aileSoyad = baba.soyad || anne.soyad || 'Kuruçay';
-                aileHtml += `<div class="parent-group"><span>Damat Ailesi</span><div class="parent-names"><div class="parent-fullname">${baba.ad} & ${anne.ad}</div>`;
+                aileHtml +=
+                    `<div class="parent-group"><span>Damat Ailesi</span><div class="parent-names"><div class="parent-fullname">${baba.ad} & ${anne.ad}</div>`;
                 if (aileSoyad) aileHtml += `<div class="parent-surname">${aileSoyad.toUpperCase()}</div>`;
                 aileHtml += `</div></div>`;
             }
@@ -630,9 +893,11 @@
                 const tel = kisi === 'gelin' ? veri.gelinTel : veri.damatTel;
                 let mesaj = '';
                 if (currentAction === 'katilim') {
-                    mesaj = `Merhaba ${kisi === 'gelin' ? veri.gelinAd : veri.damatAd}, mutluluklar düğününüze katılacağım.`;
+                    mesaj =
+                        `Merhaba ${kisi === 'gelin' ? veri.gelinAd : veri.damatAd}, mutluluklar düğününüze katılacağım.`;
                 } else {
-                    mesaj = `Merhaba ${kisi === 'gelin' ? veri.gelinAd : veri.damatAd}, düğün fotoğraflarımı sizinle paylaşmak istiyorum.`;
+                    mesaj =
+                        `Merhaba ${kisi === 'gelin' ? veri.gelinAd : veri.damatAd}, düğün fotoğraflarımı sizinle paylaşmak istiyorum.`;
                 }
                 window.open(getWhatsAppLink(tel, mesaj), '_blank');
                 closeChoiceModal();
@@ -693,37 +958,53 @@
 
             function createSparkle() {
                 if (activeSparkles >= MAX_SPARKLES) return;
+
+                const wrapper = document.createElement('div');
+                wrapper.className = 'sparkle-wrapper';
+
                 const sparkle = document.createElement('div');
                 sparkle.className = 'sparkle';
-                const size = 8 + Math.random() * 14; // font-size için
-                sparkle.style.fontSize = size + 'px';
-                sparkle.textContent = '✦'; // yıldız sembolü
+
+                const size = 5 + Math.random() * 8;
+                wrapper.style.width = size + 'px';
+                wrapper.style.height = size + 'px';
+
                 const leftPos = 5 + Math.random() * 90;
-                sparkle.style.left = leftPos + '%';
-                const duration = 3 + Math.random() * 5;
-                sparkle.style.setProperty('--dur', duration + 's');
-                const delay = Math.random() * 0.5;
-                sparkle.style.setProperty('--delay', delay + 's');
+                wrapper.style.left = leftPos + '%';
+
+                const duration = 3.5 + Math.random() * 5;
+                wrapper.style.setProperty('--dur', duration + 's');
+
+                const delay = Math.random() * 0.6;
+                wrapper.style.setProperty('--delay', delay + 's');
+
                 const drift = -40 + Math.random() * 80;
-                sparkle.style.setProperty('--drift', drift + 'px');
-                sparkle.addEventListener('animationend', () => {
-                    sparkle.remove();
+                wrapper.style.setProperty('--drift', drift + 'px');
+
+                const rotDuration = 1.2 + Math.random() * 2.5;
+                sparkle.style.setProperty('--rot-dur', rotDuration + 's');
+
+                wrapper.appendChild(sparkle);
+                sparkleContainer.appendChild(wrapper);
+
+                activeSparkles++;
+
+                wrapper.addEventListener('animationend', () => {
+                    wrapper.remove();
                     activeSparkles--;
                 });
-                sparkleContainer.appendChild(sparkle);
-                activeSparkles++;
             }
 
             function startSparkleGenerator() {
                 for (let i = 0; i < 5; i++) {
-                    setTimeout(() => createSparkle(), i * 150);
+                    setTimeout(() => createSparkle(), i * 180);
                 }
                 setInterval(() => {
                     const batchSize = 1 + Math.floor(Math.random() * 3);
                     for (let i = 0; i < batchSize; i++) {
-                        setTimeout(() => createSparkle(), i * 200);
+                        setTimeout(() => createSparkle(), i * 220);
                     }
-                }, 600);
+                }, 700);
             }
             startSparkleGenerator();
 
@@ -755,18 +1036,25 @@
             });
 
             let countdownInterval;
+
             function startCountdown() {
                 if (countdownInterval) clearInterval(countdownInterval);
                 const target = window.targetTimestamp;
+
                 function update() {
                     const diff = target - Date.now();
                     if (diff > 0) {
-                        document.getElementById('days').innerText = Math.floor(diff / 86400000).toString().padStart(2, '0');
-                        document.getElementById('hours').innerText = Math.floor((diff % 86400000) / 3600000).toString().padStart(2, '0');
-                        document.getElementById('minutes').innerText = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
-                        document.getElementById('seconds').innerText = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
+                        document.getElementById('days').innerText = Math.floor(diff / 86400000).toString().padStart(2,
+                            '0');
+                        document.getElementById('hours').innerText = Math.floor((diff % 86400000) / 3600000).toString()
+                            .padStart(2, '0');
+                        document.getElementById('minutes').innerText = Math.floor((diff % 3600000) / 60000).toString()
+                            .padStart(2, '0');
+                        document.getElementById('seconds').innerText = Math.floor((diff % 60000) / 1000).toString()
+                            .padStart(2, '0');
                     } else {
-                        ['days', 'hours', 'minutes', 'seconds'].forEach(id => document.getElementById(id).innerText = '00');
+                        ['days', 'hours', 'minutes', 'seconds'].forEach(id => document.getElementById(id).innerText =
+                            '00');
                     }
                 }
                 update();

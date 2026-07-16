@@ -114,109 +114,6 @@
             }
         }
 
-        #splashScreen {
-            position: fixed;
-            inset: 0;
-            z-index: 999;
-            background: transparent;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            animation: slideUpSlow 2.5s var(--transition-smooth) forwards;
-            transform: translateY(100%);
-        }
-
-        @keyframes slideUpSlow {
-            0% {
-                transform: translateY(100%);
-            }
-            100% {
-                transform: translateY(0);
-            }
-        }
-
-        .splash-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            text-align: center;
-            max-width: 75%;
-            background: transparent;
-            padding: 0;
-        }
-
-        .splash-dove {
-            width: clamp(180px, 55vw, 420px);
-            height: auto;
-            filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.12));
-            animation: doveFloat 3s ease-in-out infinite;
-            transition: opacity 2.5s ease;
-        }
-
-        .splash-dove.fade-away {
-            animation: none;
-            opacity: 0;
-            transform: scale(0.95);
-        }
-
-        @keyframes doveFloat {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-12px);
-            }
-        }
-
-        .splash-hint {
-            font-family: var(--font-body);
-            font-size: 0.7rem;
-            font-weight: 800;
-            letter-spacing: 1.5px;
-            color: #333;
-            opacity: 0.9;
-            text-transform: uppercase;
-            animation: pulseHint 3s infinite ease-in-out;
-            transition: opacity 1.5s ease;
-            max-width: 70%;
-            line-height: 1.3;
-        }
-
-        .splash-hint.fade-away {
-            opacity: 0;
-        }
-
-        @keyframes pulseHint {
-            0%,
-            100% {
-                opacity: 0.7;
-                transform: scale(0.98);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.02);
-            }
-        }
-
-        .splash-date {
-            font-family: var(--font-body);
-            font-size: 0.8rem;
-            font-weight: 900;
-            letter-spacing: 2px;
-            color: #444;
-            opacity: 0.85;
-            transition: opacity 1.5s ease;
-            margin-bottom: 2px;
-        }
-
-        .splash-date.fade-away {
-            opacity: 0;
-        }
-
         .invitation-wrapper {
             width: 100%;
             height: 100%;
@@ -225,19 +122,12 @@
             align-items: center;
             justify-content: center;
             gap: 4px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 1.8s var(--transition-smooth);
-            transform: scale(0.93);
-            will-change: opacity, transform;
-            z-index: 10;
-            position: relative;
-        }
-
-        .invitation-wrapper.active {
             opacity: 1;
             pointer-events: auto;
             transform: scale(1);
+            z-index: 10;
+            position: relative;
+            transition: opacity 0.4s;
         }
 
         .anim-item {
@@ -383,11 +273,6 @@
             width: 100%;
         }
 
-        .event-name {
-            display: none;
-        }
-
-        .event-time,
         .event-place,
         .event-address {
             font-size: 0.55rem;
@@ -610,9 +495,6 @@
             .couple-names {
                 font-size: clamp(2.1rem, 11vw, 2.8rem);
             }
-            .splash-hint {
-                font-size: 0.6rem;
-            }
             .main-message {
                 font-size: 0.6rem;
             }
@@ -683,7 +565,7 @@
         <div class="frame-wrapper">
             <div class="frame-bg"></div>
             <div class="safe-area" id="safeArea">
-                <div class="invitation-wrapper" id="invitationWrapper">
+                <div class="invitation-wrapper active" id="invitationWrapper">
                     <div class="anim-item" id="animNames">
                         <div class="header-section">
                             <h1 class="couple-names">
@@ -711,7 +593,6 @@
                     <div class="anim-item" id="animVenue">
                         <div class="events-grid">
                             <div class="event-spec">
-                                <div class="event-time" id="etkinlik1Detay">06 Eylül 2026, Pazar — 19:00</div>
                                 <div class="event-place" id="etkinlik1Konum">Pera Royal Balo ve Davet Salonu</div>
                                 <div class="event-address" id="etkinlik1Adres">Yamanevler Mahallesi Sanayi Caddesi No: 2 / B Kat: 3 (Çakmak Metro Yanı) Ümraniye / İstanbul</div>
                             </div>
@@ -734,14 +615,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div id="splashScreen">
-            <div class="splash-content">
-                <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/data/cift.png" alt="Çift" class="splash-dove" id="splashCift">
-                <div class="splash-date" id="splashDate">06 EYLÜL 2026</div>
-                <div class="splash-hint" id="splashHint">davetiyeyi açmak için tıklayın</div>
             </div>
         </div>
 
@@ -796,8 +669,6 @@
 
             document.getElementById("gelinAd").textContent = veri.gelinAd;
             document.getElementById("damatAd").textContent = veri.damatAd;
-            document.getElementById("etkinlik1Detay").textContent = veri.etkinlik1Tarih + ", " + veri.etkinlik1Gun + " — " +
-                veri.etkinlik1Saat;
             document.getElementById("etkinlik1Konum").textContent = veri.konum;
             document.getElementById("etkinlik1Adres").textContent = veri.adresTam;
             if (veri.haritaIframe) document.getElementById("haritaIframe").src = veri.haritaIframe;
@@ -845,6 +716,9 @@
                     await new Promise(resolve => setTimeout(resolve, 200));
                 }
             }
+
+            // Sayfa açılır açılmaz animasyonu başlat
+            runSequenceAnimation();
 
             function getWhatsAppLink(tel, mesaj) {
                 return `https://wa.me/${tel}?text=${encodeURIComponent(mesaj)}`;
@@ -933,53 +807,26 @@
             });
 
             const bgMusic = document.getElementById('bgMusic');
-            const splashScreen = document.getElementById('splashScreen');
-            const splashCift = document.getElementById('splashCift');
-            const splashHint = document.getElementById('splashHint');
-            const splashDate = document.getElementById('splashDate');
-            let isRevealed = false;
 
-            // Sayfa açılır açılmaz müziği başlatmayı dene
+            // Sayfa yüklenir yüklenmez müziği başlat
             function tryPlayMusic() {
                 if (bgMusic && bgMusic.paused) {
                     bgMusic.play().then(() => {
                         console.log('Müzik otomatik başladı.');
                     }).catch(() => {
-                        // Tarayıcı otomatik oynatmayı engelledi, ilk etkileşimde tekrar denenecek
-                        console.log('Otomatik oynatma engellendi, kullanıcı etkileşimi beklenecek.');
+                        console.log('Otomatik oynatma engellendi, ilk etkileşimde tekrar denenecek.');
+                        // Kullanıcı herhangi bir yere tıkladığında müziği başlatmak için dinleyici ekle
+                        document.addEventListener('click', function startOnInteraction() {
+                            bgMusic.play().catch(() => {});
+                            document.removeEventListener('click', startOnInteraction);
+                        }, { once: true });
                     });
                 }
             }
 
-            // Hemen dene
             tryPlayMusic();
 
-            // DOM tam yüklendiğinde bir daha dene (bazı tarayıcılar için)
-            document.addEventListener('DOMContentLoaded', tryPlayMusic);
-
-            splashScreen.addEventListener('click', function() {
-                // Kullanıcı etkileşimi olduğunda müziği garantile
-                if (bgMusic && bgMusic.paused) {
-                    bgMusic.play().catch(() => {});
-                }
-                if (isRevealed) return;
-                isRevealed = true;
-                splashCift.classList.add('fade-away');
-                splashHint.classList.add('fade-away');
-                splashDate.classList.add('fade-away');
-                setTimeout(() => {
-                    splashScreen.style.transition = 'all 1.5s cubic-bezier(0.22, 1, 0.36, 1)';
-                    splashScreen.style.opacity = '0';
-                    splashScreen.style.pointerEvents = 'none';
-                    setTimeout(() => {
-                        splashScreen.style.display = 'none';
-                        invitationWrapper.classList.add('active');
-                        startCountdown();
-                        runSequenceAnimation();
-                    }, 1500);
-                }, 2500);
-            });
-
+            // Geri sayımı başlat
             let countdownInterval;
 
             function startCountdown() {
@@ -1005,6 +852,8 @@
                 update();
                 countdownInterval = setInterval(update, 1000);
             }
+
+            startCountdown();
         })();
     </script>
 </body>

@@ -79,13 +79,14 @@
             pointer-events: none;
         }
 
+        /* İçerik alanı - kolonlardan uzak, ortada */
         .safe-area {
             position: absolute;
             left: 50%;
-            top: 53%;
+            top: 52%;
             transform: translate(-50%, -50%);
-            width: 58%;
-            height: 52%;
+            width: 50%;
+            height: 46%;
             z-index: 10;
             display: flex;
             flex-direction: column;
@@ -98,64 +99,145 @@
 
         @media (max-width: 480px) {
             .safe-area {
-                width: 64%;
-                height: 56%;
-                top: 54%;
+                width: 58%;
+                height: 48%;
+                top: 53%;
+                padding: 8px 10px;
             }
         }
-
         @media (max-width: 380px) {
             .safe-area {
-                width: 70%;
-                height: 60%;
-                top: 54%;
+                width: 64%;
+                height: 52%;
+                top: 53%;
                 padding: 6px 10px;
             }
         }
 
+        /* Orta yükseklik */
         @media (max-height: 650px) {
             .safe-area {
-                height: 58%;
-                top: 54%;
-                padding: 4px 8px;
+                width: 58%;
+                height: 50%;
+                top: 53%;
+                padding: 6px 10px;
             }
-            .couple-names {
-                font-size: clamp(2.2rem, 10vw, 3rem) !important;
-                -webkit-text-stroke: 0.8px rgba(180,140,70,0.4) !important;
-            }
-            .ampersand {
-                font-size: 0.7em !important;
-            }
-            .main-message { font-size: 0.65rem !important; }
-            .wedding-sub-message { font-size: 0.55rem !important; }
+            .couple-names { font-size: clamp(1.6rem, 7vw, 2.4rem) !important; }
+            .ampersand { font-size: 0.6em !important; }
+            .main-message { font-size: 0.6rem !important; }
+            .wedding-sub-message { font-size: 0.5rem !important; }
             .parent-group > span { font-size: 0.5rem !important; }
-            .parent-fullname { font-size: 0.65rem !important; }
-            .parent-surname { font-size: 0.55rem !important; }
-            .date-main { font-size: 0.8rem !important; }
-            .date-sub { font-size: 0.65rem !important; }
+            .parent-fullname { font-size: 0.6rem !important; }
+            .parent-surname { font-size: 0.5rem !important; }
+            .date-main { font-size: 0.75rem !important; }
+            .date-sub { font-size: 0.6rem !important; }
             .event-place, .event-address { font-size: 0.5rem !important; }
             .countdown-label { font-size: 0.5rem !important; }
-            .time-element span { font-size: 0.8rem !important; }
-            .time-element small { font-size: 0.45rem !important; }
-            .action-btn { font-size: 0.55rem !important; padding: 5px 8px !important; }
+            .time-element span { font-size: 0.75rem !important; }
+            .time-element small { font-size: 0.4rem !important; }
+            .action-btn { font-size: 0.5rem !important; padding: 5px 8px !important; }
             .invitation-wrapper { gap: 4px !important; }
-            .countdown { gap: 8px !important; margin-bottom: 2px; }
+            .countdown { gap: 8px !important; }
+            .families-flex { gap: 8px !important; }
         }
 
-        @media (max-height: 500px) {
+        /* 728px altı - isim kaybolmasın diye ekstra küçültme */
+        @media (max-height: 728px) {
             .safe-area {
-                height: 64%;
-                top: 55%;
+                width: 56%;
+                height: 48%;
+                top: 52%;
+                padding: 5px 8px;
             }
-            .couple-names { font-size: clamp(1.8rem, 9vw, 2.4rem) !important; }
-            .ampersand { font-size: 0.65em !important; }
+            .couple-names {
+                font-size: clamp(1.3rem, 6vw, 2rem) !important;
+                -webkit-text-stroke: 0.8px rgba(180,140,70,0.6); /* kalınlaştırma */
+            }
+            .ampersand { font-size: 0.55em !important; }
             .main-message { font-size: 0.55rem !important; }
+            .wedding-sub-message { font-size: 0.48rem !important; }
+            .parent-group > span { font-size: 0.48rem !important; }
+            .parent-fullname { font-size: 0.58rem !important; }
+            .parent-surname { font-size: 0.48rem !important; }
             .date-main { font-size: 0.7rem !important; }
-            .date-sub { font-size: 0.6rem !important; }
-            .action-btn { font-size: 0.5rem !important; padding: 4px 7px !important; }
+            .date-sub { font-size: 0.58rem !important; }
+            .event-place, .event-address { font-size: 0.48rem !important; }
+            .countdown-label { font-size: 0.48rem !important; }
             .time-element span { font-size: 0.7rem !important; }
+            .time-element small { font-size: 0.4rem !important; }
+            .action-btn { font-size: 0.5rem !important; padding: 4px 7px !important; }
+            .invitation-wrapper { gap: 3px !important; }
+            .countdown { gap: 7px !important; }
+            .families-flex { gap: 7px !important; }
         }
 
+        /* YATAY MOD */
+        @media (orientation: landscape) {
+            .frame-bg { background-size: auto 100%; }
+            .safe-area {
+                width: 70%;
+                height: 40%;
+                top: 50%;
+                padding: 4px 16px;
+            }
+            .couple-names { font-size: clamp(1.3rem, 5vw, 2rem) !important; }
+            .ampersand { font-size: 0.55em !important; }
+            .main-message { font-size: 0.5rem !important; }
+            .wedding-sub-message { font-size: 0.45rem !important; }
+            .parent-group > span { font-size: 0.45rem !important; }
+            .parent-fullname { font-size: 0.55rem !important; }
+            .parent-surname { font-size: 0.45rem !important; }
+            .date-main { font-size: 0.65rem !important; }
+            .date-sub { font-size: 0.55rem !important; }
+            .event-place, .event-address { font-size: 0.45rem !important; }
+            .countdown-label { font-size: 0.45rem !important; }
+            .time-element span { font-size: 0.65rem !important; }
+            .time-element small { font-size: 0.4rem !important; }
+            .action-btn { font-size: 0.45rem !important; padding: 4px 7px !important; }
+            .invitation-wrapper { gap: 3px !important; }
+            .countdown { gap: 10px !important; }
+            .families-flex { gap: 8px !important; }
+        }
+
+        /* Küçük yatay */
+        @media (orientation: landscape) and (max-height: 400px) {
+            .safe-area {
+                width: 78%;
+                height: 44%;
+                top: 50%;
+                padding: 2px 14px;
+            }
+            .couple-names { font-size: clamp(1.1rem, 4vw, 1.6rem) !important; }
+            .ampersand { font-size: 0.5em !important; }
+            .main-message { font-size: 0.45rem !important; }
+            .wedding-sub-message { font-size: 0.4rem !important; }
+            .date-main { font-size: 0.6rem !important; }
+            .date-sub { font-size: 0.5rem !important; }
+            .action-btn { font-size: 0.4rem !important; padding: 3px 5px !important; }
+            .time-element span { font-size: 0.6rem !important; }
+            .parent-fullname { font-size: 0.5rem !important; }
+            .parent-surname { font-size: 0.4rem !important; }
+            .families-flex { gap: 6px !important; }
+        }
+
+        /* Büyük ekran */
+        @media (min-width: 768px) {
+            .safe-area {
+                width: 44%;
+                height: 42%;
+                top: 52%;
+                padding: 12px 20px;
+            }
+            .couple-names { font-size: clamp(2.6rem, 4vw, 3.5rem) !important; }
+            .ampersand { font-size: 0.7em !important; }
+            .main-message { font-size: 0.8rem !important; }
+            .wedding-sub-message { font-size: 0.7rem !important; }
+            .date-main { font-size: 1.1rem !important; }
+            .date-sub { font-size: 0.9rem !important; }
+            .action-btn { font-size: 0.65rem !important; padding: 8px 12px !important; }
+        }
+
+        /* SPLASH */
         #splashScreen {
             position: fixed;
             inset: 0;
@@ -239,6 +321,7 @@
 
         .splash-date.fade-away { opacity: 0; }
 
+        /* İçerik stilleri */
         .invitation-wrapper {
             width: 100%;
             height: 100%;
@@ -282,54 +365,47 @@
             margin-bottom: 2px;
         }
 
-        /* AZALTILMIŞ GLOW VE İNCELTİLMİŞ YAZI */
+        /* İsimler - kalın, yatayda küçük, glow yok, hafif kontur ile kalınlık */
         .couple-names {
             font-family: var(--font-script);
-            font-size: clamp(2.8rem, 11vw, 4rem);
-            font-weight: 800;
+            font-size: clamp(2rem, 8vw, 3rem);
+            font-weight: 900;
             color: var(--color-gold);
             line-height: 1.1;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 6px;
-            text-shadow:
-                0 0 6px rgba(197, 160, 89, 0.6),
-                0 0 12px rgba(0, 0, 0, 0.15),
-                0 2px 4px rgba(0, 0, 0, 0.15);
-            letter-spacing: 2px;
-            -webkit-text-stroke: 1px rgba(180, 140, 70, 0.45);
-            paint-order: stroke fill;
+            gap: 4px;
+            text-shadow: none;
+            -webkit-text-stroke: 0.8px rgba(180,140,70,0.6); /* kalınlaştırma konturu */
+            letter-spacing: 1px;
+            max-width: 100%;
         }
 
         .ampersand {
-            font-size: 0.8em;
-            font-weight: 700;
+            font-size: 0.7em;
+            font-weight: 900;
             color: var(--color-gold);
-            text-shadow:
-                0 0 6px rgba(197, 160, 89, 0.7),
-                0 0 10px rgba(197, 160, 89, 0.3);
-            -webkit-text-stroke: 0.4px rgba(180, 140, 70, 0.5);
-            paint-order: stroke fill;
+            text-shadow: none;
+            -webkit-text-stroke: 0.6px rgba(180,140,70,0.5);
             line-height: 1;
             vertical-align: middle;
-            margin: 0 4px;
+            margin: 0 3px;
         }
 
         .main-message {
             font-family: var(--font-body);
             font-weight: 900;
-            font-size: clamp(0.7rem, 2.6vw, 0.85rem);
+            font-size: clamp(0.65rem, 2.4vw, 0.8rem);
             color: #1a1a1a;
             line-height: 1.2;
             margin-bottom: 2px;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             letter-spacing: 1px;
             text-transform: uppercase;
         }
 
         .wedding-sub-message {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 900;
             color: #1a1a1a;
             letter-spacing: 2px;
@@ -344,17 +420,17 @@
 
         .families-flex {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-direction: row;
             justify-content: center;
-            gap: 6px;
+            align-items: flex-start;
+            gap: 12px;
             width: 100%;
         }
 
         .parent-group {
-            width: 100%;
-            text-align: center;
+            flex: 1;
             min-width: 0;
+            text-align: center;
         }
 
         .parent-group>span {
@@ -394,7 +470,7 @@
 
         .date-main {
             font-family: var(--font-body);
-            font-size: clamp(0.85rem, 3vw, 1.2rem);
+            font-size: clamp(0.8rem, 2.8vw, 1.1rem);
             font-weight: 800;
             letter-spacing: 2px;
             color: #1a1a1a;
@@ -403,7 +479,7 @@
 
         .date-sub {
             font-family: var(--font-body);
-            font-size: clamp(0.7rem, 2.6vw, 1rem);
+            font-size: clamp(0.65rem, 2.4vw, 0.9rem);
             font-weight: 700;
             letter-spacing: 1.5px;
             color: #333;
@@ -416,10 +492,7 @@
             margin-bottom: 2px;
         }
 
-        .event-spec {
-            width: 100%;
-        }
-
+        .event-spec { width: 100%; }
         .event-name { display: none; }
 
         .event-place, .event-address {
@@ -454,7 +527,7 @@
         }
 
         .time-element span {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 700;
             color: #1a1a1a;
         }
@@ -628,6 +701,7 @@
     </style>
 </head>
 <body>
+    <!-- HTML yapısı öncekiyle aynı -->
     <div class="main-container">
         <div class="frame-wrapper">
             <div class="frame-bg"></div>

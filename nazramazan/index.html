@@ -60,6 +60,67 @@
             z-index: 1;
         }
 
+        #sparkleContainer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .sparkle-wrapper {
+            position: absolute;
+            pointer-events: none;
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            animation: sparkleFall var(--dur) ease-in forwards;
+            animation-delay: var(--delay);
+            opacity: 0;
+        }
+
+        .sparkle {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #ffffff 0%, #ffd966 40%, #c5a059 80%, #8b6914 100%);
+            box-shadow: 0 0 8px 3px rgba(255, 215, 0, 0.8), 0 0 16px 6px rgba(255, 200, 50, 0.5);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: sparkleRotate var(--rot-dur) linear infinite;
+            will-change: transform;
+        }
+
+        @keyframes sparkleFall {
+            0% {
+                transform: translateY(-5vh) translateX(0) scale(0.3);
+                opacity: 0;
+            }
+            8% {
+                opacity: 1;
+                transform: translateY(2vh) translateX(2px) scale(1);
+            }
+            40% {
+                opacity: 0.9;
+                transform: translateY(38vh) translateX(var(--drift)) scale(0.8);
+            }
+            75% {
+                opacity: 0.5;
+                transform: translateY(72vh) translateX(calc(var(--drift) * 0.3)) scale(0.5);
+            }
+            100% {
+                transform: translateY(105vh) translateX(calc(var(--drift) * -0.5)) scale(0.2);
+                opacity: 0;
+            }
+        }
+
+        @keyframes sparkleRotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
         .frame-wrapper {
             position: fixed;
             inset: 0;
@@ -79,39 +140,138 @@
             background-repeat: no-repeat;
             pointer-events: none;
         }
-
-        .safe-area {
-            position: absolute;
-            left: 50%;
-            top: 53%;
-            transform: translate(-50%, -50%);
-            width: 60%;
-            height: 54%;
-            z-index: 10;
+.safe-area {
+    position: absolute;
+    left: 50%;
+    top: 53%; /* biraz aşağı indirildi */
+    transform: translate(-50%, -50%);
+    width: 60%; /* biraz daraltıldı */
+    height: 54%; /* hafif küçültüldü */
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    pointer-events: auto;
+    padding: 0 8px;
+}
+@media (max-width: 380px) {
+    .safe-area {
+        width: 64%;
+        height: 56%;
+        top: 54%;
+        padding: 4% 4px;
+    }
+}
+@media (min-width: 381px) and (max-width: 480px) {
+    .safe-area {
+        width: 60%;
+        height: 54%;
+        top: 53%;
+    }
+}
+        #splashScreen {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: transparent;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
-            pointer-events: auto;
-            padding: 0 8px;
+            cursor: pointer;
+            animation: slideUpSlow 2.5s var(--transition-smooth) forwards;
+            transform: translateY(100%);
         }
 
-        @media (max-width: 380px) {
-            .safe-area {
-                width: 64%;
-                height: 56%;
-                top: 54%;
-                padding: 4% 4px;
+        @keyframes slideUpSlow {
+            0% {
+                transform: translateY(100%);
+            }
+            100% {
+                transform: translateY(0);
             }
         }
 
-        @media (min-width: 381px) and (max-width: 480px) {
-            .safe-area {
-                width: 60%;
-                height: 54%;
-                top: 53%;
+        .splash-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+            max-width: 75%;
+            background: transparent;
+            padding: 0;
+        }
+
+        .splash-dove {
+            width: clamp(180px, 55vw, 420px);
+            height: auto;
+            filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.12));
+            animation: doveFloat 3s ease-in-out infinite;
+            transition: opacity 2.5s ease;
+        }
+
+        .splash-dove.fade-away {
+            animation: none;
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        @keyframes doveFloat {
+            0%,
+            100% {
+                transform: translateY(0);
             }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .splash-hint {
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #333;
+            opacity: 0.9;
+            text-transform: uppercase;
+            animation: pulseHint 3s infinite ease-in-out;
+            transition: opacity 1.5s ease;
+            max-width: 70%;
+            line-height: 1.3;
+        }
+
+        .splash-hint.fade-away {
+            opacity: 0;
+        }
+
+        @keyframes pulseHint {
+            0%,
+            100% {
+                opacity: 0.7;
+                transform: scale(0.98);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.02);
+            }
+        }
+
+        .splash-date {
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #444;
+            opacity: 0.85;
+            transition: opacity 1.5s ease;
+            margin-bottom: 2px;
+        }
+
+        .splash-date.fade-away {
+            opacity: 0;
         }
 
         .invitation-wrapper {
@@ -122,12 +282,19 @@
             align-items: center;
             justify-content: center;
             gap: 4px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.8s var(--transition-smooth);
+            transform: scale(0.93);
+            will-change: opacity, transform;
+            z-index: 10;
+            position: relative;
+        }
+
+        .invitation-wrapper.active {
             opacity: 1;
             pointer-events: auto;
             transform: scale(1);
-            z-index: 10;
-            position: relative;
-            transition: opacity 0.4s;
         }
 
         .anim-item {
@@ -196,20 +363,17 @@
             width: 100%;
             margin-bottom: 2px;
         }
-
         .families-flex {
             display: flex;
             justify-content: space-between;
             gap: 8px;
             width: 100%;
         }
-
         .parent-group {
             flex: 1;
             text-align: center;
             min-width: 0;
         }
-
         .parent-group>span {
             font-size: 0.5rem;
             font-weight: 700;
@@ -219,14 +383,12 @@
             margin-bottom: 2px;
             display: block;
         }
-
         .parent-fullname {
             font-size: 0.7rem;
             font-weight: 700;
             color: var(--color-gold);
             word-break: break-word;
         }
-
         .parent-surname {
             font-size: 0.55rem;
             font-weight: 700;
@@ -244,7 +406,6 @@
             align-items: center;
             gap: 3px;
         }
-
         .date-main {
             font-family: var(--font-body);
             font-size: clamp(0.85rem, 3vw, 1.15rem);
@@ -253,7 +414,6 @@
             color: #1a1a1a;
             line-height: 1.2;
         }
-
         .date-sub {
             font-family: var(--font-body);
             font-size: clamp(0.7rem, 2.5vw, 0.95rem);
@@ -268,11 +428,13 @@
             gap: 2px;
             margin-bottom: 2px;
         }
-
         .event-spec {
             width: 100%;
         }
-
+        .event-name {
+            display: none;
+        }
+        .event-time,
         .event-place,
         .event-address {
             font-size: 0.55rem;
@@ -289,26 +451,22 @@
             text-transform: uppercase;
             margin-bottom: 3px;
         }
-
         .countdown {
             display: flex;
             justify-content: center;
             gap: 10px;
             margin-bottom: 4px;
         }
-
         .time-element {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-
         .time-element span {
             font-size: 0.9rem;
             font-weight: 700;
             color: #1a1a1a;
         }
-
         .time-element small {
             font-size: 0.4rem;
             font-weight: 700;
@@ -324,7 +482,6 @@
             width: 100%;
             margin-bottom: 4px;
         }
-
         .action-btn {
             background: transparent;
             border: none;
@@ -340,11 +497,9 @@
             transition: background 0.3s ease, transform 0.2s ease;
             will-change: transform;
         }
-
         .action-btn:hover {
             background: rgba(0, 0, 0, 0.05);
         }
-
         .action-btn:active {
             transform: scale(0.96);
         }
@@ -364,13 +519,11 @@
             transform: translateY(30px);
             transition: opacity 0.7s var(--transition-smooth), transform 0.7s;
         }
-
         .choice-modal.active {
             opacity: 1;
             pointer-events: auto;
             transform: translateY(0);
         }
-
         .choice-inner {
             width: 100%;
             max-width: 300px;
@@ -384,7 +537,6 @@
             flex-direction: column;
             gap: 12px;
         }
-
         .choice-title {
             font-family: var(--font-body);
             font-size: 0.7rem;
@@ -393,13 +545,11 @@
             color: #1a1a1a;
             text-transform: uppercase;
         }
-
         .choice-buttons {
             display: flex;
             gap: 10px;
             justify-content: center;
         }
-
         .choice-btn {
             flex: 1;
             padding: 12px 8px;
@@ -415,15 +565,12 @@
             text-transform: uppercase;
             transition: all 0.3s ease;
         }
-
         .choice-btn:hover {
             background: rgba(197, 160, 89, 0.1);
         }
-
         .choice-btn:active {
             transform: scale(0.96);
         }
-
         .choice-cancel {
             font-family: var(--font-body);
             font-size: 0.55rem;
@@ -452,13 +599,11 @@
             transform: translateY(30px);
             transition: opacity 0.9s var(--transition-smooth), transform 0.9s;
         }
-
         .map-modal.active {
             opacity: 1;
             pointer-events: auto;
             transform: translateY(0);
         }
-
         .map-inner {
             width: 100%;
             max-width: 360px;
@@ -469,7 +614,6 @@
             border-radius: 10px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
         }
-
         .modal-title {
             font-size: 0.65rem;
             font-weight: 700;
@@ -477,7 +621,6 @@
             color: #1a1a1a;
             margin-bottom: 12px;
         }
-
         .map-widget {
             width: 100%;
             height: 240px;
@@ -495,6 +638,9 @@
             .couple-names {
                 font-size: clamp(2.1rem, 11vw, 2.8rem);
             }
+            .splash-hint {
+                font-size: 0.6rem;
+            }
             .main-message {
                 font-size: 0.6rem;
             }
@@ -505,7 +651,6 @@
                 font-size: 0.65rem;
             }
         }
-
         @media (min-width: 381px) and (max-width: 480px) {
             .safe-area {
                 width: 64%;
@@ -515,7 +660,6 @@
                 font-size: clamp(2.4rem, 10vw, 3.2rem);
             }
         }
-
         @media (min-width: 481px) and (max-width: 768px) {
             .safe-area {
                 width: 58%;
@@ -525,7 +669,6 @@
                 font-size: clamp(2.8rem, 9vw, 3.6rem);
             }
         }
-
         @media (min-width: 769px) and (max-width: 1024px) {
             .safe-area {
                 width: 55%;
@@ -535,7 +678,6 @@
                 font-size: clamp(3rem, 8vw, 4rem);
             }
         }
-
         @media (min-width: 1025px) {
             .safe-area {
                 width: 55%;
@@ -545,7 +687,6 @@
                 font-size: clamp(3.4rem, 7vw, 4.4rem);
             }
         }
-
         @media (min-width: 1920px) {
             .main-container {
                 max-width: 600px;
@@ -562,10 +703,12 @@
 </head>
 <body>
     <div class="main-container">
+        <div id="sparkleContainer"></div>
+
         <div class="frame-wrapper">
             <div class="frame-bg"></div>
             <div class="safe-area" id="safeArea">
-                <div class="invitation-wrapper active" id="invitationWrapper">
+                <div class="invitation-wrapper" id="invitationWrapper">
                     <div class="anim-item" id="animNames">
                         <div class="header-section">
                             <h1 class="couple-names">
@@ -618,6 +761,14 @@
             </div>
         </div>
 
+        <div id="splashScreen">
+            <div class="splash-content">
+                <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/data/cift.png" alt="Çift" class="splash-dove" id="splashCift">
+                <div class="splash-date" id="splashDate">06 EYLÜL 2026</div>
+                <div class="splash-hint" id="splashHint">davetiyeyi açmak için tıklayın</div>
+            </div>
+        </div>
+
         <div class="map-modal" id="mapPanel">
             <div class="map-inner">
                 <div class="modal-title">ETKİNLİK LOKASYONU</div>
@@ -641,7 +792,7 @@
         </div>
     </div>
 
-    <audio id="bgMusic" loop preload="auto">
+    <audio id="bgMusic" loop preload="auto" autoplay>
         <source src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/data/nazramazan.mpeg" type="audio/mpeg">
     </audio>
 
@@ -716,9 +867,6 @@
                     await new Promise(resolve => setTimeout(resolve, 200));
                 }
             }
-
-            // Sayfa açılır açılmaz animasyonu başlat
-            runSequenceAnimation();
 
             function getWhatsAppLink(tel, mesaj) {
                 return `https://wa.me/${tel}?text=${encodeURIComponent(mesaj)}`;
@@ -806,27 +954,101 @@
                 window.open(veri.haritaYolTarifi, "_blank");
             });
 
-            const bgMusic = document.getElementById('bgMusic');
+            const sparkleContainer = document.getElementById('sparkleContainer');
+            const MAX_SPARKLES = 20;
+            let activeSparkles = 0;
 
-            // Sayfa yüklenir yüklenmez müziği başlat
-            function tryPlayMusic() {
-                if (bgMusic && bgMusic.paused) {
-                    bgMusic.play().then(() => {
-                        console.log('Müzik otomatik başladı.');
-                    }).catch(() => {
-                        console.log('Otomatik oynatma engellendi, ilk etkileşimde tekrar denenecek.');
-                        // Kullanıcı herhangi bir yere tıkladığında müziği başlatmak için dinleyici ekle
-                        document.addEventListener('click', function startOnInteraction() {
-                            bgMusic.play().catch(() => {});
-                            document.removeEventListener('click', startOnInteraction);
-                        }, { once: true });
-                    });
-                }
+            function createSparkle() {
+                if (activeSparkles >= MAX_SPARKLES) return;
+
+                const wrapper = document.createElement('div');
+                wrapper.className = 'sparkle-wrapper';
+
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+
+                const size = 5 + Math.random() * 8;
+                wrapper.style.width = size + 'px';
+                wrapper.style.height = size + 'px';
+
+                const leftPos = 5 + Math.random() * 90;
+                wrapper.style.left = leftPos + '%';
+
+                const duration = 3.5 + Math.random() * 5;
+                wrapper.style.setProperty('--dur', duration + 's');
+
+                const delay = Math.random() * 0.6;
+                wrapper.style.setProperty('--delay', delay + 's');
+
+                const drift = -40 + Math.random() * 80;
+                wrapper.style.setProperty('--drift', drift + 'px');
+
+                const rotDuration = 1.2 + Math.random() * 2.5;
+                sparkle.style.setProperty('--rot-dur', rotDuration + 's');
+
+                wrapper.appendChild(sparkle);
+                sparkleContainer.appendChild(wrapper);
+
+                activeSparkles++;
+
+                wrapper.addEventListener('animationend', () => {
+                    wrapper.remove();
+                    activeSparkles--;
+                });
             }
 
-            tryPlayMusic();
+            function startSparkleGenerator() {
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => createSparkle(), i * 180);
+                }
+                setInterval(() => {
+                    const batchSize = 1 + Math.floor(Math.random() * 3);
+                    for (let i = 0; i < batchSize; i++) {
+                        setTimeout(() => createSparkle(), i * 220);
+                    }
+                }, 700);
+            }
+            startSparkleGenerator();
 
-            // Geri sayımı başlat
+            // --- MÜZİK OTOMATİK BAŞLATMA (SİTEYE GİRİLDİĞİ ANDA) ---
+            const bgMusic = document.getElementById('bgMusic');
+            
+            // Sayfa yüklenir yüklenmez müziği başlatmayı dene
+            bgMusic.play().catch(() => {
+                // Eğer tarayıcı otomatik oynatmayı engellerse, ilk kullanıcı etkileşiminde başlat
+                document.addEventListener('click', function playOnInteraction() {
+                    bgMusic.play().catch(() => {});
+                }, { once: true });
+            });
+
+            const splashScreen = document.getElementById('splashScreen');
+            const splashCift = document.getElementById('splashCift');
+            const splashHint = document.getElementById('splashHint');
+            const splashDate = document.getElementById('splashDate');
+            let isRevealed = false;
+
+            splashScreen.addEventListener('click', function() {
+                if (isRevealed) return;
+                isRevealed = true;
+                
+                // Müzik başlatma satırı kaldırıldı, çünkü yukarıdaki mekanizma zaten hallediyor.
+                
+                splashCift.classList.add('fade-away');
+                splashHint.classList.add('fade-away');
+                splashDate.classList.add('fade-away');
+                setTimeout(() => {
+                    splashScreen.style.transition = 'all 1.5s cubic-bezier(0.22, 1, 0.36, 1)';
+                    splashScreen.style.opacity = '0';
+                    splashScreen.style.pointerEvents = 'none';
+                    setTimeout(() => {
+                        splashScreen.style.display = 'none';
+                        invitationWrapper.classList.add('active');
+                        startCountdown();
+                        runSequenceAnimation();
+                    }, 1500);
+                }, 2500);
+            });
+
             let countdownInterval;
 
             function startCountdown() {
@@ -852,8 +1074,6 @@
                 update();
                 countdownInterval = setInterval(update, 1000);
             }
-
-            startCountdown();
         })();
     </script>
 </body>

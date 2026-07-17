@@ -698,6 +698,53 @@
             margin-bottom: 18px;
             border-radius: 4px;
         }
+        /* Güncellenmiş yazı stilleri */
+.couple-names {
+    font-family: var(--font-script);
+    font-size: clamp(2.2rem, 9vw, 3.2rem);  /* Büyüdü */
+    font-weight: 900;
+    color: var(--color-gold);
+    line-height: 1.1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    -webkit-text-stroke: 1.3px rgba(180,140,70,0.7); /* Kalınlaştı */
+    text-shadow: 0 0 0.5px rgba(180,140,70,0.6), 0 0 1px rgba(180,140,70,0.3); /* Ekstra kalınlık */
+    letter-spacing: 1px;
+    max-width: 100%;
+}
+
+.ampersand {
+    font-size: 0.7em;
+    font-weight: 900;
+    color: var(--color-gold);
+    -webkit-text-stroke: 1px rgba(180,140,70,0.7);
+    text-shadow: 0 0 0.5px rgba(180,140,70,0.5);
+    line-height: 1;
+    vertical-align: middle;
+    margin: 0 3px;
+}
+
+.main-message {
+    font-family: var(--font-body);
+    font-weight: 900;
+    font-size: clamp(0.8rem, 3vw, 0.95rem);  /* Büyüdü */
+    color: #1a1a1a;
+    line-height: 1.2;
+    margin-bottom: 2px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.wedding-sub-message {
+    font-size: 0.7rem;  /* Büyüdü */
+    font-weight: 900;
+    color: #1a1a1a;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
     </style>
 </head>
 <body>

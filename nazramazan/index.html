@@ -30,7 +30,8 @@
             box-sizing: border-box;
         }
 
-        html, body {
+        html,
+        body {
             width: 100%;
             min-height: 100dvh;
             overflow-x: hidden;
@@ -79,14 +80,13 @@
             pointer-events: none;
         }
 
-        /* İçerik alanı - kolonlardan uzak, ortada */
         .safe-area {
             position: absolute;
             left: 50%;
-            top: 52%;
+            top: 53%;
             transform: translate(-50%, -50%);
-            width: 50%;
-            height: 46%;
+            width: 60%;
+            height: 54%;
             z-index: 10;
             display: flex;
             flex-direction: column;
@@ -94,150 +94,26 @@
             align-items: center;
             overflow: hidden;
             pointer-events: auto;
-            padding: 8px 12px;
+            padding: 0 8px;
         }
 
-        @media (max-width: 480px) {
-            .safe-area {
-                width: 58%;
-                height: 48%;
-                top: 53%;
-                padding: 8px 10px;
-            }
-        }
         @media (max-width: 380px) {
             .safe-area {
                 width: 64%;
-                height: 52%;
+                height: 56%;
+                top: 54%;
+                padding: 4% 4px;
+            }
+        }
+
+        @media (min-width: 381px) and (max-width: 480px) {
+            .safe-area {
+                width: 60%;
+                height: 54%;
                 top: 53%;
-                padding: 6px 10px;
             }
         }
 
-        /* Orta yükseklik */
-        @media (max-height: 650px) {
-            .safe-area {
-                width: 58%;
-                height: 50%;
-                top: 53%;
-                padding: 6px 10px;
-            }
-            .couple-names { font-size: clamp(1.6rem, 7vw, 2.4rem) !important; }
-            .ampersand { font-size: 0.6em !important; }
-            .main-message { font-size: 0.6rem !important; }
-            .wedding-sub-message { font-size: 0.5rem !important; }
-            .parent-group > span { font-size: 0.5rem !important; }
-            .parent-fullname { font-size: 0.6rem !important; }
-            .parent-surname { font-size: 0.5rem !important; }
-            .date-main { font-size: 0.75rem !important; }
-            .date-sub { font-size: 0.6rem !important; }
-            .event-place, .event-address { font-size: 0.5rem !important; }
-            .countdown-label { font-size: 0.5rem !important; }
-            .time-element span { font-size: 0.75rem !important; }
-            .time-element small { font-size: 0.4rem !important; }
-            .action-btn { font-size: 0.5rem !important; padding: 5px 8px !important; }
-            .invitation-wrapper { gap: 4px !important; }
-            .countdown { gap: 8px !important; }
-            .families-flex { gap: 8px !important; }
-        }
-
-        /* 728px altı - isim kaybolmasın diye ekstra küçültme */
-        @media (max-height: 728px) {
-            .safe-area {
-                width: 56%;
-                height: 48%;
-                top: 52%;
-                padding: 5px 8px;
-            }
-            .couple-names {
-                font-size: clamp(1.3rem, 6vw, 2rem) !important;
-                -webkit-text-stroke: 0.8px rgba(180,140,70,0.6);
-            }
-            .ampersand { font-size: 0.55em !important; }
-            .main-message { font-size: 0.55rem !important; }
-            .wedding-sub-message { font-size: 0.48rem !important; }
-            .parent-group > span { font-size: 0.48rem !important; }
-            .parent-fullname { font-size: 0.58rem !important; }
-            .parent-surname { font-size: 0.48rem !important; }
-            .date-main { font-size: 0.7rem !important; }
-            .date-sub { font-size: 0.58rem !important; }
-            .event-place, .event-address { font-size: 0.48rem !important; }
-            .countdown-label { font-size: 0.48rem !important; }
-            .time-element span { font-size: 0.7rem !important; }
-            .time-element small { font-size: 0.4rem !important; }
-            .action-btn { font-size: 0.5rem !important; padding: 4px 7px !important; }
-            .invitation-wrapper { gap: 3px !important; }
-            .countdown { gap: 7px !important; }
-            .families-flex { gap: 7px !important; }
-        }
-
-        /* YATAY MOD */
-        @media (orientation: landscape) {
-            .frame-bg { background-size: auto 100%; }
-            .safe-area {
-                width: 70%;
-                height: 40%;
-                top: 50%;
-                padding: 4px 16px;
-            }
-            .couple-names { font-size: clamp(1.3rem, 5vw, 2rem) !important; }
-            .ampersand { font-size: 0.55em !important; }
-            .main-message { font-size: 0.5rem !important; }
-            .wedding-sub-message { font-size: 0.45rem !important; }
-            .parent-group > span { font-size: 0.45rem !important; }
-            .parent-fullname { font-size: 0.55rem !important; }
-            .parent-surname { font-size: 0.45rem !important; }
-            .date-main { font-size: 0.65rem !important; }
-            .date-sub { font-size: 0.55rem !important; }
-            .event-place, .event-address { font-size: 0.45rem !important; }
-            .countdown-label { font-size: 0.45rem !important; }
-            .time-element span { font-size: 0.65rem !important; }
-            .time-element small { font-size: 0.4rem !important; }
-            .action-btn { font-size: 0.45rem !important; padding: 4px 7px !important; }
-            .invitation-wrapper { gap: 3px !important; }
-            .countdown { gap: 10px !important; }
-            .families-flex { gap: 8px !important; }
-        }
-
-        /* Küçük yatay */
-        @media (orientation: landscape) and (max-height: 400px) {
-            .safe-area {
-                width: 78%;
-                height: 44%;
-                top: 50%;
-                padding: 2px 14px;
-            }
-            .couple-names { font-size: clamp(1.1rem, 4vw, 1.6rem) !important; }
-            .ampersand { font-size: 0.5em !important; }
-            .main-message { font-size: 0.45rem !important; }
-            .wedding-sub-message { font-size: 0.4rem !important; }
-            .date-main { font-size: 0.6rem !important; }
-            .date-sub { font-size: 0.5rem !important; }
-            .action-btn { font-size: 0.4rem !important; padding: 3px 5px !important; }
-            .time-element span { font-size: 0.6rem !important; }
-            .parent-fullname { font-size: 0.5rem !important; }
-            .parent-surname { font-size: 0.4rem !important; }
-            .families-flex { gap: 6px !important; }
-        }
-
-        /* Büyük ekran */
-        @media (min-width: 768px) {
-            .safe-area {
-                width: 44%;
-                height: 42%;
-                top: 52%;
-                padding: 12px 20px;
-            }
-            .couple-names { font-size: clamp(2.6rem, 4vw, 3.5rem) !important; }
-            .ampersand { font-size: 0.7em !important; }
-            .main-message { font-size: 0.8rem !important; }
-            .wedding-sub-message { font-size: 0.7rem !important; }
-            .date-main { font-size: 1.1rem !important; }
-            .date-sub { font-size: 0.9rem !important; }
-            .action-btn { font-size: 0.65rem !important; padding: 8px 12px !important; }
-        }
-
-        /* SPLASH */
         #splashScreen {
             position: fixed;
             inset: 0;
@@ -253,8 +129,12 @@
         }
 
         @keyframes slideUpSlow {
-            0% { transform: translateY(100%); }
-            100% { transform: translateY(0); }
+            0% {
+                transform: translateY(100%);
+            }
+            100% {
+                transform: translateY(0);
+            }
         }
 
         .splash-content {
@@ -283,8 +163,13 @@
         }
 
         @keyframes doveFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
         }
 
         .splash-hint {
@@ -301,11 +186,20 @@
             line-height: 1.3;
         }
 
-        .splash-hint.fade-away { opacity: 0; }
+        .splash-hint.fade-away {
+            opacity: 0;
+        }
 
         @keyframes pulseHint {
-            0%, 100% { opacity: 0.7; transform: scale(0.98); }
-            50% { opacity: 1; transform: scale(1.02); }
+            0%,
+            100% {
+                opacity: 0.7;
+                transform: scale(0.98);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.02);
+            }
         }
 
         .splash-date {
@@ -319,9 +213,10 @@
             margin-bottom: 2px;
         }
 
-        .splash-date.fade-away { opacity: 0; }
+        .splash-date.fade-away {
+            opacity: 0;
+        }
 
-        /* İçerik stilleri */
         .invitation-wrapper {
             width: 100%;
             height: 100%;
@@ -362,50 +257,44 @@
         }
 
         .header-section {
-            margin-bottom: 2px;
+            margin-bottom: 0px;
         }
 
-        /* İsimler - çok daha büyük ve kalın */
         .couple-names {
             font-family: var(--font-script);
-            font-size: clamp(3rem, 12vw, 4.5rem);
+            font-size: clamp(2.6rem, 10vw, 3.8rem);
             font-weight: 900;
             color: var(--color-gold);
             line-height: 1.1;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 6px;
-            -webkit-text-stroke: 1.6px rgba(180,140,70,0.85);
-            text-shadow: 0 0 0.8px rgba(180,140,70,0.7), 0 0 2px rgba(180,140,70,0.4);
+            gap: 4px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
             letter-spacing: 2px;
-            max-width: 100%;
+            -webkit-text-stroke: 0.3px rgba(197, 160, 89, 0.5);
         }
 
         .ampersand {
-            font-size: 0.7em;
-            font-weight: 900;
+            font-size: 0.55em;
             color: var(--color-gold);
-            -webkit-text-stroke: 1.2px rgba(180,140,70,0.85);
-            text-shadow: 0 0 0.6px rgba(180,140,70,0.6);
-            line-height: 1;
-            vertical-align: middle;
-            margin: 0 4px;
+            font-weight: 700;
         }
 
         .main-message {
             font-family: var(--font-body);
             font-weight: 900;
-            font-size: clamp(0.8rem, 3vw, 0.95rem);
+            font-size: clamp(0.7rem, 2.5vw, 0.9rem);
             color: #1a1a1a;
             line-height: 1.2;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
             letter-spacing: 1px;
             text-transform: uppercase;
         }
 
         .wedding-sub-message {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 900;
             color: #1a1a1a;
             letter-spacing: 2px;
@@ -420,21 +309,19 @@
 
         .families-flex {
             display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 12px;
+            justify-content: space-between;
+            gap: 8px;
             width: 100%;
         }
 
         .parent-group {
             flex: 1;
-            min-width: 0;
             text-align: center;
+            min-width: 0;
         }
 
         .parent-group>span {
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             font-weight: 700;
             letter-spacing: 1.5px;
             color: #333;
@@ -451,7 +338,7 @@
         }
 
         .parent-surname {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 700;
             color: var(--color-gold);
             letter-spacing: 2px;
@@ -461,16 +348,16 @@
         .date-section {
             width: 100%;
             text-align: center;
-            margin: 6px auto;
+            margin: 5px auto;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2px;
+            gap: 3px;
         }
 
         .date-main {
             font-family: var(--font-body);
-            font-size: clamp(0.8rem, 2.8vw, 1.1rem);
+            font-size: clamp(0.85rem, 3vw, 1.15rem);
             font-weight: 800;
             letter-spacing: 2px;
             color: #1a1a1a;
@@ -479,7 +366,7 @@
 
         .date-sub {
             font-family: var(--font-body);
-            font-size: clamp(0.65rem, 2.4vw, 0.9rem);
+            font-size: clamp(0.7rem, 2.5vw, 0.95rem);
             font-weight: 700;
             letter-spacing: 1.5px;
             color: #333;
@@ -488,24 +375,29 @@
         .events-grid {
             display: flex;
             flex-direction: column;
-            gap: 1px;
+            gap: 2px;
             margin-bottom: 2px;
         }
 
-        .event-spec { width: 100%; }
-        .event-name { display: none; }
+        .event-spec {
+            width: 100%;
+        }
 
-        .event-place, .event-address {
+        .event-name {
+            display: none;
+        }
+
+        .event-time,
+        .event-place,
+        .event-address {
             font-size: 0.55rem;
             font-weight: 600;
             color: #1a1a1a;
             margin-top: 1px;
-            word-break: break-word;
-            line-height: 1.3;
         }
 
         .countdown-label {
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             font-weight: 700;
             letter-spacing: 2px;
             color: #333;
@@ -516,7 +408,7 @@
         .countdown {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             margin-bottom: 4px;
         }
 
@@ -527,13 +419,13 @@
         }
 
         .time-element span {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 700;
             color: #1a1a1a;
         }
 
         .time-element small {
-            font-size: 0.45rem;
+            font-size: 0.4rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -543,7 +435,7 @@
         .action-layout {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 4px;
             width: 100%;
             margin-bottom: 4px;
         }
@@ -552,8 +444,8 @@
             background: transparent;
             border: none;
             color: #1a1a1a;
-            padding: 7px 10px;
-            font-size: 0.6rem;
+            padding: 6px 10px;
+            font-size: 0.55rem;
             font-family: var(--font-body);
             letter-spacing: 1.5px;
             font-weight: 700;
@@ -564,8 +456,13 @@
             will-change: transform;
         }
 
-        .action-btn:hover { background: rgba(0, 0, 0, 0.05); }
-        .action-btn:active { transform: scale(0.96); }
+        .action-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .action-btn:active {
+            transform: scale(0.96);
+        }
 
         .choice-modal {
             position: fixed;
@@ -634,8 +531,13 @@
             transition: all 0.3s ease;
         }
 
-        .choice-btn:hover { background: rgba(197, 160, 89, 0.1); }
-        .choice-btn:active { transform: scale(0.96); }
+        .choice-btn:hover {
+            background: rgba(197, 160, 89, 0.1);
+        }
+
+        .choice-btn:active {
+            transform: scale(0.96);
+        }
 
         .choice-cancel {
             font-family: var(--font-body);
@@ -697,6 +599,82 @@
             border: 1px solid rgba(0, 0, 0, 0.1);
             margin-bottom: 18px;
             border-radius: 4px;
+        }
+
+        @media (max-width: 380px) {
+            .safe-area {
+                width: 70%;
+                height: 60%;
+                padding: 4% 4px;
+            }
+            .couple-names {
+                font-size: clamp(2.1rem, 11vw, 2.8rem);
+            }
+            .splash-hint {
+                font-size: 0.6rem;
+            }
+            .main-message {
+                font-size: 0.6rem;
+            }
+            .date-main {
+                font-size: 0.75rem;
+            }
+            .date-sub {
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (min-width: 381px) and (max-width: 480px) {
+            .safe-area {
+                width: 64%;
+                height: 58%;
+            }
+            .couple-names {
+                font-size: clamp(2.4rem, 10vw, 3.2rem);
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .safe-area {
+                width: 58%;
+                height: 54%;
+            }
+            .couple-names {
+                font-size: clamp(2.8rem, 9vw, 3.6rem);
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .safe-area {
+                width: 55%;
+                height: 52%;
+            }
+            .couple-names {
+                font-size: clamp(3rem, 8vw, 4rem);
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .safe-area {
+                width: 55%;
+                height: 52%;
+            }
+            .couple-names {
+                font-size: clamp(3.4rem, 7vw, 4.4rem);
+            }
+        }
+
+        @media (min-width: 1920px) {
+            .main-container {
+                max-width: 600px;
+            }
+            .safe-area {
+                width: 50%;
+                height: 50%;
+            }
+            .couple-names {
+                font-size: 4.8rem;
+            }
         }
     </style>
 </head>
@@ -892,9 +870,11 @@
                 const tel = kisi === 'gelin' ? veri.gelinTel : veri.damatTel;
                 let mesaj = '';
                 if (currentAction === 'katilim') {
-                    mesaj = `Merhaba ${kisi === 'gelin' ? veri.gelinAd : veri.damatAd}, mutluluklar düğününüze katılacağım.`;
+                    mesaj =
+                        `Merhaba ${kisi === 'gelin' ? veri.gelinAd : veri.damatAd}, mutluluklar düğününüze katılacağım.`;
                 } else {
-                    mesaj = `Merhaba ${kisi === 'gelin' ? veri.gelinAd : veri.damatAd}, düğün fotoğraflarımı sizinle paylaşmak istiyorum.`;
+                    mesaj =
+                        `Merhaba ${kisi === 'gelin' ? veri.gelinAd : veri.damatAd}, düğün fotoğraflarımı sizinle paylaşmak istiyorum.`;
                 }
                 window.open(getWhatsAppLink(tel, mesaj), '_blank');
                 closeChoiceModal();
@@ -949,16 +929,20 @@
                 window.open(veri.haritaYolTarifi, "_blank");
             });
 
+            // --- MÜZİK OTOMATİK BAŞLATMA ---
             const bgMusic = document.getElementById('bgMusic');
             
             function playMusic() {
                 bgMusic.play().catch(() => {
+                    // Tarayıcı engellerse tekrar dene
                     setTimeout(() => bgMusic.play().catch(() => {}), 500);
                 });
             }
 
+            // Sayfa yüklendiğinde hemen dene
             playMusic();
 
+            // Herhangi bir kullanıcı etkileşiminde de dene (yedek)
             document.addEventListener('click', function initMusic() {
                 playMusic();
             }, { once: true });
@@ -973,6 +957,7 @@
                 if (isRevealed) return;
                 isRevealed = true;
                 
+                // Müziği garantiye almak için splash tıklamasında da çal
                 playMusic();
                 
                 splashCift.classList.add('fade-away');

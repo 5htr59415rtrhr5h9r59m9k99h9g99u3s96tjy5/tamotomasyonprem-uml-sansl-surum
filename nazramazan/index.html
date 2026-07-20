@@ -149,7 +149,7 @@
         }
 
         .splash-dove {
-            width: clamp(180px, 48vw, 400px); /* BÜYÜTÜLDÜ */
+            width: clamp(180px, 48vw, 400px);
             height: auto;
             filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.12));
             animation: doveFloat 3s ease-in-out infinite;
@@ -262,7 +262,7 @@
 
         .couple-names {
             font-family: var(--font-script);
-            font-size: clamp(2.6rem, 10vw, 3.8rem);
+            font-size: clamp(2.2rem, 8.5vw, 3.2rem);
             font-weight: 900;
             color: var(--color-gold);
             line-height: 1.1;
@@ -599,6 +599,7 @@
             border-radius: 4px;
         }
 
+        /* Responsive font-size adjustments for couple names */
         @media (max-width: 380px) {
             .safe-area {
                 width: 70%;
@@ -606,7 +607,7 @@
                 padding: 4% 4px;
             }
             .couple-names {
-                font-size: clamp(2.1rem, 11vw, 2.8rem);
+                font-size: clamp(1.8rem, 9.5vw, 2.4rem);
             }
             .splash-hint {
                 font-size: 0.6rem;
@@ -628,7 +629,7 @@
                 height: 58%;
             }
             .couple-names {
-                font-size: clamp(2.4rem, 10vw, 3.2rem);
+                font-size: clamp(2rem, 8.5vw, 2.8rem);
             }
         }
 
@@ -638,7 +639,7 @@
                 height: 54%;
             }
             .couple-names {
-                font-size: clamp(2.8rem, 9vw, 3.6rem);
+                font-size: clamp(2.3rem, 7.5vw, 3.1rem);
             }
         }
 
@@ -648,7 +649,7 @@
                 height: 52%;
             }
             .couple-names {
-                font-size: clamp(3rem, 8vw, 4rem);
+                font-size: clamp(2.5rem, 7vw, 3.4rem);
             }
         }
 
@@ -658,7 +659,7 @@
                 height: 52%;
             }
             .couple-names {
-                font-size: clamp(3.4rem, 7vw, 4.4rem);
+                font-size: clamp(2.8rem, 6vw, 3.8rem);
             }
         }
 
@@ -671,7 +672,7 @@
                 height: 50%;
             }
             .couple-names {
-                font-size: 4.8rem;
+                font-size: 4rem;
             }
         }
     </style>
@@ -932,15 +933,12 @@
             
             function playMusic() {
                 bgMusic.play().catch(() => {
-                    // Tarayıcı engellerse tekrar dene
                     setTimeout(() => bgMusic.play().catch(() => {}), 500);
                 });
             }
 
-            // Sayfa yüklendiğinde hemen dene
             playMusic();
 
-            // Herhangi bir kullanıcı etkileşiminde de dene (yedek)
             document.addEventListener('click', function initMusic() {
                 playMusic();
             }, { once: true });
@@ -955,7 +953,6 @@
                 if (isRevealed) return;
                 isRevealed = true;
                 
-                // Müziği garantiye almak için splash tıklamasında da çal
                 playMusic();
                 
                 splashCift.classList.add('fade-away');

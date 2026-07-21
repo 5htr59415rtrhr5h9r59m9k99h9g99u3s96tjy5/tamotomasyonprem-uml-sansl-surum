@@ -1,7 +1,76 @@
-/* ============================================================
-   script.js  –  Tam Güncel Sürüm (Filtre + Sayfalama + Slider + Modal + Accordion + WhatsApp)
-   ============================================================ */
+// ========== FIREBASE BAŞLANGICI ==========
+const firebaseConfig = {
+  apiKey: "AIzaSyAJyigRXHdlHg15C79ajwijnFEj-aR12mU",
+  authDomain: "sanaldavetiyelik-b6013.firebaseapp.com",
+  databaseURL: "https://sanaldavetiyelik-b6013-default-rtdb.firebaseio.com",
+  projectId: "sanaldavetiyelik-b6013",
+  storageBucket: "sanaldavetiyelik-b6013.firebasestorage.app",
+  messagingSenderId: "327145716165",
+  appId: "1:327145716165:web:f9edac1d899c2fd1c8b3ac"
+};
 
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// ========== TIKLAMA SAYACI ==========
+function incrementClickCount(productCode) {
+  db.ref('clicks/' + productCode).transaction(function(current) {
+    return (current || 0) + 1;
+  });
+}
+
+// ========== POPÜLERLİĞE GÖRE SIRALAMA + POPÜLER ROZETİ + PARILDAMA ==========
+async function sortProductsByPopularity() {
+  try {
+    const snapshot = await db.ref('clicks').once('value');
+    const clicks = snapshot.val() || {};
+
+    const grid = document.getElementById('productGrid');
+    const allCards = Array.from(grid.querySelectorAll('.product-card'));
+
+    // Her ürüne tıklama sayısını ekle
+    allCards.forEach(card => {
+      const code = card.dataset.productCode;
+      card._clickCount = clicks[code] || 0;
+    });
+
+    // Azalan sırada sırala (en popüler üstte)
+    allCards.sort((a, b) => b._clickCount - a._clickCount);
+
+    // Grid'deki sıralamayı güncelle
+    allCards.forEach(card => grid.appendChild(card));
+
+    // En popüler ürünü belirle (tıklama sayısı > 0 ise)
+    const topCard = allCards[0];
+    const topClicks = topCard._clickCount || 0;
+
+    // Tüm kartlardan önceki popüler efektlerini temizle
+    allCards.forEach(card => {
+      card.classList.remove('popular-glow');
+      const existingBadge = card.querySelector('.popular-badge');
+      if (existingBadge) existingBadge.remove();
+    });
+
+    // Eğer en popüler üründe tıklama varsa işaretle
+    if (topClicks > 0) {
+      topCard.classList.add('popular-glow');
+
+      // Eğer üründe "Popüler" rozeti yoksa ekle
+      if (!topCard.querySelector('.popular-badge')) {
+        const badge = document.createElement('span');
+        badge.className = 'popular-badge';
+        badge.textContent = 'Popüler';
+        // Rozeti görselin olduğu kutuya ekle (product-img-box)
+        const imgBox = topCard.querySelector('.product-img-box');
+        if (imgBox) imgBox.appendChild(badge);
+      }
+    }
+  } catch (e) {
+    console.error('Firebase hatası:', e);
+  }
+}
+
+// ========== ANA DOM YÜKLENİNCE ==========
 document.addEventListener('DOMContentLoaded', () => {
 
     // ---------- HERO SLIDER ----------
@@ -106,10 +175,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ---------- WHATSAPP SİPARİŞ HATTI ----------
     const WHATSAPP_NO = '905386082155';
+
+    // SİPARİŞ VER butonu (hem sayacı artır, hem WhatsApp'a yönlendir)
     document.querySelectorAll('.order-btn:not([disabled])').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
             const model = btn.dataset.kod;
+            if (model) {
+                incrementClickCount(model); // 👈 Sipariş tıklamasını da say
+            }
             const msg = `Merhaba, web sitenizden ${model} kodlu tasarımı inceledim ve sipariş vermek istiyorum.`;
             window.open(`https://wa.me/${WHATSAPP_NO}?text=${encodeURIComponent(msg)}`, '_blank');
         });
@@ -133,7 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
         'SN-4': 'sn4/sn4.html', 'SN-5': 'sn5/sn5.html', 'SN-6': 'sn6/sn6.html',
         'SN-7': 'sn7/sn7.html', 'SN-8': 'sn8/sn8.html', 'SN-9': 'sn9/sn9.html',
         'SN-10': 'sn10/sn10.html', 'SN-11': 'sn11/sn11.html', 'SN-12': 'sn12/sn12.html'
-        // Demo ürünler için şimdilik yok, sonra eklenebilir
     };
     
     function openModal(htmlFile) {
@@ -152,10 +225,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
     }
     
+    // ÖRNEĞİNE BAK butonu (sayacı artır, modal aç)
     document.querySelectorAll('.example-btn:not([disabled])').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
             const productCode = btn.dataset.kod;
+            if (productCode) {
+                incrementClickCount(productCode); // 👈 Örnek tıklamasını say
+            }
             const targetFile = exampleFileMap[productCode];
             if (targetFile) openModal(targetFile);
         });
@@ -167,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal && modal.classList.contains('show')) closeModal(); });
 
-    // ---------- FİLTRELEME + SAYFALAMA (GÜNCELLENMİŞ) ----------
+    // ---------- FİLTRELEME + SAYFALAMA ----------
     const productGrid = document.getElementById('productGrid');
     const paginationContainer = document.getElementById('paginationContainer');
     const filterBtn = document.getElementById('filterBtn');
@@ -211,14 +288,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const start = (currentPage - 1) * productsPerPage;
         const end = start + productsPerPage;
         const visible = filteredProducts.slice(start, end);
-        // Tüm kartları gizle
         document.querySelectorAll('.product-card').forEach(card => card.style.display = 'none');
-        // Sadece görünür olanları göster
         visible.forEach(card => card.style.display = '');
         renderPagination(filteredProducts);
     }
 
-    // Filtre butonuna tıklayınca menüyü aç/kapa
     if (filterBtn && filterMenu) {
         filterBtn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -226,7 +300,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Filtre seçeneğine tıklayınca
     filterOptions.forEach(opt => {
         opt.addEventListener('click', (e) => {
             const cat = e.target.dataset.cat;
@@ -234,29 +307,26 @@ document.addEventListener('DOMContentLoaded', () => {
             currentPage = 1;
             if (filterBtn) filterBtn.textContent = e.target.textContent + ' ▾';
             if (filterMenu) filterMenu.classList.remove('active');
-            // Aktif sınıfını güncelle
             filterOptions.forEach(o => o.classList.remove('active'));
             e.target.classList.add('active');
-            // Ürünleri yeniden filtrele ve göster
             const filtered = getFilteredProducts();
             renderProducts(filtered);
         });
     });
 
-    // Sayfa dışına tıklayınca menüyü kapat
     document.addEventListener('click', (e) => {
         if (filterMenu && !e.target.closest('.category-filter')) {
             filterMenu.classList.remove('active');
         }
     });
 
-    // Sayfa yüklendiğinde ilk gösterim (tümü)
-    const initialFiltered = getFilteredProducts();
-    renderProducts(initialFiltered);
-});
+    // ---------- SAYFA YÜKLENDİĞİNDE POPÜLERLİK SIRALAMASI VE İLK RENDER ----------
+    sortProductsByPopularity().then(() => {
+        const initialFiltered = getFilteredProducts();
+        renderProducts(initialFiltered);
+    });
 
-// ---------- SONSuz KAYAN BANNER ----------
-function setupInfiniteBanner() {
+    // ---------- SONSuz KAYAN BANNER ----------
     document.querySelectorAll('.top-banner .banner-track').forEach(track => {
         if (track.dataset.cloned === 'true') return;
         const children = Array.from(track.children);
@@ -266,9 +336,8 @@ function setupInfiniteBanner() {
         });
         track.dataset.cloned = 'true';
     });
-}
 
-    // Sağ alttaki WhatsApp butonu - SADECE KANALLARA KAYDIRIR, WHATSAPP AÇMAZ
+    // ---------- WHATSAPP FLOAT (KANALLARA KAYDIR) ----------
     const whatsappFloat = document.getElementById('whatsappFloat');
     if (whatsappFloat) {
         whatsappFloat.addEventListener('click', function(e) {
@@ -277,6 +346,6 @@ function setupInfiniteBanner() {
             if (kanallar) {
                 kanallar.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-            // window.open kaldırıldı, direkt açılma yok
         });
     }
+});

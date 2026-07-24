@@ -1,1 +1,998 @@
-ÖDEME BEKLENİYOR
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta property="og:title" content="Naz & Ramazan Düğün Davetiyesi">
+    <meta property="og:description" content="Mutlu günümüzde sizleri aramızda görmekten mutluluk duyarız.">
+    <meta property="og:image" content="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/data/nazramazan.jpg">
+    <meta property="og:url" content="https://sanaldavetiyelik.com/nazramazan">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/data/nazramazan.jpg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Naz & Ramazan - Düğün Davetiyesi</title>
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/data/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Tangerine:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-gold: #c5a059;
+            --color-dark: #1a1a1a;
+            --color-cream: #f5f0e8;
+            --font-body: 'Montserrat', sans-serif;
+            --font-script: 'Tangerine', cursive;
+            --font-serif: 'Cormorant Garamond', serif;
+            --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100dvh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            font-family: var(--font-body);
+            font-weight: 600;
+            background: #f5f0e8;
+            color: var(--color-dark);
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .main-container {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            min-height: 100dvh;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            z-index: 1;
+        }
+
+        .frame-wrapper {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .frame-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/data/cerceve3.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            pointer-events: none;
+        }
+
+        .safe-area {
+            position: absolute;
+            left: 50%;
+            top: 53%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 54%;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            pointer-events: auto;
+            padding: 0 8px;
+        }
+
+        @media (max-width: 380px) {
+            .safe-area {
+                width: 64%;
+                height: 56%;
+                top: 54%;
+                padding: 4% 4px;
+            }
+        }
+
+        @media (min-width: 381px) and (max-width: 480px) {
+            .safe-area {
+                width: 60%;
+                height: 54%;
+                top: 53%;
+            }
+        }
+
+        #splashScreen {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            animation: slideUpSlow 2.5s var(--transition-smooth) forwards;
+            transform: translateY(100%);
+        }
+
+        @keyframes slideUpSlow {
+            0% {
+                transform: translateY(100%);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .splash-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+            max-width: 75%;
+            background: transparent;
+            padding: 0;
+        }
+
+        .splash-dove {
+            width: clamp(180px, 48vw, 400px);
+            height: auto;
+            filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.12));
+            animation: doveFloat 3s ease-in-out infinite;
+            transition: opacity 2.5s ease;
+        }
+
+        .splash-dove.fade-away {
+            animation: none;
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        @keyframes doveFloat {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .splash-hint {
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #333;
+            opacity: 0.9;
+            text-transform: uppercase;
+            animation: pulseHint 3s infinite ease-in-out;
+            transition: opacity 1.5s ease;
+            max-width: 70%;
+            line-height: 1.3;
+        }
+
+        .splash-hint.fade-away {
+            opacity: 0;
+        }
+
+        @keyframes pulseHint {
+            0%,
+            100% {
+                opacity: 0.7;
+                transform: scale(0.98);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.02);
+            }
+        }
+
+        .splash-date {
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #444;
+            opacity: 0.85;
+            transition: opacity 1.5s ease;
+            margin-bottom: 2px;
+        }
+
+        .splash-date.fade-away {
+            opacity: 0;
+        }
+
+        .invitation-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.8s var(--transition-smooth);
+            transform: scale(0.93);
+            will-change: opacity, transform;
+            z-index: 10;
+            position: relative;
+        }
+
+        .invitation-wrapper.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+
+        .anim-item {
+            opacity: 0;
+            transform: translateY(40px);
+            filter: blur(10px);
+            transition: opacity 0.9s var(--transition-smooth), transform 0.9s var(--transition-smooth), filter 0.9s var(--transition-smooth);
+            will-change: opacity, transform, filter;
+            width: 100%;
+            text-align: center;
+        }
+
+        .invitation-wrapper.active .anim-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        .header-section {
+            margin-bottom: 0px;
+        }
+
+        .couple-names {
+            font-family: var(--font-script);
+            font-size: clamp(2.2rem, 8.5vw, 3.2rem);
+            font-weight: 900;
+            color: var(--color-gold);
+            line-height: 1.1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 2px;
+        }
+
+        .ampersand {
+            font-size: 0.55em;
+            color: var(--color-gold);
+            font-weight: 900;
+        }
+
+        .main-message {
+            font-family: var(--font-body);
+            font-weight: 900;
+            font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+            color: #1a1a1a;
+            line-height: 1.2;
+            margin-bottom: 1px;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .wedding-sub-message {
+            font-size: 0.65rem;
+            font-weight: 900;
+            color: #1a1a1a;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .families-section {
+            width: 100%;
+            margin-bottom: 2px;
+        }
+
+        .families-flex {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .parent-group {
+            flex: 1;
+            text-align: center;
+            min-width: 0;
+        }
+
+        .parent-group>span {
+            font-size: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #333;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+            display: block;
+        }
+
+        .parent-fullname {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--color-gold);
+            word-break: break-word;
+        }
+
+        .parent-surname {
+            font-size: 0.55rem;
+            font-weight: 700;
+            color: var(--color-gold);
+            letter-spacing: 2px;
+            margin-top: 1px;
+        }
+
+        .date-section {
+            width: 100%;
+            text-align: center;
+            margin: 5px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .date-main {
+            font-family: var(--font-body);
+            font-size: clamp(0.85rem, 3vw, 1.15rem);
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #1a1a1a;
+            line-height: 1.2;
+        }
+
+        .date-sub {
+            font-family: var(--font-body);
+            font-size: clamp(0.7rem, 2.5vw, 0.95rem);
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #333;
+        }
+
+        .events-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin-bottom: 2px;
+        }
+
+        .event-spec {
+            width: 100%;
+        }
+
+        .event-name {
+            display: none;
+        }
+
+        .event-time,
+        .event-place,
+        .event-address {
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-top: 1px;
+        }
+
+        .countdown-label {
+            font-size: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #333;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+
+        .time-element {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .time-element span {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .time-element small {
+            font-size: 0.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #444;
+        }
+
+        .action-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 100%;
+            margin-bottom: 4px;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: none;
+            color: #1a1a1a;
+            padding: 6px 10px;
+            font-size: 0.55rem;
+            font-family: var(--font-body);
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            border-radius: 2px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            will-change: transform;
+        }
+
+        .action-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .action-btn:active {
+            transform: scale(0.96);
+        }
+
+        .choice-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(20, 15, 10, 0.5);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(30px);
+            transition: opacity 0.7s var(--transition-smooth), transform 0.7s;
+        }
+
+        .choice-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .choice-inner {
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            background: rgba(255, 250, 240, 0.95);
+            backdrop-filter: blur(14px);
+            padding: 20px 15px;
+            border-radius: 10px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .choice-title {
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #1a1a1a;
+            text-transform: uppercase;
+        }
+
+        .choice-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .choice-btn {
+            flex: 1;
+            padding: 12px 8px;
+            font-size: 0.65rem;
+            font-family: var(--font-body);
+            font-weight: 700;
+            letter-spacing: 1px;
+            border: 1.5px solid var(--color-gold);
+            background: transparent;
+            color: var(--color-gold);
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .choice-btn:hover {
+            background: rgba(197, 160, 89, 0.1);
+        }
+
+        .choice-btn:active {
+            transform: scale(0.96);
+        }
+
+        .choice-cancel {
+            font-family: var(--font-body);
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #888;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            text-transform: uppercase;
+        }
+
+        .map-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(20, 15, 10, 0.5);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(30px);
+            transition: opacity 0.9s var(--transition-smooth), transform 0.9s;
+        }
+
+        .map-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .map-inner {
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            background: rgba(255, 250, 240, 0.95);
+            backdrop-filter: blur(14px);
+            padding: 20px 15px;
+            border-radius: 10px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .modal-title {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .map-widget {
+            width: 100%;
+            height: 240px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            margin-bottom: 18px;
+            border-radius: 4px;
+        }
+
+        /* Responsive font-size adjustments for couple names */
+        @media (max-width: 380px) {
+            .safe-area {
+                width: 70%;
+                height: 60%;
+                padding: 4% 4px;
+            }
+            .couple-names {
+                font-size: clamp(1.8rem, 9.5vw, 2.4rem);
+            }
+            .splash-hint {
+                font-size: 0.6rem;
+            }
+            .main-message {
+                font-size: 0.6rem;
+            }
+            .date-main {
+                font-size: 0.75rem;
+            }
+            .date-sub {
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (min-width: 381px) and (max-width: 480px) {
+            .safe-area {
+                width: 64%;
+                height: 58%;
+            }
+            .couple-names {
+                font-size: clamp(2rem, 8.5vw, 2.8rem);
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .safe-area {
+                width: 58%;
+                height: 54%;
+            }
+            .couple-names {
+                font-size: clamp(2.3rem, 7.5vw, 3.1rem);
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .safe-area {
+                width: 55%;
+                height: 52%;
+            }
+            .couple-names {
+                font-size: clamp(2.5rem, 7vw, 3.4rem);
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .safe-area {
+                width: 55%;
+                height: 52%;
+            }
+            .couple-names {
+                font-size: clamp(2.8rem, 6vw, 3.8rem);
+            }
+        }
+
+        @media (min-width: 1920px) {
+            .main-container {
+                max-width: 600px;
+            }
+            .safe-area {
+                width: 50%;
+                height: 50%;
+            }
+            .couple-names {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="frame-wrapper">
+            <div class="frame-bg"></div>
+            <div class="safe-area" id="safeArea">
+                <div class="invitation-wrapper" id="invitationWrapper">
+                    <div class="anim-item" id="animNames">
+                        <div class="header-section">
+                            <h1 class="couple-names">
+                                <span id="gelinAd">Naz</span>
+                                <span class="ampersand">&</span>
+                                <span id="damatAd">Ramazan</span>
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="anim-item" id="animQuote">
+                        <p class="main-message">EVLENİYORUZ</p>
+                        <p class="wedding-sub-message">Düğünümüze davetlisiniz</p>
+                    </div>
+                    <div class="anim-item" id="animFamilies">
+                        <div class="families-section" id="familiesSection">
+                            <div class="families-flex" id="familiesNames"></div>
+                        </div>
+                    </div>
+                    <div class="anim-item" id="animDate">
+                        <div class="date-section" id="dateSection">
+                            <div class="date-main">06 EYLÜL 2026</div>
+                            <div class="date-sub">PAZAR — 19:00</div>
+                        </div>
+                    </div>
+                    <div class="anim-item" id="animVenue">
+                        <div class="events-grid">
+                            <div class="event-spec">
+                                <div class="event-place" id="etkinlik1Konum">Pera Royal Balo ve Davet Salonu</div>
+                                <div class="event-address" id="etkinlik1Adres">Yamanevler Mahallesi Sanayi Caddesi No: 2 / B Kat: 3 (Çakmak Metro Yanı) Ümraniye / İstanbul</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="anim-item" id="animCountdown">
+                        <div class="countdown-label">Düğüne Kalan Süre</div>
+                        <div class="countdown" id="timer">
+                            <div class="time-element"><span id="days">00</span><small>Gün</small></div>
+                            <div class="time-element"><span id="hours">00</span><small>Saat</small></div>
+                            <div class="time-element"><span id="minutes">00</span><small>Dakika</small></div>
+                            <div class="time-element"><span id="seconds">00</span><small>Saniye</small></div>
+                        </div>
+                    </div>
+                    <div class="anim-item" id="animButton">
+                        <div class="action-layout">
+                            <button id="btnMap" class="action-btn">📍 KONUMU GÖR</button>
+                            <button id="btnKatilim" class="action-btn">✅ KATILIM BİLDİR</button>
+                            <button id="btnFoto" class="action-btn">📸 FOTOĞRAFLARI GÖNDER</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="splashScreen">
+            <div class="splash-content">
+                <img src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/data/cift3.png" alt="Çift" class="splash-dove" id="splashCift">
+                <div class="splash-date" id="splashDate">06 EYLÜL 2026</div>
+                <div class="splash-hint" id="splashHint">davetiyeyi açmak için tıklayın</div>
+            </div>
+        </div>
+
+        <div class="map-modal" id="mapPanel">
+            <div class="map-inner">
+                <div class="modal-title">ETKİNLİK LOKASYONU</div>
+                <iframe id="haritaIframe" class="map-widget" src="" allowfullscreen loading="lazy"></iframe>
+                <div class="action-layout">
+                    <button id="btnNavigate" class="action-btn">🧭 YOL TARİFİ AL</button>
+                    <button id="mapClose" class="action-btn">↩️ GERİ DÖN</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="choice-modal" id="choiceModal">
+            <div class="choice-inner">
+                <div class="choice-title" id="choiceTitle">KİME GÖNDERMEK İSTERSİNİZ?</div>
+                <div class="choice-buttons">
+                    <button class="choice-btn" id="choiceGelin">👰 GELİN</button>
+                    <button class="choice-btn" id="choiceDamat">🤵 DAMAT</button>
+                </div>
+                <button class="choice-cancel" id="choiceCancel">↩️ VAZGEÇ</button>
+            </div>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop preload="auto" autoplay>
+        <source src="https://cdn.jsdelivr.net/gh/5htr59415rtrhr5h9r59m9k99h9g99u3s96tjy5/tamotomasyonprem-uml-sansl-surum@main/data/nazramazan.mpeg" type="audio/mpeg">
+    </audio>
+
+    <script>
+        (function() {
+            const veri = {
+                gelinAd: "Naz",
+                damatAd: "Ramazan",
+                gelinAnne: "Nihal Aktaş",
+                gelinBaba: "Şeref Aktaş",
+                damatAnne: "Hacer Kuruçay",
+                damatBaba: "Reşit Kuruçay",
+                etkinlik1Baslik: "Düğün Töreni",
+                etkinlik1Tarih: "06 Eylül 2026",
+                etkinlik1Gun: "Pazar",
+                etkinlik1Saat: "19:00",
+                konum: "Pera Royal Balo ve Davet Salonu",
+                adresTam: "Yamanevler Mahallesi Sanayi Caddesi No: 2 / B Kat: 3 (Çakmak Metro Yanı) Ümraniye / İstanbul",
+                haritaIframe: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3010.1533908146484!2d29.11959547301637!3d41.021899955746804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cac9573ec20f21%3A0x597005546bafaa68!2sPera%20Royal%20Balo%20Ve%20Davet%20Salonu!5e0!3m2!1str!2str!4v1784040809881!5m2!1str!2str",
+                haritaYolTarifi: "https://maps.app.goo.gl/5cLfZxQj4XvF8qK37",
+                geriSayim: "2026-09-06T19:00:00",
+                gelinTel: "905349561117",
+                damatTel: "905318995616"
+            };
+
+            document.getElementById("gelinAd").textContent = veri.gelinAd;
+            document.getElementById("damatAd").textContent = veri.damatAd;
+            document.getElementById("etkinlik1Konum").textContent = veri.konum;
+            document.getElementById("etkinlik1Adres").textContent = veri.adresTam;
+            if (veri.haritaIframe) document.getElementById("haritaIframe").src = veri.haritaIframe;
+
+            const familiesDiv = document.getElementById("familiesNames");
+            let aileHtml = '';
+
+            function adSoyadAyir(tamIsim) {
+                if (!tamIsim) return { ad: '', soyad: '' };
+                const parts = tamIsim.trim().split(' ');
+                return { ad: parts[0] || '', soyad: parts.slice(1).join(' ') || '' };
+            }
+            if (veri.gelinBaba || veri.gelinAnne) {
+                const baba = adSoyadAyir(veri.gelinBaba);
+                const anne = adSoyadAyir(veri.gelinAnne);
+                const aileSoyad = baba.soyad || anne.soyad || 'Aktaş';
+                aileHtml +=
+                    `<div class="parent-group"><span>Gelin Ailesi</span><div class="parent-names"><div class="parent-fullname">${baba.ad} & ${anne.ad}</div>`;
+                if (aileSoyad) aileHtml += `<div class="parent-surname">${aileSoyad.toUpperCase()}</div>`;
+                aileHtml += `</div></div>`;
+            }
+            if (veri.damatBaba || veri.damatAnne) {
+                const baba = adSoyadAyir(veri.damatBaba);
+                const anne = adSoyadAyir(veri.damatAnne);
+                const aileSoyad = baba.soyad || anne.soyad || 'Kuruçay';
+                aileHtml +=
+                    `<div class="parent-group"><span>Damat Ailesi</span><div class="parent-names"><div class="parent-fullname">${baba.ad} & ${anne.ad}</div>`;
+                if (aileSoyad) aileHtml += `<div class="parent-surname">${aileSoyad.toUpperCase()}</div>`;
+                aileHtml += `</div></div>`;
+            }
+            familiesDiv.innerHTML = aileHtml;
+            if (!aileHtml) document.getElementById("familiesSection").style.display = "none";
+
+            window.targetTimestamp = new Date(veri.geriSayim).getTime();
+
+            const animItems = [
+                'animNames', 'animQuote', 'animFamilies', 'animDate',
+                'animVenue', 'animCountdown', 'animButton'
+            ];
+
+            async function runSequenceAnimation() {
+                for (let i = 0; i < animItems.length; i++) {
+                    const el = document.getElementById(animItems[i]);
+                    if (el) el.classList.add('visible');
+                    await new Promise(resolve => setTimeout(resolve, 200));
+                }
+            }
+
+            function getWhatsAppLink(tel, mesaj) {
+                return `https://wa.me/${tel}?text=${encodeURIComponent(mesaj)}`;
+            }
+
+            let currentAction = null;
+            const choiceModal = document.getElementById('choiceModal');
+            const choiceTitle = document.getElementById('choiceTitle');
+
+            function openChoiceModal(action) {
+                currentAction = action;
+                if (action === 'katilim') {
+                    choiceTitle.textContent = 'KATILIM BİLDİRİMİ KİME GİTSİN?';
+                } else {
+                    choiceTitle.textContent = 'FOTOĞRAFLAR KİME GÖNDERİLSİN?';
+                }
+                choiceModal.classList.add('active');
+            }
+
+            function closeChoiceModal() {
+                choiceModal.classList.remove('active');
+                currentAction = null;
+            }
+
+            function sendWhatsApp(kisi) {
+                const tel = kisi === 'gelin' ? veri.gelinTel : veri.damatTel;
+                let mesaj = '';
+                if (currentAction === 'katilim') {
+                    mesaj =
+                        `Merhaba ${kisi === 'gelin' ? veri.gelinAd : veri.damatAd}, mutluluklar düğününüze katılacağım.`;
+                } else {
+                    mesaj =
+                        `Merhaba ${kisi === 'gelin' ? veri.gelinAd : veri.damatAd}, düğün fotoğraflarımı sizinle paylaşmak istiyorum.`;
+                }
+                window.open(getWhatsAppLink(tel, mesaj), '_blank');
+                closeChoiceModal();
+            }
+
+            document.getElementById("btnKatilim").addEventListener("click", (e) => {
+                e.stopPropagation();
+                openChoiceModal('katilim');
+            });
+
+            document.getElementById("btnFoto").addEventListener("click", (e) => {
+                e.stopPropagation();
+                openChoiceModal('foto');
+            });
+
+            document.getElementById("choiceGelin").addEventListener("click", (e) => {
+                e.stopPropagation();
+                sendWhatsApp('gelin');
+            });
+
+            document.getElementById("choiceDamat").addEventListener("click", (e) => {
+                e.stopPropagation();
+                sendWhatsApp('damat');
+            });
+
+            document.getElementById("choiceCancel").addEventListener("click", (e) => {
+                e.stopPropagation();
+                closeChoiceModal();
+            });
+
+            choiceModal.addEventListener("click", function(e) {
+                if (e.target === choiceModal) closeChoiceModal();
+            });
+
+            const mapPanel = document.getElementById('mapPanel');
+            const invitationWrapper = document.getElementById('invitationWrapper');
+
+            document.getElementById("btnMap").addEventListener('click', (e) => {
+                e.stopPropagation();
+                invitationWrapper.style.opacity = "0";
+                invitationWrapper.style.pointerEvents = "none";
+                mapPanel.classList.add('active');
+            });
+            document.getElementById('mapClose').addEventListener('click', (e) => {
+                e.stopPropagation();
+                mapPanel.classList.remove('active');
+                invitationWrapper.style.opacity = "1";
+                invitationWrapper.style.pointerEvents = "auto";
+            });
+            document.getElementById("btnNavigate").addEventListener("click", (e) => {
+                e.stopPropagation();
+                window.open(veri.haritaYolTarifi, "_blank");
+            });
+
+            // --- MÜZİK OTOMATİK BAŞLATMA ---
+            const bgMusic = document.getElementById('bgMusic');
+            
+            function playMusic() {
+                bgMusic.play().catch(() => {
+                    setTimeout(() => bgMusic.play().catch(() => {}), 500);
+                });
+            }
+
+            playMusic();
+
+            document.addEventListener('click', function initMusic() {
+                playMusic();
+            }, { once: true });
+
+            const splashScreen = document.getElementById('splashScreen');
+            const splashCift = document.getElementById('splashCift');
+            const splashHint = document.getElementById('splashHint');
+            const splashDate = document.getElementById('splashDate');
+            let isRevealed = false;
+
+            splashScreen.addEventListener('click', function() {
+                if (isRevealed) return;
+                isRevealed = true;
+                
+                playMusic();
+                
+                splashCift.classList.add('fade-away');
+                splashHint.classList.add('fade-away');
+                splashDate.classList.add('fade-away');
+                setTimeout(() => {
+                    splashScreen.style.transition = 'all 1.5s cubic-bezier(0.22, 1, 0.36, 1)';
+                    splashScreen.style.opacity = '0';
+                    splashScreen.style.pointerEvents = 'none';
+                    setTimeout(() => {
+                        splashScreen.style.display = 'none';
+                        invitationWrapper.classList.add('active');
+                        startCountdown();
+                        runSequenceAnimation();
+                    }, 1500);
+                }, 2500);
+            });
+
+            let countdownInterval;
+
+            function startCountdown() {
+                if (countdownInterval) clearInterval(countdownInterval);
+                const target = window.targetTimestamp;
+
+                function update() {
+                    const diff = target - Date.now();
+                    if (diff > 0) {
+                        document.getElementById('days').innerText = Math.floor(diff / 86400000).toString().padStart(2, '0');
+                        document.getElementById('hours').innerText = Math.floor((diff % 86400000) / 3600000).toString().padStart(2, '0');
+                        document.getElementById('minutes').innerText = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
+                        document.getElementById('seconds').innerText = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
+                    } else {
+                        ['days', 'hours', 'minutes', 'seconds'].forEach(id => document.getElementById(id).innerText = '00');
+                    }
+                }
+                update();
+                countdownInterval = setInterval(update, 1000);
+            }
+        })();
+    </script>
+</body>
+</html>
+

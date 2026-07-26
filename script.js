@@ -348,16 +348,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-});// ========== TELEGRAM ZİYARETÇİ BİLDİRİM SİSTEMİ ==========
+})
+
+// ================================================
+// 📡 TELEGRAM ZİYARETÇİ BİLDİRİM SİSTEMİ (PREMIUM)
+// ================================================
+
 const TELEGRAM_BOT_TOKEN = '8816918684:AAG2k3MrtLGiMq_B-DMGKCg8SS3fKXVaz_8';
 const TELEGRAM_CHAT_ID = '1088705141';
 const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
 
-// Ziyaret başlangıç zamanı
 const visitStart = Date.now();
 let visitorData = null;
+let pageHistory = []; // Gezilen sayfaları takip için
 
-// IP ve konum bilgisi al
+// IP ve konum bilgisi (çok detaylı)
 async function fetchIpInfo() {
   try {
     const res = await fetch('https://ipapi.co/json/');
@@ -366,49 +371,89 @@ async function fetchIpInfo() {
       ip: data.ip || 'Bilinmiyor',
       city: data.city || 'Bilinmiyor',
       region: data.region || 'Bilinmiyor',
+      region_code: data.region_code || '',
       country: data.country_name || 'Bilinmiyor',
+      country_code: data.country_code || '',
+      continent: data.continent_code || '',
+      postal: data.postal || '',
+      latitude: data.latitude || '',
+      longitude: data.longitude || '',
+      timezone: data.timezone || 'Bilinmiyor',
+      utc_offset: data.utc_offset || '',
       isp: data.org || 'Bilinmiyor',
-      timezone: data.timezone || 'Bilinmiyor'
+      asn: data.asn || '',
+      is_eu: data.in_eu ? '✅ Evet' : '❌ Hayır',
+      currency: data.currency || ''
     };
   } catch (e) {
-    return { ip: 'Alınamadı', city: '-', region: '-', country: '-', isp: '-', timezone: '-' };
+    return null;
   }
 }
 
-// Cihaz ve tarayıcı bilgileri
+// Detaylı cihaz/tarayıcı bilgisi
 function getDeviceInfo() {
   const ua = navigator.userAgent;
-  const parser = new UAParser(ua); // Bu kütüphane yoksa alternatif aşağıda
+  const isMobile = /Mobi|Android|iPhone/i.test(ua);
+  const isTablet = /iPad|Tablet/i.test(ua);
+  
+  // Tarayıcı tespiti (daha detaylı)
+  let browser = 'Bilinmiyor', browserVersion = '';
+  if (ua.includes('Firefox')) { browser = 'Mozilla Firefox'; browserVersion = ua.match(/Firefox\/([0-9.]+)/)?.[1] || ''; }
+  else if (ua.includes('Edg')) { browser = 'Microsoft Edge'; browserVersion = ua.match(/Edg\/([0-9.]+)/)?.[1] || ''; }
+  else if (ua.includes('Chrome') && !ua.includes('Edg')) { browser = 'Google Chrome'; browserVersion = ua.match(/Chrome\/([0-9.]+)/)?.[1] || ''; }
+  else if (ua.includes('Safari') && !ua.includes('Chrome')) { browser = 'Apple Safari'; browserVersion = ua.match(/Version\/([0-9.]+)/)?.[1] || ''; }
+  else if (ua.includes('OPR') || ua.includes('Opera')) { browser = 'Opera'; browserVersion = ua.match(/OPR\/([0-9.]+)/)?.[1] || ''; }
+  
+  // İşletim sistemi
+  let os = 'Bilinmiyor', osVersion = '';
+  if (ua.includes('Windows NT 10')) { os = 'Windows 10/11'; osVersion = 'NT 10.0'; }
+  else if (ua.includes('Windows NT 6.3')) { os = 'Windows 8.1'; }
+  else if (ua.includes('Windows NT 6.1')) { os = 'Windows 7'; }
+  else if (ua.includes('Mac OS X')) { os = 'macOS'; osVersion = ua.match(/Mac OS X ([0-9_]+)/)?.[1]?.replace(/_/g, '.') || ''; }
+  else if (ua.includes('Android')) { os = 'Android'; osVersion = ua.match(/Android ([0-9.]+)/)?.[1] || ''; }
+  else if (ua.includes('iPhone') || ua.includes('iPad')) { os = 'iOS'; osVersion = ua.match(/OS ([0-9_]+)/)?.[1]?.replace(/_/g, '.') || ''; }
+  else if (ua.includes('Linux')) { os = 'Linux'; }
+
+  // Cihaz türü
+  let deviceType = 'Masaüstü';
+  if (isTablet) deviceType = 'Tablet';
+  else if (isMobile) deviceType = 'Mobil Telefon';
+
+  // Bağlantı türü
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const networkType = connection?.effectiveType || 'Bilinmiyor';
+  const downlink = connection?.downlink || '?';
+  const rtt = connection?.rtt || '?';
+
   return {
-    browser: navigator.appName + ' ' + navigator.appVersion,
-    os: navigator.platform || 'Bilinmiyor',
-    device: /Mobi|Android|iPhone/i.test(ua) ? 'Mobil' : 'Masaüstü',
-    screen: `${screen.width}x${screen.height}`,
+    browser: `${browser} ${browserVersion}`.trim(),
+    os: `${os} ${osVersion}`.trim(),
+    device: deviceType,
+    screen: `${screen.width}x${screen.height} @ ${window.devicePixelRatio}x`,
+    viewport: `${window.innerWidth}x${window.innerHeight}`,
     language: navigator.language,
+    languages: navigator.languages?.join(', ') || '',
+    cookieEnabled: navigator.cookieEnabled ? '✅' : '❌',
+    doNotTrack: navigator.doNotTrack || 'Belirtilmemiş',
+    network: `${networkType.toUpperCase()} (${downlink} Mbps, RTT: ${rtt}ms)`,
+    touchScreen: ('ontouchstart' in window || navigator.maxTouchPoints > 0) ? '✅ Var' : '❌ Yok',
     referrer: document.referrer || 'Doğrudan giriş / Reklam',
-    page: window.location.href
+    page: window.location.href,
+    pageTitle: document.title
   };
 }
 
-// UAParser alternatifi (basit)
-function simpleUA(ua) {
-  let browser = 'Bilinmiyor';
-  if (ua.includes('Firefox')) browser = 'Firefox';
-  else if (ua.includes('Chrome') && !ua.includes('Edg')) browser = 'Chrome';
-  else if (ua.includes('Safari') && !ua.includes('Chrome')) browser = 'Safari';
-  else if (ua.includes('Edg')) browser = 'Edge';
-  else if (ua.includes('OPR')) browser = 'Opera';
-  let os = 'Bilinmiyor';
-  if (ua.includes('Windows')) os = 'Windows';
-  else if (ua.includes('Mac')) os = 'macOS';
-  else if (ua.includes('Linux')) os = 'Linux';
-  else if (ua.includes('Android')) os = 'Android';
-  else if (ua.includes('iPhone') || ua.includes('iPad')) os = 'iOS';
-  return { browser, os };
+// Ziyaretçinin site içi davranışı (opsiyonel)
+function trackPageView() {
+  pageHistory.push({
+    url: window.location.href,
+    title: document.title,
+    time: new Date().toLocaleString('tr-TR', { timeZone: 'Europe/Istanbul' })
+  });
 }
 
-// Telegram'a mesaj gönder
-async function sendTelegramMessage(text, parseMode = 'HTML') {
+// Telegram'a mesaj gönder (emoji ve format zengin)
+async function sendTelegramMessage(text) {
   try {
     await fetch(`${TELEGRAM_API}/sendMessage`, {
       method: 'POST',
@@ -416,7 +461,7 @@ async function sendTelegramMessage(text, parseMode = 'HTML') {
       body: JSON.stringify({
         chat_id: TELEGRAM_CHAT_ID,
         text: text,
-        parse_mode: parseMode,
+        parse_mode: 'HTML',
         disable_web_page_preview: true
       })
     });
@@ -425,91 +470,136 @@ async function sendTelegramMessage(text, parseMode = 'HTML') {
   }
 }
 
-// Giriş bildirimi
+// Giriş bildirimi (ULTRA DETAYLI)
 async function sendEntryNotification() {
   const ipInfo = await fetchIpInfo();
-  const uaInfo = simpleUA(navigator.userAgent);
   const device = getDeviceInfo();
+  visitorData = { ipInfo, device, pageHistory };
+  trackPageView();
 
-  visitorData = { ipInfo, uaInfo, device, startTime: visitStart };
+  const now = new Date().toLocaleString('tr-TR', { 
+    timeZone: 'Europe/Istanbul',
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit'
+  });
 
-  const now = new Date().toLocaleString('tr-TR', { timeZone: 'Europe/Istanbul' });
+  // Harita linki (opsiyonel)
+  const mapLink = ipInfo && ipInfo.latitude 
+    ? `https://www.google.com/maps?q=${ipInfo.latitude},${ipInfo.longitude}` 
+    : '';
 
-  const message = `
-<b>🟢 YENİ ZİYARETÇİ GİRİŞİ</b>
-━━━━━━━━━━━━━━━━━━━
-<b>🌐 IP / Konum:</b>
-  IP: <code>${ipInfo.ip}</code>
-  Şehir: ${ipInfo.city}
-  Bölge: ${ipInfo.region}
-  Ülke: ${ipInfo.country}
-  ISS: ${ipInfo.isp}
-  Zaman Dilimi: ${ipInfo.timezone}
+  const msg = `
+✨ <b>YENİ ZİYARETÇİ GİRİŞİ</b> ✨
+━━━━━━━━━━━━━━━━━━━━━━━
 
-<b>📱 Cihaz / Tarayıcı:</b>
-  Tarayıcı: ${uaInfo.browser}
-  İşletim Sistemi: ${uaInfo.os}
-  Cihaz Türü: ${device.device}
-  Ekran: ${device.screen}
-  Dil: ${device.language}
+🌍 <b>KONUM BİLGİLERİ</b>
+   • IP Adresi: <code>${ipInfo?.ip || 'Alınamadı'}</code>
+   • Şehir: ${ipInfo?.city || '?'}, ${ipInfo?.region || ''} ${ipInfo?.region_code ? '('+ipInfo.region_code+')' : ''}
+   • Ülke: ${ipInfo?.country || '?'} ${ipInfo?.country_code || ''} ${ipInfo?.continent || ''}
+   • Posta Kodu: ${ipInfo?.postal || '?'}
+   • Koordinat: ${ipInfo?.latitude ? ipInfo.latitude+', '+ipInfo.longitude : '?'}
+   ${mapLink ? `• Harita: <a href="${mapLink}">Google Maps'te Aç</a>` : ''}
+   • Zaman Dilimi: ${ipInfo?.timezone || '?'} (UTC${ipInfo?.utc_offset || ''})
+   • ISS / Organizasyon: ${ipInfo?.isp || '?'}
+   • ASN: ${ipInfo?.asn || '?'}
+   • AB Üyesi mi?: ${ipInfo?.is_eu || '?'}
+   • Para Birimi: ${ipInfo?.currency || '?'}
 
-<b>🔗 Kaynak / Giriş:</b>
-  Referans: ${device.referrer}
-  Açılan Sayfa: ${device.page}
-  Giriş Zamanı: ${now}
-━━━━━━━━━━━━━━━━━━━
-⏱ Süre hesaplanıyor...
-  `.trim();
+📱 <b>CİHAZ & TARAYICI</b>
+   • Tarayıcı: ${device.browser}
+   • İşletim Sistemi: ${device.os}
+   • Cihaz Türü: ${device.device} ${device.touchScreen.includes('Var') ? '(Dokunmatik)' : ''}
+   • Ekran Çözünürlüğü: ${device.screen}
+   • Görünen Alan: ${device.viewport}
+   • Dil: ${device.language} (${device.languages})
+   • Çerezler: ${device.cookieEnabled}
+   • Do Not Track: ${device.doNotTrack}
 
-  await sendTelegramMessage(message);
+🔌 <b>BAĞLANTI</b>
+   • Ağ Tipi: ${device.network}
+
+🔗 <b>KAYNAK & SAYFA</b>
+   • Referans: ${device.referrer}
+   • Giriş Sayfası: ${device.pageTitle}
+   • URL: ${device.page}
+   • Giriş Zamanı: ${now}
+
+⏱️ <b>Ziyaret süresi hesaplanıyor...</b>
+━━━━━━━━━━━━━━━━━━━━━━━
+🟢 <b>Durum:</b> Çevrimiçi
+`.trim();
+
+  await sendTelegramMessage(msg);
 }
 
-// Çıkış bildirimi (süre ile)
+// Çıkış bildirimi (süre ve sayfa geçmişiyle)
 async function sendExitNotification() {
   if (!visitorData) return;
-  const exitTime = Date.now();
-  const durationMs = exitTime - visitStart;
-  const seconds = Math.floor(durationMs / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-  const durationStr = minutes > 0
-    ? `${minutes} dakika ${remainingSeconds} saniye`
-    : `${seconds} saniye`;
+  const durationMs = Date.now() - visitStart;
+  const sec = Math.floor(durationMs / 1000);
+  const min = Math.floor(sec / 60);
+  const remainSec = sec % 60;
+  let durationStr;
+  if (min > 60) {
+    const hour = Math.floor(min / 60);
+    const remainMin = min % 60;
+    durationStr = `${hour} saat ${remainMin} dk`;
+  } else if (min > 0) {
+    durationStr = `${min} dk ${remainSec} sn`;
+  } else {
+    durationStr = `${sec} sn`;
+  }
 
-  const now = new Date().toLocaleString('tr-TR', { timeZone: 'Europe/Istanbul' });
+  trackPageView(); // çıkış anını da ekle
+  const now = new Date().toLocaleString('tr-TR', { 
+    timeZone: 'Europe/Istanbul',
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit'
+  });
 
-  const message = `
-<b>🔴 ZİYARETÇİ AYRILDI</b>
-━━━━━━━━━━━━━━━━━━━
-<b>🌐 IP:</b> <code>${visitorData.ipInfo.ip}</code>
-<b>📍 Konum:</b> ${visitorData.ipInfo.city}, ${visitorData.ipInfo.country}
+  // Gezilen sayfaları listele
+  let pageList = '';
+  if (visitorData.pageHistory && visitorData.pageHistory.length > 0) {
+    pageList = '\n📜 <b>GEZİLEN SAYFALAR</b>\n';
+    visitorData.pageHistory.forEach((p, i) => {
+      pageList += `   ${i+1}. ${p.title} - ${p.time}\n   <code>${p.url}</code>\n`;
+    });
+  }
 
-<b>⏱ Sitede Geçirilen Süre:</b> ${durationStr}
+  const msg = `
+🔴 <b>ZİYARETÇİ AYRILDI</b> 🔴
+━━━━━━━━━━━━━━━━━━━━━━━
 
-<b>📄 Çıkış Yapılan Sayfa:</b> ${window.location.href}
-<b>🕒 Çıkış Zamanı:</b> ${now}
-━━━━━━━━━━━━━━━━━━━
-  `.trim();
+🌐 <b>IP:</b> <code>${visitorData.ipInfo?.ip || '?'}</code>
+📍 ${visitorData.ipInfo?.city || '?'}, ${visitorData.ipInfo?.country || '?'}
 
-  // Beacon API ile sayfa kapanırken bile gönderimi garanti et
+⏱ <b>Sitede Geçirilen Süre:</b> ${durationStr}
+🕒 <b>Çıkış Zamanı:</b> ${now}
+📄 <b>Çıkış Sayfası:</b> ${document.title}
+🔗 <code>${window.location.href}</code>
+${pageList}
+━━━━━━━━━━━━━━━━━━━━━━━
+📊 <b>Özet:</b> ${visitorData.device?.browser || '?'} / ${visitorData.device?.os || '?'} kullanıcısı ${durationStr} kaldı.
+`.trim();
+
   const url = `${TELEGRAM_API}/sendMessage`;
   const body = JSON.stringify({
     chat_id: TELEGRAM_CHAT_ID,
-    text: message,
+    text: msg,
     parse_mode: 'HTML',
-    disable_web_page_preview: true
+    disable_web_page_preview: false
   });
   navigator.sendBeacon(url, new Blob([body], { type: 'application/json' }));
 }
 
-// Sayfa yüklendiğinde giriş bildirimi gönder
+// Sayfa değişikliklerini de yakala (opsiyonel)
+window.addEventListener('popstate', trackPageView);
+window.addEventListener('hashchange', trackPageView);
+
+// Başlat
 document.addEventListener('DOMContentLoaded', () => {
   sendEntryNotification();
-
-  // Sayfa kapanmadan hemen önce çıkış bildirimi
   window.addEventListener('beforeunload', () => {
     sendExitNotification();
   });
-
-  // Alternatif: visibilitychange ile sekme değişimini de yakalayabiliriz ama şimdilik gerek yok
 });

@@ -348,4 +348,168 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+});// ========== TELEGRAM ZİYARETÇİ BİLDİRİM SİSTEMİ ==========
+const TELEGRAM_BOT_TOKEN = '8816918684:AAG2k3MrtLGiMq_B-DMGKCg8SS3fKXVaz_8';
+const TELEGRAM_CHAT_ID = '1088705141';
+const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
+
+// Ziyaret başlangıç zamanı
+const visitStart = Date.now();
+let visitorData = null;
+
+// IP ve konum bilgisi al
+async function fetchIpInfo() {
+  try {
+    const res = await fetch('https://ipapi.co/json/');
+    const data = await res.json();
+    return {
+      ip: data.ip || 'Bilinmiyor',
+      city: data.city || 'Bilinmiyor',
+      region: data.region || 'Bilinmiyor',
+      country: data.country_name || 'Bilinmiyor',
+      isp: data.org || 'Bilinmiyor',
+      timezone: data.timezone || 'Bilinmiyor'
+    };
+  } catch (e) {
+    return { ip: 'Alınamadı', city: '-', region: '-', country: '-', isp: '-', timezone: '-' };
+  }
+}
+
+// Cihaz ve tarayıcı bilgileri
+function getDeviceInfo() {
+  const ua = navigator.userAgent;
+  const parser = new UAParser(ua); // Bu kütüphane yoksa alternatif aşağıda
+  return {
+    browser: navigator.appName + ' ' + navigator.appVersion,
+    os: navigator.platform || 'Bilinmiyor',
+    device: /Mobi|Android|iPhone/i.test(ua) ? 'Mobil' : 'Masaüstü',
+    screen: `${screen.width}x${screen.height}`,
+    language: navigator.language,
+    referrer: document.referrer || 'Doğrudan giriş / Reklam',
+    page: window.location.href
+  };
+}
+
+// UAParser alternatifi (basit)
+function simpleUA(ua) {
+  let browser = 'Bilinmiyor';
+  if (ua.includes('Firefox')) browser = 'Firefox';
+  else if (ua.includes('Chrome') && !ua.includes('Edg')) browser = 'Chrome';
+  else if (ua.includes('Safari') && !ua.includes('Chrome')) browser = 'Safari';
+  else if (ua.includes('Edg')) browser = 'Edge';
+  else if (ua.includes('OPR')) browser = 'Opera';
+  let os = 'Bilinmiyor';
+  if (ua.includes('Windows')) os = 'Windows';
+  else if (ua.includes('Mac')) os = 'macOS';
+  else if (ua.includes('Linux')) os = 'Linux';
+  else if (ua.includes('Android')) os = 'Android';
+  else if (ua.includes('iPhone') || ua.includes('iPad')) os = 'iOS';
+  return { browser, os };
+}
+
+// Telegram'a mesaj gönder
+async function sendTelegramMessage(text, parseMode = 'HTML') {
+  try {
+    await fetch(`${TELEGRAM_API}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: text,
+        parse_mode: parseMode,
+        disable_web_page_preview: true
+      })
+    });
+  } catch (e) {
+    console.error('Telegram gönderim hatası:', e);
+  }
+}
+
+// Giriş bildirimi
+async function sendEntryNotification() {
+  const ipInfo = await fetchIpInfo();
+  const uaInfo = simpleUA(navigator.userAgent);
+  const device = getDeviceInfo();
+
+  visitorData = { ipInfo, uaInfo, device, startTime: visitStart };
+
+  const now = new Date().toLocaleString('tr-TR', { timeZone: 'Europe/Istanbul' });
+
+  const message = `
+<b>🟢 YENİ ZİYARETÇİ GİRİŞİ</b>
+━━━━━━━━━━━━━━━━━━━
+<b>🌐 IP / Konum:</b>
+  IP: <code>${ipInfo.ip}</code>
+  Şehir: ${ipInfo.city}
+  Bölge: ${ipInfo.region}
+  Ülke: ${ipInfo.country}
+  ISS: ${ipInfo.isp}
+  Zaman Dilimi: ${ipInfo.timezone}
+
+<b>📱 Cihaz / Tarayıcı:</b>
+  Tarayıcı: ${uaInfo.browser}
+  İşletim Sistemi: ${uaInfo.os}
+  Cihaz Türü: ${device.device}
+  Ekran: ${device.screen}
+  Dil: ${device.language}
+
+<b>🔗 Kaynak / Giriş:</b>
+  Referans: ${device.referrer}
+  Açılan Sayfa: ${device.page}
+  Giriş Zamanı: ${now}
+━━━━━━━━━━━━━━━━━━━
+⏱ Süre hesaplanıyor...
+  `.trim();
+
+  await sendTelegramMessage(message);
+}
+
+// Çıkış bildirimi (süre ile)
+async function sendExitNotification() {
+  if (!visitorData) return;
+  const exitTime = Date.now();
+  const durationMs = exitTime - visitStart;
+  const seconds = Math.floor(durationMs / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  const durationStr = minutes > 0
+    ? `${minutes} dakika ${remainingSeconds} saniye`
+    : `${seconds} saniye`;
+
+  const now = new Date().toLocaleString('tr-TR', { timeZone: 'Europe/Istanbul' });
+
+  const message = `
+<b>🔴 ZİYARETÇİ AYRILDI</b>
+━━━━━━━━━━━━━━━━━━━
+<b>🌐 IP:</b> <code>${visitorData.ipInfo.ip}</code>
+<b>📍 Konum:</b> ${visitorData.ipInfo.city}, ${visitorData.ipInfo.country}
+
+<b>⏱ Sitede Geçirilen Süre:</b> ${durationStr}
+
+<b>📄 Çıkış Yapılan Sayfa:</b> ${window.location.href}
+<b>🕒 Çıkış Zamanı:</b> ${now}
+━━━━━━━━━━━━━━━━━━━
+  `.trim();
+
+  // Beacon API ile sayfa kapanırken bile gönderimi garanti et
+  const url = `${TELEGRAM_API}/sendMessage`;
+  const body = JSON.stringify({
+    chat_id: TELEGRAM_CHAT_ID,
+    text: message,
+    parse_mode: 'HTML',
+    disable_web_page_preview: true
+  });
+  navigator.sendBeacon(url, new Blob([body], { type: 'application/json' }));
+}
+
+// Sayfa yüklendiğinde giriş bildirimi gönder
+document.addEventListener('DOMContentLoaded', () => {
+  sendEntryNotification();
+
+  // Sayfa kapanmadan hemen önce çıkış bildirimi
+  window.addEventListener('beforeunload', () => {
+    sendExitNotification();
+  });
+
+  // Alternatif: visibilitychange ile sekme değişimini de yakalayabiliriz ama şimdilik gerek yok
 });
